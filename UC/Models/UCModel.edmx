@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="LoginSet" EntityType="Model1.Store.LoginSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PessoaSet" EntityType="Model1.Store.PessoaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AlunoSet" EntityType="Model1.Store.AlunoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CursoSet" EntityType="Model1.Store.CursoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MinistranteSet" EntityType="Model1.Store.MinistranteSet" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="LoginSet">
+    <Key>
+      <PropertyRef Name="loginUID" />
+    </Key>
+    <Property Name="loginUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="senha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="validade" Type="datetime" Nullable="false" />
+    <Property Name="pessoaUID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PessoaSet">
+    <Key>
+      <PropertyRef Name="pessoaUID" />
+    </Key>
+    <Property Name="pessoaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="cpf" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nascimento" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="endereco" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="telefone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nivelAcesso" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlunoSet">
+    <Key>
+      <PropertyRef Name="alunoUID" />
+    </Key>
+    <Property Name="alunoUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cursoUID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="pessoaUID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ativo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CursoSet">
+    <Key>
+      <PropertyRef Name="cursoUID" />
+    </Key>
+    <Property Name="cursoUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="cargaHoraria" Type="bigint" Nullable="false" />
+    <Property Name="turma" Type="int" Nullable="false" />
+    <Property Name="ativo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MinistranteSet">
+    <Key>
+      <PropertyRef Name="ministranteUID" />
+    </Key>
+    <Property Name="ministranteUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cursoUID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="pessoaUID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ativo" Type="bit" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LoginSet" EntityType="Model1.Login" />
+          <EntitySet Name="PessoaSet" EntityType="Model1.Pessoa" />
+          <EntitySet Name="AlunoSet" EntityType="Model1.Aluno" />
+          <EntitySet Name="CursoSet" EntityType="Model1.Curso" />
+          <EntitySet Name="MinistranteSet" EntityType="Model1.Ministrante" />
+        </EntityContainer>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="loginUID" />
+          </Key>
+          <Property Name="loginUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" Nullable="false" />
+          <Property Name="senha" Type="String" Nullable="false" />
+          <Property Name="validade" Type="DateTime" Nullable="false" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
+        </EntityType>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="pessoaUID" />
+          </Key>
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" />
+          <Property Name="cpf" Type="String" Nullable="false" />
+          <Property Name="nascimento" Type="String" Nullable="false" />
+          <Property Name="endereco" Type="String" Nullable="false" />
+          <Property Name="telefone" Type="String" Nullable="false" />
+          <Property Name="nivelAcesso" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="alunoUID" />
+          </Key>
+          <Property Name="alunoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cursoUID" Type="String" Nullable="false" />
+          <Property Name="pessoaUID" Type="String" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="cursoUID" />
+          </Key>
+          <Property Name="cursoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" />
+          <Property Name="cargaHoraria" Type="Int64" Nullable="false" />
+          <Property Name="turma" Type="Int32" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ministrante">
+          <Key>
+            <PropertyRef Name="ministranteUID" />
+          </Key>
+          <Property Name="ministranteUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cursoUID" Type="String" Nullable="false" />
+          <Property Name="pessoaUID" Type="String" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="LoginSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Login)">
+        <MappingFragment StoreEntitySet="LoginSet">
+          <ScalarProperty Name="loginUID" ColumnName="loginUID" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+          <ScalarProperty Name="validade" ColumnName="validade" />
+          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PessoaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Pessoa)">
+        <MappingFragment StoreEntitySet="PessoaSet">
+          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="cpf" ColumnName="cpf" />
+          <ScalarProperty Name="nascimento" ColumnName="nascimento" />
+          <ScalarProperty Name="endereco" ColumnName="endereco" />
+          <ScalarProperty Name="telefone" ColumnName="telefone" />
+          <ScalarProperty Name="nivelAcesso" ColumnName="nivelAcesso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlunoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Aluno)">
+        <MappingFragment StoreEntitySet="AlunoSet">
+          <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
+          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
+          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+          <ScalarProperty Name="ativo" ColumnName="ativo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CursoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Curso)">
+        <MappingFragment StoreEntitySet="CursoSet">
+          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="cargaHoraria" ColumnName="cargaHoraria" />
+          <ScalarProperty Name="turma" ColumnName="turma" />
+          <ScalarProperty Name="ativo" ColumnName="ativo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MinistranteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Ministrante)">
+        <MappingFragment StoreEntitySet="MinistranteSet">
+          <ScalarProperty Name="ministranteUID" ColumnName="ministranteUID" />
+          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
+          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+          <ScalarProperty Name="ativo" ColumnName="ativo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

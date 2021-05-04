@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div id="account-access">
+    <h2 class="SectionName Left">Acessar Conta</h2>
+    <span class="Left">Digite seu usuário e senha para acessar o sistema.</span>
+    <div id="LoginForm" class="GrayBg">
+        @using (@Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.Label("login", "Usuário:")
+                @Html.TextBox("login", string.Empty, new { @class = "form-control", placeholder = "Digite o usuário" })
+            </div>
+            <div class="form-group">
+                @Html.Label("senha", "Senha:")
+                @Html.Password("senha", string.Empty, new { @class = "form-control", @placeholder = "Digite a senha..." })
+            </div>
+            <button type="submit" class="btn btn-success">Acessar</button>
+        }
+    </div>
+</div>
