@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace UC.Controllers
+namespace UC.Areas.Comum.Controllers
 {
-    public class HomeController : Controller
+    public class IndexController : Controller
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Index", new { Area = UC.Utility.SimpleSessionPersister.UserRole });
+            return View();
         }
 
         public ActionResult About()
@@ -25,6 +25,11 @@ namespace UC.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View("Login");
         }
     }
 }
