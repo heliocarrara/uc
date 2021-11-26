@@ -10,7 +10,13 @@ namespace UC.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Index", new { Area = UC.Utility.SimpleSessionPersister.UserRole });
+            return View();
+        }
+        public ActionResult Modalidades()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
         }
 
         public ActionResult About()
@@ -23,6 +29,13 @@ namespace UC.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Your login page.";
 
             return View();
         }

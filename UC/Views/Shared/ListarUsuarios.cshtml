@@ -1,0 +1,43 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListUsuarios
+
+@{
+    ViewBag.Title = "Listar Usuários";
+}
+
+<h2>Listar Usuários</h2>
+
+<div>
+    <div class="panel panel-heading">
+        <h2>Tabela de Logins</h2>
+        <br /><br />
+    </div>
+    <div class="panel-body">
+        @foreach (var cadaLogin in Model.logins)
+        {
+            <h3>loginUID: @cadaLogin.loginUID</h3> <br />
+            <h3>pessoaUID: @cadaLogin.pessoaUID</h3> <br />
+            <h3>login: @cadaLogin.login</h3> <br />
+            <h3>senha: @cadaLogin.senha</h3> <br />
+            <h3>validade: @cadaLogin.validade.ToShortDateString()</h3>
+            <br /><br />
+        }
+        <br /><br />
+    </div>
+    <div class="panel panel-heading">
+        <h2>Tabela de Pessoas</h2>
+        <br /><br />
+    </div>
+    <div class="panel-body">
+        @foreach (var cadaPessoa in Model.pessoas)
+        {
+            <h3>pessoaUID: @cadaPessoa.pessoaUID</h3> <br />
+            <h3>nome: @cadaPessoa.nome</h3> <br />
+            <h3>nivelAcesso: @cadaPessoa.nivelAcesso</h3> <br />
+            <h3>cpf: @cadaPessoa.cpf</h3> <br />
+            <h3>endereco: @cadaPessoa.endereco</h3> <br />
+            <h3>nascimento: @cadaPessoa.nascimento</h3> <br />
+            <h3>telefone: @cadaPessoa.telefone</h3> <br /><br />
+        }
+        <br /><br />
+    </div>
+</div>

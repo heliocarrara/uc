@@ -1,0 +1,29 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListModalidade
+
+@{
+    ViewBag.Title = "Modalidades";
+}
+<div class="modalidades">
+    @if (Model != null && Model.Modalidades != null)
+    {
+        foreach (var cadaModalidade in Model.Modalidades)
+        {
+            <div class="row">
+                <div class="img-modalidades">
+                    <img src="https://www.mirantedabocaina.com.br/images/noticias/1373/de7a495cef56558482ea3bf78cbe3857.jpg" />
+                </div>
+                <div class="info-modalidades">
+                    <h1>@cadaModalidade.Modalidade</h1>
+                    <h3>Dias da Semana: Segunda, Terça e Quarta</h3>
+                    <h3>Horários: 18:00 e 19:00</h3>
+                    <h3>Inscrição: @cadaModalidade.ValorInscrição</h3>
+                    <h3>Mensalidade: @cadaModalidade.ValorMensalidade</h3>
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Saiba mais", "Detalhes", "Modalidade", new { Area = "Comum", modalidadeUID = cadaModalidade.modalidadeUID}, new { @class = "btn btn-info" })
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using UC.Models.Enumerators;
 
 namespace UC.Utility
 {
@@ -57,6 +57,11 @@ namespace UC.Utility
             LogOut();
         }
 
+        public static void Logar(Pessoa pessoa)
+        {
+            var tipo = ((TipoLogin)pessoa.nivelAcesso).ToString();
+            SetValues(pessoa.pessoaUID.ToString(), pessoa.nome, tipo, false);
+        }
 
         #endregion
 

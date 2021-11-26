@@ -13,10 +13,10 @@ namespace UC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Model1Container : DbContext
+    public partial class UCDBContext : DbContext
     {
-        public Model1Container()
-            : base("name=Model1Container")
+        public UCDBContext()
+            : base("name=UCDBContext")
         {
         }
     
@@ -30,5 +30,7 @@ namespace UC.Models
         public DbSet<Aluno> AlunoSet { get; set; }
         public DbSet<Curso> CursoSet { get; set; }
         public DbSet<Ministrante> MinistranteSet { get; set; }
+        public DbSet<ModalidadeSet> ModalidadeSet { get; set; }
+        public DbSet<TurmaSet> TurmaSet { get; set; }
     }
 }

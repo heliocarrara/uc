@@ -1,0 +1,96 @@
+﻿@*
+    // your helper can contain code and/or markup, e.g.
+    // var msg = "Hello " + name;
+    // <p>@msg</p>
+    // For more information, visit http://go.microsoft.com/fwlink/?LinkID=204658
+*@
+
+@helper HelpPopover(string content)
+{
+    @HelpPopover(content, String.Empty)
+}
+
+@helper HelpPopover(string content, string title)
+{
+    @HelpPopover(content, title, String.Empty)
+}
+
+@helper HelpPopover(string content, string title, string placement)
+{
+    if (String.IsNullOrEmpty(placement))
+    {
+        placement = "right";
+    }
+
+    @HelpPopover(content, title, placement, String.Empty)
+}
+
+@helper HelpPopover(string content, string title, string placement, string color)
+{
+    if (String.IsNullOrEmpty(color)) { color = "auto"; }
+
+    @HelpPopover(content, title, placement, color, -1)
+}
+
+@helper HelpPopover(string content, string title, string placement, string color, int tabindex)
+{
+    @HelpPopover(content, title, placement, color, tabindex, "body")
+}
+
+@helper HelpPopover(string content, string title, string placement, string color, int tabindex, string container)
+{
+    <a style="color:@color" tabindex="@tabindex"
+       role="button"
+       data-toggle="popover"
+       data-html="true"
+       data-trigger="hover" data-placement="@placement"
+       data-container="@container" title="@title"
+       data-content="@content">
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+    </a>
+}
+
+@helper HelpPopover(UC.Utility.UserMessage message)
+{
+    <a tabindex="0"
+       role="button"
+       data-toggle="popover"
+       data-html="true"
+       data-trigger="hover" data-placement="right"
+       data-container="body" title="@message.title"
+       data-content="@message.message">
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+    </a>
+}
+
+@helper GenericAlert(UC.Utility.UserMessage message)
+{
+    @GenericAlert(message, message.dismissible)
+}
+
+@helper GenericAlert(UC.Utility.UserMessage message, bool dismissible)
+{
+    <div class="alert alert-@message.alertType fade in">
+
+        @if (dismissible)
+        {
+            <button type="button" title="Fechar" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        }
+
+
+        @if (!string.IsNullOrEmpty(message.glyphicon))
+        {
+            <span class="@message.glyphicon" aria-hidden="true"></span>
+        }
+
+        <span class="sr-only">@message.assistiveText:</span>
+        @if (message.hasUrl)
+        {
+            <a href="@message.url">@message.message</a>
+        }
+        else
+        {
+            @message.message
+        }
+    </div>
+}

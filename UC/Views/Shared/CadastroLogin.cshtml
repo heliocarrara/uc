@@ -1,0 +1,45 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormCadastroLogin
+
+@{
+    ViewBag.Title = "Cadastro de Login";
+}
+
+<h2>Cadastro de Login</h2>
+
+@using (@Html.BeginForm("CadastroLogin", "Account", FormMethod.Post))
+{
+<div id="account-access center-block">
+    <h2 class="SectionName">Acessar Conta</h2>
+    <div id="LoginForm" class="GrayBg">
+        <div class="form-group">
+            @Html.LabelFor(m => m.nome, "Nome:")
+            @Html.TextBoxFor(m => m.nome, new { @class = "form-control", placeholder = "Digite o seu nome completo." })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.cpf, "CPF:")
+            @Html.TextBoxFor(m => m.cpf, new { @class = "form-control", placeholder = "Somente números..." })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.nascimento, "Data de Nascimento:")
+            <input type="date" id="@Html.IdFor(m => m.nascimento)" name="@Html.IdFor(m => m.nascimento)" value=@Model.nascimento class="form-control"/>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.cep, "CEP:")
+            @Html.TextBoxFor(m => m.cep, new { @class = "form-control", @placeholder = "Somente números..." })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.telefone, "Telefone:")
+            @Html.TextBoxFor(m => m.telefone, new { @class = "form-control", @placeholder = "Digite a senha..." })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.email, "Email:")
+            @Html.TextBoxFor(m => m.email, new { @class = "form-control", @placeholder = "Digite seu melhor Email..." })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.senha, "Senha:")
+            @Html.PasswordFor(m => m.senha, new { @class = "form-control", @placeholder = "Digite a senha..." })
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </div>
+</div>
+}

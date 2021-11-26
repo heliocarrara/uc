@@ -4,8 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    <title>@ViewBag.Title - UniverCidade ConvidAtiva</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Style.css")
     @Scripts.Render("~/bundles/modernizr")
     <title>Login V1</title>
     <meta charset="UTF-8">
@@ -29,20 +30,33 @@
     <meta name="robots" content="noindex, follow">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container" style="text-size-adjust:auto">
-            <div>@Html.ActionLink("UniverCidade Convidativa", "Index", "Index", new { area = "" })</div>
-            <div>@Html.ActionLink("Início", "Index", "Index")</div>
-            <div>@Html.ActionLink("Sobre", "About", "Index")</div>
-            <div>@Html.ActionLink("Contato", "Contact", "Index")</div>
-            <div>@Html.ActionLink("Login", "Login", "Index")</div>
+    <div class="slogan-inicial">
+        <h1>UniverCidade ConvidAtiva</h1>
+        <p>A Universidade Convidando a Cidade a ter uma vida Ativa</p>
+        @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="navbar" id="navbar-principal">
+
+        <div class="container">
+            <div>@Html.ActionLink("Início", "Index", "Home", new { Area = "" }, new { @class = "" })</div>
+            <div>@Html.ActionLink("Modalidades", "Lista", "Modalidade", new { Area = "Comum" }, new { @class = "" })</div>
+            <div>@Html.ActionLink("Sobre", "About", "Home", new { Area = "" }, new { @class = "" })</div>
+            <div>@Html.ActionLink("Contato", "Contact", "Home", new { Area = "" }, new { @class = "" })</div>
+            <div>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, new { @class = "" })</div>
+            @if (UC.Utility.SimpleSessionPersister.IsLogged)
+            {
+                <div>
+                    <h4><strong>Olá, </strong>@UC.Utility.SimpleSessionPersister.Username</h4>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">
+        @Html.Partial("_Mensagens")
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
+        <footer style="text-align:center">
+            <p>&copy; @DateTime.Now.Year - UniverCidade ConvidAtiva</p>
         </footer>
     </div>
 

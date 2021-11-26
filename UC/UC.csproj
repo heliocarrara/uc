@@ -45,8 +45,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -121,7 +124,6 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -224,11 +226,15 @@
     <Compile Include="Areas\Aluno\AlunoAreaRegistration.cs" />
     <Compile Include="Areas\Bolsista\BolsistaAreaRegistration.cs" />
     <Compile Include="Areas\Cadastro\CadastroAreaRegistration.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\TurmaController.cs" />
     <Compile Include="Areas\Comum\ComumAreaRegistration.cs" />
+    <Compile Include="Areas\Comum\Controllers\ModalidadeController.cs" />
     <Compile Include="Areas\Comum\Controllers\IndexController.cs" />
     <Compile Include="Areas\Coordenador\CoordenadorAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserMessage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,16 +244,26 @@
     <Compile Include="Models\Curso.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enumerators\TipoModalidade.cs" />
+    <Compile Include="Models\Enumerators\TipoLogin.cs" />
+    <Compile Include="Models\IUnityOfHelpers.cs" />
     <Compile Include="Models\Login.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ministrante.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModalidadeSet.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pessoa.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TurmaSet.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UCEntityHelpers\BaseHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\Interfaces\ILoggedUserHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\LoggedUserHelper.cs" />
     <Compile Include="Models\UCModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -266,6 +282,12 @@
     </Compile>
     <Compile Include="Models\UnityOfHelpers.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormCadastroLogin.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormTurma.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListPessoas.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListUsuarios.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListModalidade.cs" />
+    <Compile Include="Models\ViewModels\VMModalidade.cs" />
+    <Compile Include="Models\ViewModels\VMTurma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CustomIdentity.cs" />
     <Compile Include="Utility\CustomPrincipal.cs" />
@@ -281,6 +303,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -333,6 +356,9 @@
     </Content>
     <Content Include="Areas\Cadastro\Views\web.config" />
     <Content Include="Areas\Coordenador\Views\web.config" />
+    <Content Include="App_Code\UCHelpers.cshtml" />
+    <Content Include="Areas\Comum\Views\Modalidade\Detalhes.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Turma\FormularioTurma.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -353,14 +379,19 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_Menu.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Areas\Comum\Views\Shared\Login.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shared\View.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\CadastroLogin.cshtml" />
+    <Content Include="Views\Shared\_Mensagens.cshtml" />
+    <Content Include="Views\Shared\ListarUsuarios.cshtml" />
+    <Content Include="Areas\Comum\Views\Modalidade\Lista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -370,17 +401,12 @@
     <Folder Include="Areas\Aluno\Model\" />
     <Folder Include="Areas\Bolsista\Controllers\" />
     <Folder Include="Areas\Bolsista\Model\" />
-    <Folder Include="Areas\Cadastro\Controllers\" />
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Shared\" />
     <Folder Include="Areas\Comum\Model\" />
-    <Folder Include="Areas\Comum\Views\Home\" />
     <Folder Include="Areas\Coordenador\Controllers\" />
     <Folder Include="Areas\Coordenador\Data\" />
     <Folder Include="Areas\Coordenador\Views\Shared\" />
-    <Folder Include="Models\Enumerators\" />
-    <Folder Include="Models\UCEntityHelpers\Interfaces\" />
-    <Folder Include="Models\ViewModels\ListViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

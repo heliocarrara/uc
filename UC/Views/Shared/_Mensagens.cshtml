@@ -1,0 +1,10 @@
+﻿
+@foreach (UC.Controllers.UserMessageType type in Enum.GetValues(typeof(UC.Controllers.UserMessageType)))
+{
+    var list = UC.Controllers.UserMessageController.GetMessages(type);
+
+    foreach (var item in list)
+    {
+        @UCHelpers.GenericAlert(item);
+    }
+}

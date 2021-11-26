@@ -1,0 +1,56 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormTurma
+
+@{
+    ViewBag.Title = "Detalhes da Modalidade";
+}
+
+@using (@Html.BeginForm("GravarFormulario", "Turma", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.modalidadeUID, Model.modalidadeUID)
+    @Html.HiddenFor(m => m.turmaUID, Model.turmaUID)
+
+    <div>
+        <div class="panel-heading">
+            <h2>Formulário de Turma</h2>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.descricao, "Descrição:")
+                @Html.TextAreaFor(m => m.descricao, new { @class = "form-control more-large", placeholder = "Digite a Descrição" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.vagas, "Nº de Vagas:")
+                @Html.TextBoxFor(m => m.vagas, new { @class = "form-control more-large", @placeholder = "Número de vagas..." })
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.horaInicio, "Hora de Início:")
+                    @Html.TextBoxFor(m => m.horaInicio, new { @class = "form-control", @placeholder = "Somente numero..." })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.minutoInicio, "Minuto de Início:")
+                    @Html.TextBoxFor(m => m.minutoInicio, new { @class = "form-control", @placeholder = "Somente numero..." })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.horaTermino, "Hora de Término:")
+                    @Html.TextBoxFor(m => m.horaTermino, new { @class = "form-control", @placeholder = "Somente numero..." })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.minutoTermino, "Minuto de Término:")
+                    @Html.TextBoxFor(m => m.minutoTermino, new { @class = "form-control", @placeholder = "Somente numero..." })
+                </div>
+            </div>
+            <div class="form-group">s
+                @Html.LabelFor(m => m.disponivel, "Nº de Vagas:")
+                @Html.CheckBoxFor(m => m.disponivel, new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="panel-footer more-large text-center">
+            <button type="submit" class="btn btn-success">Acessar</button>
+            @Html.ActionLink("Cadastre-se", "NovoCadastro", "Account", "", new { @class = "btn btn-info" })
+            @Html.ActionLink("Listar", "VerCadastros", "Account", "", new { @class = "btn btn-info" })
+        </div>
+    </div>
+}

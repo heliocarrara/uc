@@ -12,21 +12,22 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Pessoa
+    public partial class ModalidadeSet
     {
-        public Pessoa()
+        public ModalidadeSet()
         {
-            this.LoginSet = new HashSet<Login>();
+            this.TurmaSet1 = new HashSet<TurmaSet>();
         }
     
-        public long pessoaUID { get; set; }
-        public string nome { get; set; }
-        public string cpf { get; set; }
-        public System.DateTime nascimento { get; set; }
-        public string endereco { get; set; }
-        public string telefone { get; set; }
-        public int nivelAcesso { get; set; }
+        public long modalidadeUID { get; set; }
+        public string Modalidade { get; set; }
+        public string Descricao { get; set; }
+        public double ValorInscrição { get; set; }
+        public double ValorMensalidade { get; set; }
+        public bool ativa { get; set; }
+        public bool disponivel { get; set; }
+        public int tipoModalidade { get; set; }
     
-        public virtual ICollection<Login> LoginSet { get; set; }
+        public virtual ICollection<TurmaSet> TurmaSet1 { get; set; }
     }
 }

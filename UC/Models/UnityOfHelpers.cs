@@ -5,28 +5,27 @@ using System.Web;
 using System.Web.Mvc;
 using UC.Utility;
 //using UC.Models.ViewModels.ListViewModels;
-//using UC.Models.UCEntityHelpers.Interfaces;
 using UC.Models.UCEntityHelpers;
+using Microsoft.EntityFrameworkCore;
+using UC.Models;
+using UC.Models.UCEntityHelpers.Interfaces;
 
-namespace SIEX.Models
+namespace UC.Models
 {
-    public class UnityOfHelpers// : IUnityOfHelpers
-    {/*
+    public class UnityOfHelpers : IUnityOfHelpers
+    {
         #region PUBLIC GET INSTANCES
 
         public UCDBContext idbucContext { get { return this._db; } }
 
         public UrlHelper urlHelper { get { return this._url; } }
 
-        public IUnityOfServices Services { get { return this._services; } }
-
         #endregion
 
         #region PRIVATE INSTANCES
 
         private UrlHelper _url;
-        private SiexDBContext _db;
-        private IUnityOfServices _services;
+        private UCDBContext _db;
 
         #endregion
 
@@ -38,18 +37,20 @@ namespace SIEX.Models
         /// <param name="_url">Url Helper para gerar strings de acesso na aplicação.</param>
         /// <param name="_db">Contexto de conexão do banco de dados.</param>
         /// <param name="_services">Unidade de gerenciamento de acesso aos serviços WCF.</param>
-        public UnityOfHelpers(UrlHelper _url, SiexDBContext _db, IUnityOfServices _services)
+        public UnityOfHelpers(UrlHelper _url, UCDBContext _db)
         {
             this._url = _url;
             this._db = _db;
-            this._services = _services;
         }
 
         #endregion
 
         #region PUBLIC GET HELPERS
 
-        public IProjetoHelper Projetos { get { if (projetos == null) { projetos = new ProjetoHelper(_url, _db, _services, this); } return projetos; } }
+        public ILoggedUserHelper UsuarioLogado { get { if (usuarioLogado == null) { usuarioLogado = new LoggedUserHelper(_url, _db, this); } return UsuarioLogado; } }
+
+
+        /*public IProjetoHelper Projetos { get { if (projetos == null) { projetos = new ProjetoHelper(_url, _db, _services, this); } return projetos; } }
 
         public IProgramaHelper Programas { get { if (programas == null) { programas = new ProgramaHelper(_url, _db, _services, this); } return programas; } }
 
@@ -86,8 +87,7 @@ namespace SIEX.Models
 
         public ICargaHorariaHelper CargaHoraria { get { if (cargaHoraria == null) { cargaHoraria = new CargaHorariaHelper(_url, _db, _services, this); } return cargaHoraria; } }
 
-        public ILoggedUserHelper UsuarioLogado { get { if (usuarioLogado == null) { usuarioLogado = new LoggedUserHelper(_url, _db, _services, this); } return usuarioLogado; } }
-
+        
         public IAvaliacaoPropostaHelper AvaliacoesProposta { get { if (avaliacoesProposta == null) { avaliacoesProposta = new AvaliacaoPropostaHelper(_url, _db, _services, this); } return avaliacoesProposta; } }
 
         public IRelatorioProgramaHelper RelatoriosPrograma { get { if (relatoriosPrograma == null) { relatoriosPrograma = new RelatorioProgramaHelper(_url, _db, _services, this); } return relatoriosPrograma; } }
@@ -114,70 +114,72 @@ namespace SIEX.Models
 
         #endregion
 
+        
+*/
+        #endregion
         #region PRIVATE HELPERS' INSTANCES
 
-        private ProjetoHelper projetos { get; set; }
-
-        private ProgramaHelper programas { get; set; }
-
-        private AcaoHelper acoes { get; set; }
-        private AcaoRelatorioHelper acoesrelatorio { get; set; }
-        private MembroEquipeHelper membrosEquipe { get; set; }
-        private MembroEquipeRelatorioHelper membrosEquipeRelatorio { get; set; }
-        private TurmaHelper turmas { get; set; }
-        private TurmaRelatorioHelper turmasRelatorio { get; set; }
-        private ProprietarioHelper proprietarios { get; set; }
-
-        private FuncaoMembroHelper funcoesMembro { get; set; }
-        private FuncaoMembroRelatorioHelper funcaoMembroRelatorio { get; set; }
-        private HomologacaoPropostaHelper homologacoes { get; set; }
-
-        private IPropostaHelper propostas { get; set; }
-
-        private SelectListHelper selectLists { get; set; }
-
-        private PublicoAlvoHelper publicosAlvo { get; set; }
-        private PublicoAlvoAcaoRelatorioHelper publicosAlvoAcaoRelatorio { get; set; }
-        private ProdutoHelper produtos { get; set; }
-        private ProdutoRelatorioHelper produtosRelatorio { get; set; }
-        private EditalHelper editais { get; set; }
-
-        private RecursoPropostaHelper recursosProposta { get; set; }
-
-        private AvaliacaoInstanciaSuperiorHelper avaliacaoInstanciaSuperior { get; set; }
-
-        private ProtocoloHelper protocolos { get; set; }
-
-        private CargaHorariaHelper cargaHoraria { get; set; }
-
         private LoggedUserHelper usuarioLogado { get; set; }
+        //private ProjetoHelper projetos { get; set; }
 
-        private AvaliacaoPropostaHelper avaliacoesProposta { get; set; }
+        //private ProgramaHelper programas { get; set; }
 
-        private RelatorioProgramaHelper relatoriosPrograma { get; set; }
+        //private AcaoHelper acoes { get; set; }
+        //private AcaoRelatorioHelper acoesrelatorio { get; set; }
+        //private MembroEquipeHelper membrosEquipe { get; set; }
+        //private MembroEquipeRelatorioHelper membrosEquipeRelatorio { get; set; }
+        //private TurmaHelper turmas { get; set; }
+        //private TurmaRelatorioHelper turmasRelatorio { get; set; }
+        //private ProprietarioHelper proprietarios { get; set; }
 
-        private RelatorioProjetoHelper relatoriosProjeto { get; set; }
+        //private FuncaoMembroHelper funcoesMembro { get; set; }
+        //private FuncaoMembroRelatorioHelper funcaoMembroRelatorio { get; set; }
+        //private HomologacaoPropostaHelper homologacoes { get; set; }
 
-        private RelatorioMembroEquipeHelper relatoriosMembroEquipe { get; set; }
-        private RelatorioMembroEquipeRelatorioHelper relatoriosMembroEquipeRelatorio { get; set; }
+        //private IPropostaHelper propostas { get; set; }
 
-        private RelatorioAcaoHelper relatoriosAcao { get; set; }
-        private RelatorioAcaoRelatorioHelper relatoriosAcaoRelatorio { get; set; }
-        private RelatorioIdentidadeMembroHelper relatoriosIdentidade { get; set; }
-        private RelatorioIdentidadeMembroRelatorioHelper relatorioIdentidadeRelatorio { get; set; }
-        private InscricaoAcaoHelper inscricoesAcao { get; set; }
-        private InscricaoAcaoRelatorioHelper inscricoesAcoaRelatorio { get; set; }
-        private FonteFinanceiraHelper fontesFinanceiras { get; set; }
+        //private SelectListHelper selectLists { get; set; }
 
-        private IAvaliacaoRelatorioPropostaHelper avaliacoesRelatorios { get; set; }
+        //private PublicoAlvoHelper publicosAlvo { get; set; }
+        //private PublicoAlvoAcaoRelatorioHelper publicosAlvoAcaoRelatorio { get; set; }
+        //private ProdutoHelper produtos { get; set; }
+        //private ProdutoRelatorioHelper produtosRelatorio { get; set; }
+        //private EditalHelper editais { get; set; }
 
-        private IAvaliacaoRelatorioCamaraHelper avaliacoesRelatoriosCamara { get; set; }
+        //private RecursoPropostaHelper recursosProposta { get; set; }
 
-        private IAvaliadorPropostaHelper avaliadoresProposta { get; set; }
+        //private AvaliacaoInstanciaSuperiorHelper avaliacaoInstanciaSuperior { get; set; }
 
-        private IAvaliadorRelatorioHelper avaliadoresRelatorio { get; set; }
+        //private ProtocoloHelper protocolos { get; set; }
+
+        //private CargaHorariaHelper cargaHoraria { get; set; }
 
 
-        #endregion*/
+
+        //private AvaliacaoPropostaHelper avaliacoesProposta { get; set; }
+
+        //private RelatorioProgramaHelper relatoriosPrograma { get; set; }
+
+        //private RelatorioProjetoHelper relatoriosProjeto { get; set; }
+
+        //private RelatorioMembroEquipeHelper relatoriosMembroEquipe { get; set; }
+        //private RelatorioMembroEquipeRelatorioHelper relatoriosMembroEquipeRelatorio { get; set; }
+
+        //private RelatorioAcaoHelper relatoriosAcao { get; set; }
+        //private RelatorioAcaoRelatorioHelper relatoriosAcaoRelatorio { get; set; }
+        //private RelatorioIdentidadeMembroHelper relatoriosIdentidade { get; set; }
+        //private RelatorioIdentidadeMembroRelatorioHelper relatorioIdentidadeRelatorio { get; set; }
+        //private InscricaoAcaoHelper inscricoesAcao { get; set; }
+        //private InscricaoAcaoRelatorioHelper inscricoesAcoaRelatorio { get; set; }
+        //private FonteFinanceiraHelper fontesFinanceiras { get; set; }
+
+        //private IAvaliacaoRelatorioPropostaHelper avaliacoesRelatorios { get; set; }
+
+        //private IAvaliacaoRelatorioCamaraHelper avaliacoesRelatoriosCamara { get; set; }
+
+        //private IAvaliadorPropostaHelper avaliadoresProposta { get; set; }
+
+        //private IAvaliadorRelatorioHelper avaliadoresRelatorio { get; set; }
+        #endregion
     }
 }

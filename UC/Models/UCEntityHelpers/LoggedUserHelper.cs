@@ -5,27 +5,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using SIEX.Models.SiexEntityHelpers;
 
 namespace UC.Models.UCEntityHelpers
 {
-    /*
+
     public class LoggedUserHelper : BaseHelper, Interfaces.ILoggedUserHelper
     {
         #region PROPERTIES
 
-        public long? unidadeUID { get { return SimpleSessionPersister.unidadeUID; } }
-        public long servidorUID { get { return SimpleSessionPersister.servidorUID; } }
-        public int proprietarioUID { get { return SimpleSessionPersister.proprietarioUID; } }
-        public int campusUID { get { return SimpleSessionPersister.campusUID; } }
-        public string nomeCampus { get { return SimpleSessionPersister.nomeCampus; } }
-        public string nomeUnidade { get { return SimpleSessionPersister.nomeUnidade; } }
+        public string pessoaUID { get { return SimpleSessionPersister.Id; } }
+        //public long servidorUID { get { return SimpleSessionPersister.servidorUID; } }
+        //public int proprietarioUID { get { return SimpleSessionPersister.proprietarioUID; } }
+        //public int campusUID { get { return SimpleSessionPersister.campusUID; } }
+        //public string nomeCampus { get { return SimpleSessionPersister.nomeCampus; } }
+        //public string nomeUnidade { get { return SimpleSessionPersister.nomeUnidade; } }
 
         #endregion
 
         #region CONSTRUCTORS
 
-        public LoggedUserHelper(UrlHelper _url, DbContext _db, IUnityOfServices _services, IUnityOfHelpers _helpers) : base(_url, _db, _services, _helpers) { }
+        public LoggedUserHelper(UrlHelper _url, UCDBContext _db, IUnityOfHelpers _helpers) : base(_url, _db, _helpers) { }
 
         #endregion
 
@@ -34,18 +33,18 @@ namespace UC.Models.UCEntityHelpers
         /// <summary>
         /// Enumerador dos tipos básicos de unidades para a soma binária.
         /// </summary>
-        private enum tipos_unidade
-        {
-            INSTITUTO_ENSINO = 1,
-            DIRETORIA_INSTITUTO_ENSINO = 2,
-            DEPARTAMENTO_ENSINO = 4,
-            COORDENACAO_ENSINO_GRADUACAO = 8,
-            COORDENACAO_ENSINO_POS_GRADUACAO = 16,
-            UNIDADE_LOTACIONAL_DOCENTE = 32,
-            DIRETORIA_ADJUNTA = 64,
-            SUPERVISÃO_ENSINO_GRADUAÇÃO = 128,
-            INFORMAL = 256
-        }
+        //private enum tipos_login
+        //{
+        //    INSTITUTO_ENSINO = 1,
+        //    DIRETORIA_INSTITUTO_ENSINO = 2,
+        //    DEPARTAMENTO_ENSINO = 4,
+        //    COORDENACAO_ENSINO_GRADUACAO = 8,
+        //    COORDENACAO_ENSINO_POS_GRADUACAO = 16,
+        //    UNIDADE_LOTACIONAL_DOCENTE = 32,
+        //    DIRETORIA_ADJUNTA = 64,
+        //    SUPERVISÃO_ENSINO_GRADUAÇÃO = 128,
+        //    INFORMAL = 256
+        //}
 
         #endregion
 
@@ -54,7 +53,7 @@ namespace UC.Models.UCEntityHelpers
         /// <summary>
         /// Booleano que indica se o usuário logado é representante de uma unidade do tipo diretoria ou vice-diretoria.
         /// </summary>
-        public bool sou_diretoria_que_da_parecer_final
+        /*public bool sou_diretoria_que_da_parecer_final
         {
             get
             {
@@ -194,4 +193,6 @@ namespace UC.Models.UCEntityHelpers
 
         #endregion
     }*/
+        #endregion
+    }
 }

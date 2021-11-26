@@ -10,6 +10,17 @@
         <EntityTypeShape EntityType="Model1.Aluno" Width="1.5" PointX="4" PointY="0.5" />
         <EntityTypeShape EntityType="Model1.Curso" Width="1.5" PointX="5.75" PointY="0.5" />
         <EntityTypeShape EntityType="Model1.Ministrante" Width="1.5" PointX="7.5" PointY="0.5" />
+        <AssociationConnector Association="Model1.FK_LoginSet_PessoaSet" />
+        <EntityTypeShape EntityType="Model1.ModalidadeSet" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="Model1.TurmaSet" Width="1.5" PointX="3.625" PointY="4.875" />
+        <AssociationConnector Association="Model1.FK_TurmaSet_ModalidadeSet1" ManuallyRouted="true" >
+          <ConnectorPoint PointX="2.25" PointY="5.593623046875" />
+          <ConnectorPoint PointX="2.70375" PointY="5.593623046875" />
+          <ConnectorPoint PointX="2.70375" PointY="6.2394563802083338" />
+          <ConnectorPoint PointX="3.17125" PointY="6.2394563802083338" />
+          <ConnectorPoint PointX="3.17125" PointY="5.593623046875" />
+          <ConnectorPoint PointX="3.625" PointY="5.593623046875" />
+        </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/04/2021 14:48:05
+-- Date Created: 08/15/2021 09:46:28
 -- Generated from EDMX file: C:\Users\helio\source\repos\uc\UC\Models\UCModel.edmx
 -- --------------------------------------------------
 
@@ -22,6 +22,21 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[LoginSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LoginSet];
+GO
+IF OBJECT_ID(N'[dbo].[PessoaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PessoaSet];
+GO
+IF OBJECT_ID(N'[dbo].[AlunoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AlunoSet];
+GO
+IF OBJECT_ID(N'[dbo].[CursoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CursoSet];
+GO
+IF OBJECT_ID(N'[dbo].[MinistranteSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MinistranteSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
