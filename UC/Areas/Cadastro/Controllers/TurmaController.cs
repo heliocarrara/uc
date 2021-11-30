@@ -53,7 +53,7 @@ namespace UC.Areas.Cadastro.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Find(turmaUID);
+                var turma = idbucContext.Turmas.Find(turmaUID);
 
                 var model = new VMFormTurma(turma);
 
@@ -70,7 +70,7 @@ namespace UC.Areas.Cadastro.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Find(turmaUID);
+                var turma = idbucContext.Turmas.Find(turmaUID);
 
                 turma.ativa = false;
 
@@ -91,7 +91,7 @@ namespace UC.Areas.Cadastro.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Find(turmaUID);
+                var turma = idbucContext.Turmas.Find(turmaUID);
 
                 turma.ativa = true;
                 AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " está de volta!");
@@ -111,7 +111,7 @@ namespace UC.Areas.Cadastro.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Find(turmaUID);
+                var turma = idbucContext.Turmas.Find(turmaUID);
 
                 turma.disponivel = false;
 
@@ -131,7 +131,7 @@ namespace UC.Areas.Cadastro.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Find(turmaUID);
+                var turma = idbucContext.Turmas.Find(turmaUID);
 
                 turma.disponivel = true;
 
@@ -162,7 +162,7 @@ namespace UC.Areas.Cadastro.Controllers
 
                 if (!form.turmaUID.HasValue || form.turmaUID.Value > 0)
                 {
-                    var turma = new TurmaSet()
+                    var turma = new Turma()
                     {
                         turmaUID = 0,
                         ativa = true,
@@ -174,13 +174,13 @@ namespace UC.Areas.Cadastro.Controllers
                         DuracaoAula = horarioTermino.Subtract(horarioInicio).TotalMinutes
                     };
 
-                    idbucContext.TurmaSet.Add(turma);
+                    idbucContext.Turmas.Add(turma);
 
                     idbucContext.SaveChanges();
                 }
                 else
                 {
-                    var turma = idbucContext.TurmaSet.Find(form.turmaUID.Value);
+                    var turma = idbucContext.Turmas.Find(form.turmaUID.Value);
 
                     turma.Descricao = form.descricao;
                     turma.disponivel = form.disponivel;

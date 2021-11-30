@@ -12,22 +12,26 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Aluno
+    public partial class Aula
     {
-        public Aluno()
+        public Aula()
         {
+            this.AtividadeAulas = new HashSet<AtividadeAula>();
             this.Chamadas = new HashSet<Chamada>();
             this.JustificativaAulas = new HashSet<JustificativaAula>();
         }
     
-        public long alunoUID { get; set; }
+        public long aulaUID { get; set; }
+        public long diasemanaturmaUID { get; set; }
+        public System.DateTime dataRealizacao { get; set; }
         public long turmaUID { get; set; }
-        public long pessoaUID { get; set; }
-        public bool ativo { get; set; }
-        public System.DateTime dataCriacao { get; set; }
+        public bool ativa { get; set; }
+        public bool aulaExtra { get; set; }
+        public int duracaoMin { get; set; }
     
+        public virtual ICollection<AtividadeAula> AtividadeAulas { get; set; }
+        public virtual DiaSemanaTurma DiaSemanaTurma { get; set; }
         public virtual Turma Turma { get; set; }
-        public virtual Pessoa Pessoa { get; set; }
         public virtual ICollection<Chamada> Chamadas { get; set; }
         public virtual ICollection<JustificativaAula> JustificativaAulas { get; set; }
     }

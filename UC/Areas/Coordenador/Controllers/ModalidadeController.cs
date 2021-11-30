@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using UC.Controllers;
+using UC.Models.ViewModels;
 using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Areas.Coordenador.Controllers
@@ -18,9 +20,18 @@ namespace UC.Areas.Coordenador.Controllers
         {
             try
             {
-                var modalidade = idbucContext.ModalidadeSet.Where(x => x.ativa && x.disponivel).ToList();
+                var lista = new List<VMModalidade>();
 
-                var model = new VMListModalidade(modalidade);
+                var modalidades = idbucContext.Modalidades.Where(x => x.ativa && x.disponivel).ToList();
+
+                foreach (var cadaModalidade in modalidades)
+                {
+                    var turmas = idbucContext.Turmas.Where(x => x.ativa && x.disponivel && x.modalidadeUID == cadaModalidade.modalidadeUID).ToList();
+
+                    lista.Add(new VMModalidade(cadaModalidade, turmas));
+                }
+
+                var model = new VMListModalidade(lista);
 
                 ViewBag.Message = "Modalidades";
 
@@ -37,9 +48,18 @@ namespace UC.Areas.Coordenador.Controllers
         {
             try
             {
-                var modalidade = idbucContext.ModalidadeSet.Where(x => x.ativa == false || x.disponivel == false).ToList();
+                var lista = new List<VMModalidade>();
 
-                var model = new VMListModalidade(modalidade);
+                var modalidades = idbucContext.Modalidades.Where(x => x.ativa == false || x.disponivel == false).ToList();
+
+                foreach (var cadaModalidade in modalidades)
+                {
+                    var turmas = idbucContext.Turmas.Where(x => x.ativa && x.disponivel && x.modalidadeUID == cadaModalidade.modalidadeUID).ToList();
+
+                    lista.Add(new VMModalidade(cadaModalidade, turmas));
+                }
+
+                var model = new VMListModalidade(lista);
 
                 ViewBag.Message = "Modalidades desativadas";
 

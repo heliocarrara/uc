@@ -8,7 +8,7 @@ namespace UC.Models.ViewModels.FormViewModels
     public class VMFormModalidade
     {
         public long modalidadeUID { get; set; }
-        public string Modalidade { get; set; }
+        public string nome { get; set; }
         public string Descricao { get; set; }
         public double ValorInscrição { get; set; }
         public double ValorMensalidade { get; set; }
@@ -26,10 +26,10 @@ namespace UC.Models.ViewModels.FormViewModels
             this.ativa = true;
         }
 
-        public VMFormModalidade(ModalidadeSet modalidade)
+        public VMFormModalidade(Modalidade modalidade)
         {
             this.modalidadeUID = modalidade.modalidadeUID;
-            this.Modalidade = modalidade.Modalidade;
+            this.nome = modalidade.nome;
             this.tipoModalidade = modalidade.tipoModalidade;
             this.Descricao = modalidade.Descricao;
             this.ValorInscrição = modalidade.ValorInscrição;

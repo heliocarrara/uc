@@ -22,16 +22,6 @@ namespace UC.Models.ViewModels.ListViewModels
         {
             this.Modalidades = modalidades;
         }
-
-        public VMListModalidade(List<ModalidadeSet> modalidades)
-        {
-            this.Modalidades = new List<VMModalidade>();
-
-            foreach (var cadaModalidade in modalidades)
-            {
-                this.Modalidades.Add( new VMModalidade(cadaModalidade));
-            }
-        }
         #endregion
     }
 }

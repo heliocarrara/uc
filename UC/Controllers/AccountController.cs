@@ -26,7 +26,7 @@ namespace UC.Controllers
             try
             {
                 var hoje = DateTime.Now;
-                var usuario = idbucContext.LoginSet.FirstOrDefault(x => x.login == cpf);
+                var usuario = idbucContext.Logins.FirstOrDefault(x => x.usuario == cpf);
 
                 if (usuario == null)
                 {
@@ -35,7 +35,7 @@ namespace UC.Controllers
 
                 if (usuario.validade < hoje)
                 {
-                    usuario = idbucContext.LoginSet.FirstOrDefault(x => x.login == cpf && x.validade >= hoje);
+                    usuario = idbucContext.Logins.FirstOrDefault(x => x.usuario == cpf && x.validade >= hoje);
 
                     if (usuario == null)
                     {
@@ -47,7 +47,7 @@ namespace UC.Controllers
                 {
                     throw new Exception("Senha Incorreta.");
                 }
-                var pessoa = myUnityOfHelpers.idbucContext.PessoaSet.Find(usuario.pessoaUID);
+                var pessoa = myUnityOfHelpers.idbucContext.Pessoas.Find(usuario.pessoaUID);
 
                 SimpleSessionPersister.Logar(pessoa);
 
@@ -94,9 +94,9 @@ namespace UC.Controllers
         {
             try
             {
-                var users = myUnityOfHelpers.idbucContext.LoginSet.Where(x => x.loginUID >= 0).ToList();
+                var users = myUnityOfHelpers.idbucContext.Logins.Where(x => x.loginUID >= 0).ToList();
 
-                var pessoas = myUnityOfHelpers.idbucContext.PessoaSet.Where(x => x.pessoaUID >= 0).ToList();
+                var pessoas = myUnityOfHelpers.idbucContext.Pessoas.Where(x => x.pessoaUID >= 0).ToList();
 
                 var model = new VMListUsuarios(pessoas, users);
 
@@ -124,19 +124,19 @@ namespace UC.Controllers
                     nivelAcesso = (int)TipoLogin.Coordenador
                 };
 
-                myUnityOfHelpers.idbucContext.PessoaSet.Add(pessoa);
+                myUnityOfHelpers.idbucContext.Pessoas.Add(pessoa);
 
                 myUnityOfHelpers.idbucContext.SaveChanges();
 
                 var usuario = new Login {
                     loginUID = 0,
-                    login = form.email,
+                    usuario = form.email,
                     senha = form.senha,
                     validade = DateTime.Now.AddDays(365),
                     pessoaUID = pessoa.pessoaUID
                 };
 
-                myUnityOfHelpers.idbucContext.LoginSet.Add(usuario);
+                myUnityOfHelpers.idbucContext.Logins.Add(usuario);
 
                 myUnityOfHelpers.idbucContext.SaveChanges();
 

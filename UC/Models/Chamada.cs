@@ -12,14 +12,17 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Login
+    public partial class Chamada
     {
-        public int loginUID { get; set; }
-        public string senha { get; set; }
-        public System.DateTime validade { get; set; }
-        public long pessoaUID { get; set; }
-        public string usuario { get; set; }
+        public long chamadaUID { get; set; }
+        public long aulaUID { get; set; }
+        public long alunoUID { get; set; }
+        public bool presente { get; set; }
+        public Nullable<long> justificativaaulaUID { get; set; }
+        public bool ativa { get; set; }
     
-        public virtual Pessoa Pessoa { get; set; }
+        public virtual Aluno Aluno { get; set; }
+        public virtual Aula Aula { get; set; }
+        public virtual JustificativaAula JustificativaAula { get; set; }
     }
 }

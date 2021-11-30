@@ -19,7 +19,7 @@ namespace UC.Models.ViewModels.ListViewModels
             this.Turmas = turmas;
         }
 
-        public VMListTurma(List<TurmaSet> turmas)
+        public VMListTurma(List<Turma> turmas)
         {
             this.Turmas = new List<VMTurma>();
 

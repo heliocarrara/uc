@@ -10,7 +10,7 @@
         {
             <div class="panel-info btn-modalidade">
                 <div class="panel-heading centralizar">
-                    <h1><strong>@cadaModalidade.Modalidade</strong></h1>
+                    <h1><strong>@cadaModalidade.nome</strong></h1>
                 </div>
                 <div class="row">
                     @Html.ActionLink("Detalhes", "Detalhes", "Modalidade", new { Area = "Comum", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-default" })

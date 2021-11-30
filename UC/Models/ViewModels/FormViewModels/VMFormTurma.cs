@@ -26,7 +26,7 @@ namespace UC.Models.ViewModels.FormViewModels
             this.modalidadeUID = modalidadeUID;
         }
 
-        public VMFormTurma(TurmaSet turma)
+        public VMFormTurma(Turma turma)
         {
             this.turmaUID = turma.turmaUID;
             this.modalidadeUID = turma.modalidadeUID;

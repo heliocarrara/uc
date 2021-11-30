@@ -12,14 +12,19 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Login
+    public partial class Autonomo
     {
-        public int loginUID { get; set; }
-        public string senha { get; set; }
-        public System.DateTime validade { get; set; }
+        public Autonomo()
+        {
+            this.Professors = new HashSet<Professor>();
+        }
+    
+        public long autonomoUID { get; set; }
         public long pessoaUID { get; set; }
-        public string usuario { get; set; }
+        public bool ativo { get; set; }
+        public System.DateTime validade { get; set; }
     
         public virtual Pessoa Pessoa { get; set; }
+        public virtual ICollection<Professor> Professors { get; set; }
     }
 }

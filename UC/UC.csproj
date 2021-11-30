@@ -245,25 +245,52 @@
     <Compile Include="Models\Aluno.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Curso.cs">
+    <Compile Include="Models\AtividadeAula.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Aula.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Autonomo.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bolsista.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chamada.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Coordenador.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiaSemanaTurma.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Enumerators\TipoModalidade.cs" />
     <Compile Include="Models\Enumerators\TipoLogin.cs" />
     <Compile Include="Models\IUnityOfHelpers.cs" />
+    <Compile Include="Models\JustificativaAula.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Login.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ministrante.cs">
+    <Compile Include="Models\Modalidade.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModalidadeSet.cs">
+    <Compile Include="Models\Permissao.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pessoa.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TurmaSet.cs">
+    <Compile Include="Models\Professor.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProfessorTurma.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Turma.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UCEntityHelpers\BaseHelper.cs" />

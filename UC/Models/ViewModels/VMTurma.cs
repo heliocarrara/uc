@@ -14,7 +14,7 @@ namespace UC.Models.ViewModels
         public double DuracaoAula { get; set; }
         public string Descricao { get; set; }
         public int Vagas { get; set; }
-        public ModalidadeSet Modalidade { get; set; }
+        public Modalidade Modalidade { get; set; }
 
         public bool ativa { get; set; }
         public bool disponivel { get; set; }
@@ -26,7 +26,7 @@ namespace UC.Models.ViewModels
 
         }
 
-        public VMTurma (TurmaSet turma)
+        public VMTurma (Turma turma)
         {
             this.turmaUID = turma.turmaUID;
             this.HorarioInicio = turma.HorarioInicio;

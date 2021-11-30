@@ -12,12 +12,22 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Curso
+    public partial class Bolsista
     {
-        public int cursoUID { get; set; }
-        public string nome { get; set; }
-        public long cargaHoraria { get; set; }
-        public int turma { get; set; }
+        public Bolsista()
+        {
+            this.Professors = new HashSet<Professor>();
+        }
+    
+        public long bolsistaUID { get; set; }
+        public long pessoaUID { get; set; }
+        public long turmaUID { get; set; }
+        public System.DateTime dataCriacao { get; set; }
+        public System.DateTime validade { get; set; }
         public bool ativo { get; set; }
+    
+        public virtual Pessoa Pessoa { get; set; }
+        public virtual Turma Turma { get; set; }
+        public virtual ICollection<Professor> Professors { get; set; }
     }
 }

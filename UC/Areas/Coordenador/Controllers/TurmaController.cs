@@ -18,7 +18,7 @@ namespace UC.Areas.Coordenador.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Where(x => x.ativa && x.disponivel).ToList();
+                var turma = idbucContext.Turmas.Where(x => x.ativa && x.disponivel).ToList();
 
                 var model = new VMListTurma(turma);
 
@@ -37,7 +37,7 @@ namespace UC.Areas.Coordenador.Controllers
         {
             try
             {
-                var turma = idbucContext.TurmaSet.Where(x => x.ativa == false || x.disponivel == false).ToList();
+                var turma = idbucContext.Turmas.Where(x => x.ativa == false || x.disponivel == false).ToList();
 
                 var model = new VMListTurma(turma);
 
