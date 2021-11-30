@@ -42,12 +42,17 @@
             <div>@Html.ActionLink("Modalidades", "Lista", "Modalidade", new { Area = "Comum" }, new { @class = "" })</div>
             <div>@Html.ActionLink("Sobre", "About", "Home", new { Area = "" }, new { @class = "" })</div>
             <div>@Html.ActionLink("Contato", "Contact", "Home", new { Area = "" }, new { @class = "" })</div>
-            <div>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, new { @class = "" })</div>
             @if (UC.Utility.SimpleSessionPersister.IsLogged)
             {
-                <div>
-                    <h4><strong>Olá, </strong>@UC.Utility.SimpleSessionPersister.Username</h4>
-                </div>
+                var nome = "Olá, " + UC.Utility.SimpleSessionPersister.Username;
+
+                <div>@Html.ActionLink(nome, "Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "" })</div>
+                <div>@Html.ActionLink("Sair", "LogOut", "Account", new { Area = "" }, new { @class = "" })</div>
+            }
+            else
+            {
+
+                <div>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, new { @class = "" })</div>
             }
         </div>
     </div>

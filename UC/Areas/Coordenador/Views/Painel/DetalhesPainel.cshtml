@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Painel Geral";
+}
+<div class="painel-geral">
+    <div class="panel-info">
+        <div class="panel-heading centralizar">
+            <h1>Gerencia de <strong>Modalidades</strong></h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                @Html.ActionLink("Listar Todas", "Lista", "Modalidade", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
+
+                @Html.ActionLink("Incluir Nova", "Nova", "Modalidade", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+
+                @Html.ActionLink("Modalidades Excluídas", "Lixeira", "Modalidade", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-warning" })
+
+                @*@Html.ActionLink("Incluir Turma", "NovaTurma", "Turma", new { Area = "Cadastro" }, new { @class = "btn btn-danger" })*@
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="panel panel-success">
+        <div class="panel-heading centralizar">
+            <h1>Gerencia de <strong>Turmas</strong></h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                @Html.ActionLink("Listar Todas", "Lista", "Turma", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
+
+                @Html.ActionLink("Incluir Nova", "Nova", "Turma", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+
+                @Html.ActionLink("Turmas Desativadas", "Lixeira", "Turma", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-warning" })
+
+                @*@Html.ActionLink("Incluir Turma", "NovaTurma", "Turma", new { Area = "Cadastro" }, new { @class = "btn btn-danger" })*@
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="panel panel-warning">
+        <div class="panel-heading centralizar">
+            <h1>Gerencia de <strong>Pessoas</strong></h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                @Html.ActionLink("Listar Todas", "Editar", "Modalidade", new { Area = "Cadastro" }, new { @class = "btn btn-default" })
+
+                @Html.ActionLink("Incluir Nova", "Excluir", "Modalidade", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+
+                @Html.ActionLink("Cadastros Inativos", "Detalhes", "Modalidade", new { Area = "Cadastro" }, new { @class = "btn btn-warning" })
+
+                @*@Html.ActionLink("Incluir Turma", "NovaTurma", "Turma", new { Area = "Cadastro" }, new { @class = "btn btn-danger" })*@
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,47 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListModalidade
+
+@{
+    ViewBag.Title = "Modalidades";
+}
+<div class="modalidades">
+    @if (Model != null && Model.Modalidades != null)
+    {
+        foreach (var cadaModalidade in Model.Modalidades)
+        {
+            <div class="panel-info btn-modalidade">
+                <div class="panel-heading centralizar">
+                    <h1><strong>@cadaModalidade.Modalidade</strong></h1>
+                </div>
+                <div class="row">
+                    @Html.ActionLink("Detalhes", "Detalhes", "Modalidade", new { Area = "Comum", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-default" })
+
+                    @if (cadaModalidade.ativa)
+                    {
+                        @Html.ActionLink("Excluir", "Excluir", "Modalidade", new { Area = "Cadastro", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-danger" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Reciclar", "Reciclar", "Modalidade", new { Area = "Cadastro", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-danger" })
+                    }
+
+                    @Html.ActionLink("Editar", "Editar", "Modalidade", new { Area = "Cadastro", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-warning" })
+
+                    @if (cadaModalidade.disponivel)
+                    {
+                        @Html.ActionLink("Desativar", "Desativar", "Modalidade", new { Area = "Cadastro", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-warning" })
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Ativar", "Ativar", "Modalidade", new { Area = "Cadastro", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-warning" })
+                    }
+
+                    @Html.ActionLink("Incluir Turma", "NovaTurma", "Turma", new { Area = "Cadastro", modalidadeUID = cadaModalidade.modalidadeUID }, new { @class = "btn btn-success" })
+
+                </div>
+            </div>
+            <br />
+        }
+    }
+    
+</div>

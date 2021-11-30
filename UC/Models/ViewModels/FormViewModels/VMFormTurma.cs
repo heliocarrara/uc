@@ -39,6 +39,7 @@ namespace UC.Models.ViewModels.FormViewModels
             this.horaTermino = termino.Hour;
             this.minutoTermino = termino.Minute;
             this.vagas = turma.Vagas;
+            this.descricao = turma.Descricao;
         }
     }
 }

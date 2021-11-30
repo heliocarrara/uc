@@ -16,6 +16,9 @@ namespace UC.Models.ViewModels
         public List<VMTurma> Turmas { get; set; }
         public string ValorInscrição { get; set; }
         public string ValorMensalidade { get; set; }
+
+        public bool ativa { get; set; }
+        public bool disponivel { get; set; }
         #endregion
 
         #region CONTRUCTORS
@@ -32,6 +35,8 @@ namespace UC.Models.ViewModels
             this.Descrição = modalidade.Descricao;
             this.ValorInscrição = "R$" + modalidade.ValorInscrição + ",00";
             this.ValorMensalidade = "R$" + modalidade.ValorMensalidade + ",00";
+            this.ativa = modalidade.ativa;
+            this.disponivel = modalidade.disponivel;
 
             this.Turmas = new List<VMTurma>();
 

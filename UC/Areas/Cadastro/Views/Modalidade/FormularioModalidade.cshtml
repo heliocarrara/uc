@@ -1,0 +1,46 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormModalidade
+
+@{
+    ViewBag.Title = "Formulário de Modalidade";
+}
+
+@using (@Html.BeginForm("GravarFormulario", "Modalidade", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.modalidadeUID, Model.modalidadeUID)
+    @Html.HiddenFor(m => m.ativa, Model.ativa)
+
+    <div>
+        <div class="panel-heading">
+            <h2>Formulário de Modalidade</h2>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Modalidade, "Nome:")
+                @Html.TextAreaFor(m => m.Modalidade, new { @class = "form-control more-large", placeholder = "Digite o nome..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Descricao, "Descrição:")
+                @Html.TextAreaFor(m => m.Descricao, new { @class = "form-control more-large", placeholder = "Digite a Descrição..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ValorInscrição, "Valor da Inscrição:")
+                @Html.TextBoxFor(m => m.ValorInscrição, new { @class = "form-control more-large", @placeholder = "Valor da Inscrição..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ValorMensalidade, "Valor da Mensalidade:")
+                @Html.TextBoxFor(m => m.ValorMensalidade, new { @class = "form-control more-large", @placeholder = "Valor da Mensalidade..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.tipoModalidade, "Tipo Modalidade:")
+                @Html.TextBoxFor(m => m.tipoModalidade, new { @class = "form-control", @placeholder = "Tipo de Modalidade..." })
+            </div>
+            <div class="form-group">
+                <h3>Disponível: </h3>@Html.CheckBoxFor(m => m.disponivel, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="panel-footer more-large text-center">
+            <button type="submit" class="btn btn-success">Salvar as Alterações</button>
+            @Html.ActionLink("Voltar", "Lista", "Modalidade", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

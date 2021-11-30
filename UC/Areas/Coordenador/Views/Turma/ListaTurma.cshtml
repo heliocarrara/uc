@@ -1,0 +1,69 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListTurma
+
+@if (Model.Turmas != null && Model.Turmas.Any())
+{
+    foreach (var cadaTurma in Model.Turmas)
+    {
+        <div class="panel panel-info panel-detalhes-turma">
+            <div class="panel-heading panel-title-row">
+                Turma nº: @cadaTurma.turmaUID
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><h3><strong>Modalidade: </strong>@cadaTurma.Modalidade.Modalidade</h3></li>
+                    <li class="list-group-item"><h3><strong>Descrição da Modalidade: </strong>@cadaTurma.Modalidade.Descricao</h3></li>
+                    <li class="list-group-item"><h3><strong>Descrição da Turma: </strong>@cadaTurma.Descricao</h3></li>
+                    <li class="list-group-item"><h3><strong>Horario de Inicio: </strong>@cadaTurma.HorarioInicio.ToShortTimeString()</h3></li>
+                    <li class="list-group-item"><h3><strong>Horario de Término: </strong>@cadaTurma.HorarioTermino.ToShortTimeString()</h3></li>
+                    <li class="list-group-item"><h3><strong>Dias da Semana: Segunda, Terça e Quarta</strong></h3></li>
+                    <li class="list-group-item"><h3><strong>Minutos: ?</strong></h3></li>
+                    <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@cadaTurma.Vagas</h3></li>
+                </ul>
+
+            </div>
+            <div class="row">
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Adicionar Aluno", "NovaInscricao", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-success" })
+                </div>
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Editar", "Editar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-warning" })
+                </div>
+                @if (cadaTurma.ativa)
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Excluir", "Excluir", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Reciclar", "Reciclar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+
+                @if (cadaTurma.disponivel)
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Desativar", "Desativar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Reativar", "Ativar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Listar Alunos", "Detalhes", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="panel-body">
+        <h3>Não há tumas disponíveis no momento.</h3>
+    </div>
+}

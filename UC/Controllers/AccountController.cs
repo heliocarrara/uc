@@ -8,6 +8,7 @@ using UC.Models.ViewModels.FormViewModels;
 using UC.Models.ViewModels.ListViewModels;
 using UC.Utility;
 using UC.Models.UCEntityHelpers;
+using UC.Models.Enumerators;
 
 namespace UC.Controllers
 {
@@ -15,7 +16,7 @@ namespace UC.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         
@@ -50,7 +51,22 @@ namespace UC.Controllers
 
                 SimpleSessionPersister.Logar(pessoa);
 
-                AddMessage(UserMessageType.success, "DEU CERTO");
+                return RedirectToAction("Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult LogOut()
+        {
+            try
+            {
+                SimpleSessionPersister.LogOut();
+                AddMessage(UserMessageType.info, "Login encerrado.");
+
                 return Index();
             }
             catch (Exception ex)
@@ -105,7 +121,7 @@ namespace UC.Controllers
                     nascimento = form.nascimento,
                     endereco = form.cep,
                     telefone = form.telefone,
-                    nivelAcesso = 0
+                    nivelAcesso = (int)TipoLogin.Coordenador
                 };
 
                 myUnityOfHelpers.idbucContext.PessoaSet.Add(pessoa);
