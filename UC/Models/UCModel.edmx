@@ -5,58 +5,139 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AlunoSet">
+        <EntityType Name="Aluno">
           <Key>
             <PropertyRef Name="alunoUID" />
           </Key>
-          <Property Name="alunoUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cursoUID" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="pessoaUID" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="alunoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="turmaUID" Type="bigint" Nullable="false" />
+          <Property Name="pessoaUID" Type="bigint" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="CursoSet">
+        <EntityType Name="AtividadeAula">
           <Key>
-            <PropertyRef Name="cursoUID" />
+            <PropertyRef Name="atividadeaulaUID" />
           </Key>
-          <Property Name="cursoUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nome" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="cargaHoraria" Type="bigint" Nullable="false" />
-          <Property Name="turma" Type="int" Nullable="false" />
+          <Property Name="atividadeaulaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ativa" Type="bit" Nullable="false" />
+          <Property Name="aulaUID" Type="bigint" Nullable="false" />
+          <Property Name="titulo" Type="varchar(max)" Nullable="false" />
+          <Property Name="descricao" Type="varchar(max)" Nullable="false" />
+          <Property Name="duracaoMin" Type="int" Nullable="false" />
+          <Property Name="aprovado" Type="bit" Nullable="false" />
+          <Property Name="ordem" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="aulaUID" />
+          </Key>
+          <Property Name="aulaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diasemanaturmaUID" Type="bigint" Nullable="false" />
+          <Property Name="dataRealizacao" Type="datetime" Nullable="false" />
+          <Property Name="turmaUID" Type="bigint" Nullable="false" />
+          <Property Name="ativa" Type="bit" Nullable="false" />
+          <Property Name="aulaExtra" Type="bit" Nullable="false" />
+          <Property Name="duracaoMin" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Autonomo">
+          <Key>
+            <PropertyRef Name="autonomoUID" />
+          </Key>
+          <Property Name="autonomoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pessoaUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="validade" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bolsista">
+          <Key>
+            <PropertyRef Name="bolsistaUID" />
+          </Key>
+          <Property Name="bolsistaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pessoaUID" Type="bigint" Nullable="false" />
+          <Property Name="turmaUID" Type="bigint" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="validade" Type="datetime" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="LoginSet">
+        <EntityType Name="Chamada">
+          <Key>
+            <PropertyRef Name="chamadaUID" />
+          </Key>
+          <Property Name="chamadaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aulaUID" Type="bigint" Nullable="false" />
+          <Property Name="alunoUID" Type="bigint" Nullable="false" />
+          <Property Name="presente" Type="bit" Nullable="false" />
+          <Property Name="justificativaaulaUID" Type="bigint" />
+          <Property Name="ativa" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Coordenador">
+          <Key>
+            <PropertyRef Name="coordenadorUID" />
+          </Key>
+          <Property Name="coordenadorUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="pessoaUID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DiaSemanaTurma">
+          <Key>
+            <PropertyRef Name="diasemanaturmaUID" />
+          </Key>
+          <Property Name="diasemanaturmaUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="turmaUID" Type="bigint" Nullable="false" />
+          <Property Name="diaSemanal" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar(max)" Nullable="false" />
+          <Property Name="HoraInicio" Type="int" Nullable="false" />
+          <Property Name="MinutoInicio" Type="int" Nullable="false" />
+          <Property Name="HoraTermino" Type="int" Nullable="false" />
+          <Property Name="MinutoTermino" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JustificativaAula">
+          <Key>
+            <PropertyRef Name="justificativaaulaUID" />
+          </Key>
+          <Property Name="justificativaaulaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="alunoUID" Type="bigint" Nullable="false" />
+          <Property Name="aulaUID" Type="bigint" Nullable="false" />
+          <Property Name="ativa" Type="bit" Nullable="false" />
+          <Property Name="justificativa" Type="varchar(max)" Nullable="false" />
+          <Property Name="aprovadaCoordenador" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
           <Key>
             <PropertyRef Name="loginUID" />
           </Key>
           <Property Name="loginUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="usuario" Type="nvarchar(max)" Nullable="false" />
           <Property Name="senha" Type="nvarchar(max)" Nullable="false" />
           <Property Name="validade" Type="datetime" Nullable="false" />
           <Property Name="pessoaUID" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="MinistranteSet">
-          <Key>
-            <PropertyRef Name="ministranteUID" />
-          </Key>
-          <Property Name="ministranteUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cursoUID" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="pessoaUID" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ativo" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ModalidadeSet">
+        <EntityType Name="Modalidade">
           <Key>
             <PropertyRef Name="modalidadeUID" />
           </Key>
           <Property Name="modalidadeUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tipoModalidade" Type="int" Nullable="false" />
-          <Property Name="Modalidade" Type="varchar(max)" Nullable="false" />
+          <Property Name="nome" Type="varchar(max)" Nullable="false" />
           <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
           <Property Name="ValorInscrição" Type="float" Nullable="false" />
           <Property Name="ValorMensalidade" Type="float" Nullable="false" />
           <Property Name="ativa" Type="bit" Nullable="false" />
           <Property Name="disponivel" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="PessoaSet">
+        <EntityType Name="Permissao">
+          <Key>
+            <PropertyRef Name="permissaoUID" />
+          </Key>
+          <Property Name="permissaoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pessoaUID" Type="bigint" Nullable="false" />
+          <Property Name="tipoLogin" Type="int" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="validade" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pessoa">
           <Key>
             <PropertyRef Name="pessoaUID" />
           </Key>
@@ -68,7 +149,27 @@
           <Property Name="telefone" Type="nvarchar(max)" Nullable="false" />
           <Property Name="nivelAcesso" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="TurmaSet">
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="professorUID" />
+          </Key>
+          <Property Name="professorUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bolsistaUID" Type="bigint" />
+          <Property Name="coordenadorUID" Type="bigint" />
+          <Property Name="autonomoUID" Type="bigint" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="validade" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProfessorTurma">
+          <Key>
+            <PropertyRef Name="professorturmaUID" />
+          </Key>
+          <Property Name="professorturmaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="turmaUID" Type="bigint" Nullable="false" />
+          <Property Name="professorUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Turma">
           <Key>
             <PropertyRef Name="turmaUID" />
           </Key>
@@ -81,45 +182,390 @@
           <Property Name="Vagas" Type="int" Nullable="false" />
           <Property Name="disponivel" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_LoginSet_PessoaSet">
-          <End Role="PessoaSet" Type="Self.PessoaSet" Multiplicity="1" />
-          <End Role="LoginSet" Type="Self.LoginSet" Multiplicity="*" />
+        <Association Name="FK_Aluno_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PessoaSet">
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoSet_PessoaSet">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
               <PropertyRef Name="pessoaUID" />
             </Principal>
-            <Dependent Role="LoginSet">
+            <Dependent Role="Aluno">
               <PropertyRef Name="pessoaUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TurmaSet_ModalidadeSet">
-          <End Role="ModalidadeSet" Type="Self.ModalidadeSet" Multiplicity="1" />
-          <End Role="TurmaSet" Type="Self.TurmaSet" Multiplicity="*" />
+        <Association Name="FK_AtividadeAula_Aula">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="AtividadeAula" Type="Self.AtividadeAula" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ModalidadeSet">
+            <Principal Role="Aula">
+              <PropertyRef Name="aulaUID" />
+            </Principal>
+            <Dependent Role="AtividadeAula">
+              <PropertyRef Name="aulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aula_DiaSemanaTurma">
+          <End Role="DiaSemanaTurma" Type="Self.DiaSemanaTurma" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiaSemanaTurma">
+              <PropertyRef Name="diasemanaturmaUID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="diasemanaturmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aula_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autonomo_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Autonomo" Type="Self.Autonomo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Autonomo">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bolsista_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Bolsista" Type="Self.Bolsista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Bolsista">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bolsista_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="Bolsista" Type="Self.Bolsista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="Bolsista">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamada_Aluno">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="1" />
+          <End Role="Chamada" Type="Self.Chamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="alunoUID" />
+            </Principal>
+            <Dependent Role="Chamada">
+              <PropertyRef Name="alunoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamada_Aula">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Chamada" Type="Self.Chamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="aulaUID" />
+            </Principal>
+            <Dependent Role="Chamada">
+              <PropertyRef Name="aulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamada_JustificativaAula">
+          <End Role="JustificativaAula" Type="Self.JustificativaAula" Multiplicity="0..1" />
+          <End Role="Chamada" Type="Self.Chamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JustificativaAula">
+              <PropertyRef Name="justificativaaulaUID" />
+            </Principal>
+            <Dependent Role="Chamada">
+              <PropertyRef Name="justificativaaulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coordenador_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Coordenador" Type="Self.Coordenador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Coordenador">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiaSemanaTurma_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="DiaSemanaTurma" Type="Self.DiaSemanaTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="DiaSemanaTurma">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JustificativaAula_Aluno">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="1" />
+          <End Role="JustificativaAula" Type="Self.JustificativaAula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="alunoUID" />
+            </Principal>
+            <Dependent Role="JustificativaAula">
+              <PropertyRef Name="alunoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JustificativaAula_Aula">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="JustificativaAula" Type="Self.JustificativaAula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="aulaUID" />
+            </Principal>
+            <Dependent Role="JustificativaAula">
+              <PropertyRef Name="aulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginSet_PessoaSet">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissao_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Permissao" Type="Self.Permissao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Permissao">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Autonomo">
+          <End Role="Autonomo" Type="Self.Autonomo" Multiplicity="0..1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autonomo">
+              <PropertyRef Name="autonomoUID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="autonomoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Bolsista">
+          <End Role="Bolsista" Type="Self.Bolsista" Multiplicity="0..1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bolsista">
+              <PropertyRef Name="bolsistaUID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="bolsistaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Coordenador">
+          <End Role="Coordenador" Type="Self.Coordenador" Multiplicity="0..1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coordenador">
+              <PropertyRef Name="coordenadorUID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="coordenadorUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfessorTurma_Professor">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="ProfessorTurma" Type="Self.ProfessorTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="professorUID" />
+            </Principal>
+            <Dependent Role="ProfessorTurma">
+              <PropertyRef Name="professorUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfessorTurma_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="ProfessorTurma" Type="Self.ProfessorTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="ProfessorTurma">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Modalidade">
+          <End Role="Modalidade" Type="Self.Modalidade" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalidade">
               <PropertyRef Name="modalidadeUID" />
             </Principal>
-            <Dependent Role="TurmaSet">
+            <Dependent Role="Turma">
               <PropertyRef Name="modalidadeUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Model1StoreContainer">
-          <EntitySet Name="AlunoSet" EntityType="Self.AlunoSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CursoSet" EntityType="Self.CursoSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LoginSet" EntityType="Self.LoginSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MinistranteSet" EntityType="Self.MinistranteSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ModalidadeSet" EntityType="Self.ModalidadeSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PessoaSet" EntityType="Self.PessoaSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TurmaSet" EntityType="Self.TurmaSet" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_LoginSet_PessoaSet" Association="Self.FK_LoginSet_PessoaSet">
-            <End Role="PessoaSet" EntitySet="PessoaSet" />
-            <End Role="LoginSet" EntitySet="LoginSet" />
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtividadeAula" EntityType="Self.AtividadeAula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aula" EntityType="Self.Aula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autonomo" EntityType="Self.Autonomo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bolsista" EntityType="Self.Bolsista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chamada" EntityType="Self.Chamada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coordenador" EntityType="Self.Coordenador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiaSemanaTurma" EntityType="Self.DiaSemanaTurma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JustificativaAula" EntityType="Self.JustificativaAula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modalidade" EntityType="Self.Modalidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissao" EntityType="Self.Permissao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfessorTurma" EntityType="Self.ProfessorTurma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turma" EntityType="Self.Turma" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Aluno_Turma" Association="Self.FK_Aluno_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Aluno" EntitySet="Aluno" />
           </AssociationSet>
-          <AssociationSet Name="FK_TurmaSet_ModalidadeSet" Association="Self.FK_TurmaSet_ModalidadeSet">
-            <End Role="ModalidadeSet" EntitySet="ModalidadeSet" />
-            <End Role="TurmaSet" EntitySet="TurmaSet" />
+          <AssociationSet Name="FK_AlunoSet_PessoaSet" Association="Self.FK_AlunoSet_PessoaSet">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtividadeAula_Aula" Association="Self.FK_AtividadeAula_Aula">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="AtividadeAula" EntitySet="AtividadeAula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aula_DiaSemanaTurma" Association="Self.FK_Aula_DiaSemanaTurma">
+            <End Role="DiaSemanaTurma" EntitySet="DiaSemanaTurma" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aula_Turma" Association="Self.FK_Aula_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autonomo_Pessoa" Association="Self.FK_Autonomo_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Autonomo" EntitySet="Autonomo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bolsista_Pessoa" Association="Self.FK_Bolsista_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Bolsista" EntitySet="Bolsista" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bolsista_Turma" Association="Self.FK_Bolsista_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Bolsista" EntitySet="Bolsista" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamada_Aluno" Association="Self.FK_Chamada_Aluno">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Chamada" EntitySet="Chamada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamada_Aula" Association="Self.FK_Chamada_Aula">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Chamada" EntitySet="Chamada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamada_JustificativaAula" Association="Self.FK_Chamada_JustificativaAula">
+            <End Role="JustificativaAula" EntitySet="JustificativaAula" />
+            <End Role="Chamada" EntitySet="Chamada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coordenador_Pessoa" Association="Self.FK_Coordenador_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Coordenador" EntitySet="Coordenador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiaSemanaTurma_Turma" Association="Self.FK_DiaSemanaTurma_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="DiaSemanaTurma" EntitySet="DiaSemanaTurma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JustificativaAula_Aluno" Association="Self.FK_JustificativaAula_Aluno">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="JustificativaAula" EntitySet="JustificativaAula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JustificativaAula_Aula" Association="Self.FK_JustificativaAula_Aula">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="JustificativaAula" EntitySet="JustificativaAula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginSet_PessoaSet" Association="Self.FK_LoginSet_PessoaSet">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissao_Pessoa" Association="Self.FK_Permissao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Permissao" EntitySet="Permissao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Autonomo" Association="Self.FK_Professor_Autonomo">
+            <End Role="Autonomo" EntitySet="Autonomo" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Bolsista" Association="Self.FK_Professor_Bolsista">
+            <End Role="Bolsista" EntitySet="Bolsista" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Coordenador" Association="Self.FK_Professor_Coordenador">
+            <End Role="Coordenador" EntitySet="Coordenador" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfessorTurma_Professor" Association="Self.FK_ProfessorTurma_Professor">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="ProfessorTurma" EntitySet="ProfessorTurma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfessorTurma_Turma" Association="Self.FK_ProfessorTurma_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="ProfessorTurma" EntitySet="ProfessorTurma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Modalidade" Association="Self.FK_Turma_Modalidade">
+            <End Role="Modalidade" EntitySet="Modalidade" />
+            <End Role="Turma" EntitySet="Turma" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -127,74 +573,554 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="UCDBContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LoginSet" EntityType="Model1.Login" />
-          <EntitySet Name="PessoaSet" EntityType="Model1.Pessoa" />
-          <EntitySet Name="AlunoSet" EntityType="Model1.Aluno" />
-          <EntitySet Name="CursoSet" EntityType="Model1.Curso" />
-          <EntitySet Name="MinistranteSet" EntityType="Model1.Ministrante" />
-          <AssociationSet Name="FK_LoginSet_PessoaSet" Association="Model1.FK_LoginSet_PessoaSet">
-            <End Role="Pessoa" EntitySet="PessoaSet" />
-            <End Role="Login" EntitySet="LoginSet" />
+          <EntitySet Name="Alunoes" EntityType="Model1.Aluno" />
+          <EntitySet Name="AtividadeAulas" EntityType="Model1.AtividadeAula" />
+          <EntitySet Name="Aulas" EntityType="Model1.Aula" />
+          <EntitySet Name="Autonomoes" EntityType="Model1.Autonomo" />
+          <EntitySet Name="Bolsistas" EntityType="Model1.Bolsista" />
+          <EntitySet Name="Chamadas" EntityType="Model1.Chamada" />
+          <EntitySet Name="Coordenadors" EntityType="Model1.Coordenador" />
+          <EntitySet Name="DiaSemanaTurmas" EntityType="Model1.DiaSemanaTurma" />
+          <EntitySet Name="JustificativaAulas" EntityType="Model1.JustificativaAula" />
+          <EntitySet Name="Logins" EntityType="Model1.Login" />
+          <EntitySet Name="Modalidades" EntityType="Model1.Modalidade" />
+          <EntitySet Name="Permissaos" EntityType="Model1.Permissao" />
+          <EntitySet Name="Pessoas" EntityType="Model1.Pessoa" />
+          <EntitySet Name="Professors" EntityType="Model1.Professor" />
+          <EntitySet Name="ProfessorTurmas" EntityType="Model1.ProfessorTurma" />
+          <EntitySet Name="Turmas" EntityType="Model1.Turma" />
+          <AssociationSet Name="FK_Aluno_Turma" Association="Model1.FK_Aluno_Turma">
+            <End Role="Turma" EntitySet="Turmas" />
+            <End Role="Aluno" EntitySet="Alunoes" />
           </AssociationSet>
-          <EntitySet Name="ModalidadeSet" EntityType="Model1.ModalidadeSet" />
-          <EntitySet Name="TurmaSet" EntityType="Model1.TurmaSet" />
-          <AssociationSet Name="FK_TurmaSet_ModalidadeSet1" Association="Model1.FK_TurmaSet_ModalidadeSet1">
-            <End Role="ModalidadeSet" EntitySet="ModalidadeSet" />
-            <End Role="TurmaSet" EntitySet="TurmaSet" />
+          <AssociationSet Name="FK_AlunoSet_PessoaSet" Association="Model1.FK_AlunoSet_PessoaSet">
+            <End Role="Pessoa" EntitySet="Pessoas" />
+            <End Role="Aluno" EntitySet="Alunoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamada_Aluno" Association="Model1.FK_Chamada_Aluno">
+            <End Role="Aluno" EntitySet="Alunoes" />
+            <End Role="Chamada" EntitySet="Chamadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JustificativaAula_Aluno" Association="Model1.FK_JustificativaAula_Aluno">
+            <End Role="Aluno" EntitySet="Alunoes" />
+            <End Role="JustificativaAula" EntitySet="JustificativaAulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtividadeAula_Aula" Association="Model1.FK_AtividadeAula_Aula">
+            <End Role="Aula" EntitySet="Aulas" />
+            <End Role="AtividadeAula" EntitySet="AtividadeAulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aula_DiaSemanaTurma" Association="Model1.FK_Aula_DiaSemanaTurma">
+            <End Role="DiaSemanaTurma" EntitySet="DiaSemanaTurmas" />
+            <End Role="Aula" EntitySet="Aulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aula_Turma" Association="Model1.FK_Aula_Turma">
+            <End Role="Turma" EntitySet="Turmas" />
+            <End Role="Aula" EntitySet="Aulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamada_Aula" Association="Model1.FK_Chamada_Aula">
+            <End Role="Aula" EntitySet="Aulas" />
+            <End Role="Chamada" EntitySet="Chamadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JustificativaAula_Aula" Association="Model1.FK_JustificativaAula_Aula">
+            <End Role="Aula" EntitySet="Aulas" />
+            <End Role="JustificativaAula" EntitySet="JustificativaAulas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autonomo_Pessoa" Association="Model1.FK_Autonomo_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoas" />
+            <End Role="Autonomo" EntitySet="Autonomoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Autonomo" Association="Model1.FK_Professor_Autonomo">
+            <End Role="Autonomo" EntitySet="Autonomoes" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bolsista_Pessoa" Association="Model1.FK_Bolsista_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoas" />
+            <End Role="Bolsista" EntitySet="Bolsistas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bolsista_Turma" Association="Model1.FK_Bolsista_Turma">
+            <End Role="Turma" EntitySet="Turmas" />
+            <End Role="Bolsista" EntitySet="Bolsistas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Bolsista" Association="Model1.FK_Professor_Bolsista">
+            <End Role="Bolsista" EntitySet="Bolsistas" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chamada_JustificativaAula" Association="Model1.FK_Chamada_JustificativaAula">
+            <End Role="JustificativaAula" EntitySet="JustificativaAulas" />
+            <End Role="Chamada" EntitySet="Chamadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coordenador_Pessoa" Association="Model1.FK_Coordenador_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoas" />
+            <End Role="Coordenador" EntitySet="Coordenadors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professor_Coordenador" Association="Model1.FK_Professor_Coordenador">
+            <End Role="Coordenador" EntitySet="Coordenadors" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiaSemanaTurma_Turma" Association="Model1.FK_DiaSemanaTurma_Turma">
+            <End Role="Turma" EntitySet="Turmas" />
+            <End Role="DiaSemanaTurma" EntitySet="DiaSemanaTurmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginSet_PessoaSet" Association="Model1.FK_LoginSet_PessoaSet">
+            <End Role="Pessoa" EntitySet="Pessoas" />
+            <End Role="Login" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Modalidade" Association="Model1.FK_Turma_Modalidade">
+            <End Role="Modalidade" EntitySet="Modalidades" />
+            <End Role="Turma" EntitySet="Turmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissao_Pessoa" Association="Model1.FK_Permissao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoas" />
+            <End Role="Permissao" EntitySet="Permissaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfessorTurma_Professor" Association="Model1.FK_ProfessorTurma_Professor">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="ProfessorTurma" EntitySet="ProfessorTurmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfessorTurma_Turma" Association="Model1.FK_ProfessorTurma_Turma">
+            <End Role="Turma" EntitySet="Turmas" />
+            <End Role="ProfessorTurma" EntitySet="ProfessorTurmas" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="alunoUID" />
+          </Key>
+          <Property Name="alunoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Turma" Relationship="Model1.FK_Aluno_Turma" FromRole="Aluno" ToRole="Turma" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.FK_AlunoSet_PessoaSet" FromRole="Aluno" ToRole="Pessoa" />
+          <NavigationProperty Name="Chamadas" Relationship="Model1.FK_Chamada_Aluno" FromRole="Aluno" ToRole="Chamada" />
+          <NavigationProperty Name="JustificativaAulas" Relationship="Model1.FK_JustificativaAula_Aluno" FromRole="Aluno" ToRole="JustificativaAula" />
+        </EntityType>
+        <EntityType Name="AtividadeAula">
+          <Key>
+            <PropertyRef Name="atividadeaulaUID" />
+          </Key>
+          <Property Name="atividadeaulaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ativa" Type="Boolean" Nullable="false" />
+          <Property Name="aulaUID" Type="Int64" Nullable="false" />
+          <Property Name="titulo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="duracaoMin" Type="Int32" Nullable="false" />
+          <Property Name="aprovado" Type="Boolean" Nullable="false" />
+          <Property Name="ordem" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Model1.FK_AtividadeAula_Aula" FromRole="AtividadeAula" ToRole="Aula" />
+        </EntityType>
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="aulaUID" />
+          </Key>
+          <Property Name="aulaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diasemanaturmaUID" Type="Int64" Nullable="false" />
+          <Property Name="dataRealizacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativa" Type="Boolean" Nullable="false" />
+          <Property Name="aulaExtra" Type="Boolean" Nullable="false" />
+          <Property Name="duracaoMin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AtividadeAulas" Relationship="Model1.FK_AtividadeAula_Aula" FromRole="Aula" ToRole="AtividadeAula" />
+          <NavigationProperty Name="DiaSemanaTurma" Relationship="Model1.FK_Aula_DiaSemanaTurma" FromRole="Aula" ToRole="DiaSemanaTurma" />
+          <NavigationProperty Name="Turma" Relationship="Model1.FK_Aula_Turma" FromRole="Aula" ToRole="Turma" />
+          <NavigationProperty Name="Chamadas" Relationship="Model1.FK_Chamada_Aula" FromRole="Aula" ToRole="Chamada" />
+          <NavigationProperty Name="JustificativaAulas" Relationship="Model1.FK_JustificativaAula_Aula" FromRole="Aula" ToRole="JustificativaAula" />
+        </EntityType>
+        <EntityType Name="Autonomo">
+          <Key>
+            <PropertyRef Name="autonomoUID" />
+          </Key>
+          <Property Name="autonomoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.FK_Autonomo_Pessoa" FromRole="Autonomo" ToRole="Pessoa" />
+          <NavigationProperty Name="Professors" Relationship="Model1.FK_Professor_Autonomo" FromRole="Autonomo" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="Bolsista">
+          <Key>
+            <PropertyRef Name="bolsistaUID" />
+          </Key>
+          <Property Name="bolsistaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.FK_Bolsista_Pessoa" FromRole="Bolsista" ToRole="Pessoa" />
+          <NavigationProperty Name="Turma" Relationship="Model1.FK_Bolsista_Turma" FromRole="Bolsista" ToRole="Turma" />
+          <NavigationProperty Name="Professors" Relationship="Model1.FK_Professor_Bolsista" FromRole="Bolsista" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="Chamada">
+          <Key>
+            <PropertyRef Name="chamadaUID" />
+          </Key>
+          <Property Name="chamadaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aulaUID" Type="Int64" Nullable="false" />
+          <Property Name="alunoUID" Type="Int64" Nullable="false" />
+          <Property Name="presente" Type="Boolean" Nullable="false" />
+          <Property Name="justificativaaulaUID" Type="Int64" />
+          <Property Name="ativa" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="Model1.FK_Chamada_Aluno" FromRole="Chamada" ToRole="Aluno" />
+          <NavigationProperty Name="Aula" Relationship="Model1.FK_Chamada_Aula" FromRole="Chamada" ToRole="Aula" />
+          <NavigationProperty Name="JustificativaAula" Relationship="Model1.FK_Chamada_JustificativaAula" FromRole="Chamada" ToRole="JustificativaAula" />
+        </EntityType>
+        <EntityType Name="Coordenador">
+          <Key>
+            <PropertyRef Name="coordenadorUID" />
+          </Key>
+          <Property Name="coordenadorUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.FK_Coordenador_Pessoa" FromRole="Coordenador" ToRole="Pessoa" />
+          <NavigationProperty Name="Professors" Relationship="Model1.FK_Professor_Coordenador" FromRole="Coordenador" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="DiaSemanaTurma">
+          <Key>
+            <PropertyRef Name="diasemanaturmaUID" />
+          </Key>
+          <Property Name="diasemanaturmaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" />
+          <Property Name="diaSemanal" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HoraInicio" Type="Int32" Nullable="false" />
+          <Property Name="MinutoInicio" Type="Int32" Nullable="false" />
+          <Property Name="HoraTermino" Type="Int32" Nullable="false" />
+          <Property Name="MinutoTermino" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aulas" Relationship="Model1.FK_Aula_DiaSemanaTurma" FromRole="DiaSemanaTurma" ToRole="Aula" />
+          <NavigationProperty Name="Turma" Relationship="Model1.FK_DiaSemanaTurma_Turma" FromRole="DiaSemanaTurma" ToRole="Turma" />
+        </EntityType>
+        <EntityType Name="JustificativaAula">
+          <Key>
+            <PropertyRef Name="justificativaaulaUID" />
+          </Key>
+          <Property Name="justificativaaulaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="alunoUID" Type="Int64" Nullable="false" />
+          <Property Name="aulaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativa" Type="Boolean" Nullable="false" />
+          <Property Name="justificativa" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="aprovadaCoordenador" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="Model1.FK_JustificativaAula_Aluno" FromRole="JustificativaAula" ToRole="Aluno" />
+          <NavigationProperty Name="Aula" Relationship="Model1.FK_JustificativaAula_Aula" FromRole="JustificativaAula" ToRole="Aula" />
+          <NavigationProperty Name="Chamadas" Relationship="Model1.FK_Chamada_JustificativaAula" FromRole="JustificativaAula" ToRole="Chamada" />
+        </EntityType>
         <EntityType Name="Login">
           <Key>
             <PropertyRef Name="loginUID" />
           </Key>
           <Property Name="loginUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="login" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="senha" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="senha" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="pessoaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="PessoaSet" Relationship="Model1.FK_LoginSet_PessoaSet" FromRole="Login" ToRole="Pessoa" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.FK_LoginSet_PessoaSet" FromRole="Login" ToRole="Pessoa" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Modalidade">
+          <Key>
+            <PropertyRef Name="modalidadeUID" />
+          </Key>
+          <Property Name="modalidadeUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoModalidade" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ValorInscrição" Type="Double" Nullable="false" />
+          <Property Name="ValorMensalidade" Type="Double" Nullable="false" />
+          <Property Name="ativa" Type="Boolean" Nullable="false" />
+          <Property Name="disponivel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Turmas" Relationship="Model1.FK_Turma_Modalidade" FromRole="Modalidade" ToRole="Turma" />
+        </EntityType>
+        <EntityType Name="Permissao">
+          <Key>
+            <PropertyRef Name="permissaoUID" />
+          </Key>
+          <Property Name="permissaoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <Property Name="tipoLogin" Type="Int32" Nullable="false" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.FK_Permissao_Pessoa" FromRole="Permissao" ToRole="Pessoa" />
         </EntityType>
         <EntityType Name="Pessoa">
           <Key>
             <PropertyRef Name="pessoaUID" />
           </Key>
           <Property Name="pessoaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="cpf" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cpf" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="nascimento" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="endereco" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="telefone" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="endereco" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="telefone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="nivelAcesso" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="LoginSet" Relationship="Model1.FK_LoginSet_PessoaSet" FromRole="Pessoa" ToRole="Login" />
+          <NavigationProperty Name="Alunoes" Relationship="Model1.FK_AlunoSet_PessoaSet" FromRole="Pessoa" ToRole="Aluno" />
+          <NavigationProperty Name="Autonomoes" Relationship="Model1.FK_Autonomo_Pessoa" FromRole="Pessoa" ToRole="Autonomo" />
+          <NavigationProperty Name="Bolsistas" Relationship="Model1.FK_Bolsista_Pessoa" FromRole="Pessoa" ToRole="Bolsista" />
+          <NavigationProperty Name="Coordenadors" Relationship="Model1.FK_Coordenador_Pessoa" FromRole="Pessoa" ToRole="Coordenador" />
+          <NavigationProperty Name="Logins" Relationship="Model1.FK_LoginSet_PessoaSet" FromRole="Pessoa" ToRole="Login" />
+          <NavigationProperty Name="Permissaos" Relationship="Model1.FK_Permissao_Pessoa" FromRole="Pessoa" ToRole="Permissao" />
         </EntityType>
-        <EntityType Name="Aluno">
+        <EntityType Name="Professor">
           <Key>
-            <PropertyRef Name="alunoUID" />
+            <PropertyRef Name="professorUID" />
           </Key>
-          <Property Name="alunoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cursoUID" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="pessoaUID" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="professorUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bolsistaUID" Type="Int64" />
+          <Property Name="coordenadorUID" Type="Int64" />
+          <Property Name="autonomoUID" Type="Int64" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Autonomo" Relationship="Model1.FK_Professor_Autonomo" FromRole="Professor" ToRole="Autonomo" />
+          <NavigationProperty Name="Bolsista" Relationship="Model1.FK_Professor_Bolsista" FromRole="Professor" ToRole="Bolsista" />
+          <NavigationProperty Name="Coordenador" Relationship="Model1.FK_Professor_Coordenador" FromRole="Professor" ToRole="Coordenador" />
+          <NavigationProperty Name="ProfessorTurmas" Relationship="Model1.FK_ProfessorTurma_Professor" FromRole="Professor" ToRole="ProfessorTurma" />
         </EntityType>
-        <EntityType Name="Curso">
+        <EntityType Name="ProfessorTurma">
           <Key>
-            <PropertyRef Name="cursoUID" />
+            <PropertyRef Name="professorturmaUID" />
           </Key>
-          <Property Name="cursoUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="cargaHoraria" Type="Int64" Nullable="false" />
-          <Property Name="turma" Type="Int32" Nullable="false" />
+          <Property Name="professorturmaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" />
+          <Property Name="professorUID" Type="Int64" Nullable="false" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Professor" Relationship="Model1.FK_ProfessorTurma_Professor" FromRole="ProfessorTurma" ToRole="Professor" />
+          <NavigationProperty Name="Turma" Relationship="Model1.FK_ProfessorTurma_Turma" FromRole="ProfessorTurma" ToRole="Turma" />
         </EntityType>
-        <EntityType Name="Ministrante">
+        <EntityType Name="Turma">
           <Key>
-            <PropertyRef Name="ministranteUID" />
+            <PropertyRef Name="turmaUID" />
           </Key>
-          <Property Name="ministranteUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cursoUID" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="pessoaUID" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modalidadeUID" Type="Int64" Nullable="false" />
+          <Property Name="ativa" Type="Boolean" Nullable="false" />
+          <Property Name="HorarioInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DuracaoAula" Type="Double" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Vagas" Type="Int32" Nullable="false" />
+          <Property Name="disponivel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Alunoes" Relationship="Model1.FK_Aluno_Turma" FromRole="Turma" ToRole="Aluno" />
+          <NavigationProperty Name="Aulas" Relationship="Model1.FK_Aula_Turma" FromRole="Turma" ToRole="Aula" />
+          <NavigationProperty Name="Bolsistas" Relationship="Model1.FK_Bolsista_Turma" FromRole="Turma" ToRole="Bolsista" />
+          <NavigationProperty Name="DiaSemanaTurmas" Relationship="Model1.FK_DiaSemanaTurma_Turma" FromRole="Turma" ToRole="DiaSemanaTurma" />
+          <NavigationProperty Name="Modalidade" Relationship="Model1.FK_Turma_Modalidade" FromRole="Turma" ToRole="Modalidade" />
+          <NavigationProperty Name="ProfessorTurmas" Relationship="Model1.FK_ProfessorTurma_Turma" FromRole="Turma" ToRole="ProfessorTurma" />
         </EntityType>
+        <Association Name="FK_Aluno_Turma">
+          <End Type="Model1.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="Model1.Aluno" Role="Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoSet_PessoaSet">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Aluno" Role="Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamada_Aluno">
+          <End Type="Model1.Aluno" Role="Aluno" Multiplicity="1" />
+          <End Type="Model1.Chamada" Role="Chamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="alunoUID" />
+            </Principal>
+            <Dependent Role="Chamada">
+              <PropertyRef Name="alunoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JustificativaAula_Aluno">
+          <End Type="Model1.Aluno" Role="Aluno" Multiplicity="1" />
+          <End Type="Model1.JustificativaAula" Role="JustificativaAula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="alunoUID" />
+            </Principal>
+            <Dependent Role="JustificativaAula">
+              <PropertyRef Name="alunoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtividadeAula_Aula">
+          <End Type="Model1.Aula" Role="Aula" Multiplicity="1" />
+          <End Type="Model1.AtividadeAula" Role="AtividadeAula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="aulaUID" />
+            </Principal>
+            <Dependent Role="AtividadeAula">
+              <PropertyRef Name="aulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aula_DiaSemanaTurma">
+          <End Type="Model1.DiaSemanaTurma" Role="DiaSemanaTurma" Multiplicity="1" />
+          <End Type="Model1.Aula" Role="Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiaSemanaTurma">
+              <PropertyRef Name="diasemanaturmaUID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="diasemanaturmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aula_Turma">
+          <End Type="Model1.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="Model1.Aula" Role="Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamada_Aula">
+          <End Type="Model1.Aula" Role="Aula" Multiplicity="1" />
+          <End Type="Model1.Chamada" Role="Chamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="aulaUID" />
+            </Principal>
+            <Dependent Role="Chamada">
+              <PropertyRef Name="aulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JustificativaAula_Aula">
+          <End Type="Model1.Aula" Role="Aula" Multiplicity="1" />
+          <End Type="Model1.JustificativaAula" Role="JustificativaAula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="aulaUID" />
+            </Principal>
+            <Dependent Role="JustificativaAula">
+              <PropertyRef Name="aulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autonomo_Pessoa">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Autonomo" Role="Autonomo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Autonomo">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Autonomo">
+          <End Type="Model1.Autonomo" Role="Autonomo" Multiplicity="0..1" />
+          <End Type="Model1.Professor" Role="Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autonomo">
+              <PropertyRef Name="autonomoUID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="autonomoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bolsista_Pessoa">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Bolsista" Role="Bolsista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Bolsista">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bolsista_Turma">
+          <End Type="Model1.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="Model1.Bolsista" Role="Bolsista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="Bolsista">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Bolsista">
+          <End Type="Model1.Bolsista" Role="Bolsista" Multiplicity="0..1" />
+          <End Type="Model1.Professor" Role="Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bolsista">
+              <PropertyRef Name="bolsistaUID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="bolsistaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chamada_JustificativaAula">
+          <End Type="Model1.JustificativaAula" Role="JustificativaAula" Multiplicity="0..1" />
+          <End Type="Model1.Chamada" Role="Chamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JustificativaAula">
+              <PropertyRef Name="justificativaaulaUID" />
+            </Principal>
+            <Dependent Role="Chamada">
+              <PropertyRef Name="justificativaaulaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coordenador_Pessoa">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Coordenador" Role="Coordenador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Coordenador">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professor_Coordenador">
+          <End Type="Model1.Coordenador" Role="Coordenador" Multiplicity="0..1" />
+          <End Type="Model1.Professor" Role="Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coordenador">
+              <PropertyRef Name="coordenadorUID" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="coordenadorUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiaSemanaTurma_Turma">
+          <End Type="Model1.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="Model1.DiaSemanaTurma" Role="DiaSemanaTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="DiaSemanaTurma">
+              <PropertyRef Name="turmaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LoginSet_PessoaSet">
           <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
           <End Type="Model1.Login" Role="Login" Multiplicity="*" />
@@ -207,43 +1133,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ModalidadeSet">
-          <Key>
-            <PropertyRef Name="modalidadeUID" />
-          </Key>
-          <Property Name="modalidadeUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
-          <Property Name="Modalidade" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ValorInscrição" Type="Double" Nullable="false" />
-          <Property Name="ValorMensalidade" Type="Double" Nullable="false" />
-          <Property Name="ativa" Type="Boolean" Nullable="false" />
-          <Property Name="disponivel" Type="Boolean" Nullable="false" />
-          <Property Name="tipoModalidade" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TurmaSet1" Relationship="Model1.FK_TurmaSet_ModalidadeSet1" FromRole="ModalidadeSet" ToRole="TurmaSet" />
-        </EntityType>
-        <EntityType Name="TurmaSet">
-          <Key>
-            <PropertyRef Name="turmaUID" />
-          </Key>
-          <Property Name="turmaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HorarioInicio" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DuracaoAula" Type="Double" Nullable="false" />
-          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Vagas" Type="Int32" Nullable="false" />
-          <Property Name="ativa" Type="Boolean" Nullable="false" />
-          <Property Name="disponivel" Type="Boolean" Nullable="false" />
-          <Property Name="modalidadeUID" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Modalidade" Relationship="Model1.FK_TurmaSet_ModalidadeSet1" FromRole="TurmaSet" ToRole="ModalidadeSet" />
-        </EntityType>
-        <Association Name="FK_TurmaSet_ModalidadeSet1">
-          <End Type="Model1.ModalidadeSet" Role="ModalidadeSet" Multiplicity="1" />
-          <End Type="Model1.TurmaSet" Role="TurmaSet" Multiplicity="*" />
+        <Association Name="FK_Turma_Modalidade">
+          <End Type="Model1.Modalidade" Role="Modalidade" Multiplicity="1" />
+          <End Type="Model1.Turma" Role="Turma" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ModalidadeSet">
+            <Principal Role="Modalidade">
               <PropertyRef Name="modalidadeUID" />
             </Principal>
-            <Dependent Role="TurmaSet">
+            <Dependent Role="Turma">
               <PropertyRef Name="modalidadeUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissao_Pessoa">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Permissao" Role="Permissao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
+            </Principal>
+            <Dependent Role="Permissao">
+              <PropertyRef Name="pessoaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfessorTurma_Professor">
+          <End Type="Model1.Professor" Role="Professor" Multiplicity="1" />
+          <End Type="Model1.ProfessorTurma" Role="ProfessorTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="professorUID" />
+            </Principal>
+            <Dependent Role="ProfessorTurma">
+              <PropertyRef Name="professorUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfessorTurma_Turma">
+          <End Type="Model1.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="Model1.ProfessorTurma" Role="ProfessorTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="ProfessorTurma">
+              <PropertyRef Name="turmaUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -253,90 +1187,200 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="UCDBContext">
-    <EntitySetMapping Name="LoginSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Login)">
-        <MappingFragment StoreEntitySet="LoginSet">
-          <ScalarProperty Name="loginUID" ColumnName="loginUID" />
-          <ScalarProperty Name="login" ColumnName="login" />
-          <ScalarProperty Name="senha" ColumnName="senha" />
-          <ScalarProperty Name="validade" ColumnName="validade" />
-          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PessoaSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Pessoa)">
-        <MappingFragment StoreEntitySet="PessoaSet">
-          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
-          <ScalarProperty Name="nome" ColumnName="nome" />
-          <ScalarProperty Name="cpf" ColumnName="cpf" />
-          <ScalarProperty Name="nascimento" ColumnName="nascimento" />
-          <ScalarProperty Name="endereco" ColumnName="endereco" />
-          <ScalarProperty Name="telefone" ColumnName="telefone" />
-          <ScalarProperty Name="nivelAcesso" ColumnName="nivelAcesso" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AlunoSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Aluno)">
-        <MappingFragment StoreEntitySet="AlunoSet">
-          <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
-          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
-          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
-          <ScalarProperty Name="ativo" ColumnName="ativo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CursoSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Curso)">
-        <MappingFragment StoreEntitySet="CursoSet">
-          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
-          <ScalarProperty Name="nome" ColumnName="nome" />
-          <ScalarProperty Name="cargaHoraria" ColumnName="cargaHoraria" />
-          <ScalarProperty Name="turma" ColumnName="turma" />
-          <ScalarProperty Name="ativo" ColumnName="ativo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MinistranteSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Ministrante)">
-        <MappingFragment StoreEntitySet="MinistranteSet">
-          <ScalarProperty Name="ministranteUID" ColumnName="ministranteUID" />
-          <ScalarProperty Name="cursoUID" ColumnName="cursoUID" />
-          <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
-          <ScalarProperty Name="ativo" ColumnName="ativo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-          <EntitySetMapping Name="ModalidadeSet">
-            <EntityTypeMapping TypeName="Model1.ModalidadeSet">
-              <MappingFragment StoreEntitySet="ModalidadeSet">
-                <ScalarProperty Name="tipoModalidade" ColumnName="tipoModalidade" />
-                <ScalarProperty Name="modalidadeUID" ColumnName="modalidadeUID" />
+    <EntitySetMapping Name="Alunoes">
+            <EntityTypeMapping TypeName="Model1.Aluno">
+              <MappingFragment StoreEntitySet="Aluno">
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
+                <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtividadeAulas">
+            <EntityTypeMapping TypeName="Model1.AtividadeAula">
+              <MappingFragment StoreEntitySet="AtividadeAula">
+                <ScalarProperty Name="ordem" ColumnName="ordem" />
+                <ScalarProperty Name="aprovado" ColumnName="aprovado" />
+                <ScalarProperty Name="duracaoMin" ColumnName="duracaoMin" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="aulaUID" ColumnName="aulaUID" />
+                <ScalarProperty Name="ativa" ColumnName="ativa" />
+                <ScalarProperty Name="atividadeaulaUID" ColumnName="atividadeaulaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aulas">
+            <EntityTypeMapping TypeName="Model1.Aula">
+              <MappingFragment StoreEntitySet="Aula">
+                <ScalarProperty Name="duracaoMin" ColumnName="duracaoMin" />
+                <ScalarProperty Name="aulaExtra" ColumnName="aulaExtra" />
+                <ScalarProperty Name="ativa" ColumnName="ativa" />
+                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
+                <ScalarProperty Name="dataRealizacao" ColumnName="dataRealizacao" />
+                <ScalarProperty Name="diasemanaturmaUID" ColumnName="diasemanaturmaUID" />
+                <ScalarProperty Name="aulaUID" ColumnName="aulaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autonomoes">
+            <EntityTypeMapping TypeName="Model1.Autonomo">
+              <MappingFragment StoreEntitySet="Autonomo">
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+                <ScalarProperty Name="autonomoUID" ColumnName="autonomoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bolsistas">
+            <EntityTypeMapping TypeName="Model1.Bolsista">
+              <MappingFragment StoreEntitySet="Bolsista">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+                <ScalarProperty Name="bolsistaUID" ColumnName="bolsistaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chamadas">
+            <EntityTypeMapping TypeName="Model1.Chamada">
+              <MappingFragment StoreEntitySet="Chamada">
+                <ScalarProperty Name="ativa" ColumnName="ativa" />
+                <ScalarProperty Name="justificativaaulaUID" ColumnName="justificativaaulaUID" />
+                <ScalarProperty Name="presente" ColumnName="presente" />
+                <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
+                <ScalarProperty Name="aulaUID" ColumnName="aulaUID" />
+                <ScalarProperty Name="chamadaUID" ColumnName="chamadaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coordenadors">
+            <EntityTypeMapping TypeName="Model1.Coordenador">
+              <MappingFragment StoreEntitySet="Coordenador">
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="coordenadorUID" ColumnName="coordenadorUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiaSemanaTurmas">
+            <EntityTypeMapping TypeName="Model1.DiaSemanaTurma">
+              <MappingFragment StoreEntitySet="DiaSemanaTurma">
+                <ScalarProperty Name="MinutoTermino" ColumnName="MinutoTermino" />
+                <ScalarProperty Name="HoraTermino" ColumnName="HoraTermino" />
+                <ScalarProperty Name="MinutoInicio" ColumnName="MinutoInicio" />
+                <ScalarProperty Name="HoraInicio" ColumnName="HoraInicio" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="diaSemanal" ColumnName="diaSemanal" />
+                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="diasemanaturmaUID" ColumnName="diasemanaturmaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JustificativaAulas">
+            <EntityTypeMapping TypeName="Model1.JustificativaAula">
+              <MappingFragment StoreEntitySet="JustificativaAula">
+                <ScalarProperty Name="aprovadaCoordenador" ColumnName="aprovadaCoordenador" />
+                <ScalarProperty Name="justificativa" ColumnName="justificativa" />
+                <ScalarProperty Name="ativa" ColumnName="ativa" />
+                <ScalarProperty Name="aulaUID" ColumnName="aulaUID" />
+                <ScalarProperty Name="alunoUID" ColumnName="alunoUID" />
+                <ScalarProperty Name="justificativaaulaUID" ColumnName="justificativaaulaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="Model1.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="loginUID" ColumnName="loginUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modalidades">
+            <EntityTypeMapping TypeName="Model1.Modalidade">
+              <MappingFragment StoreEntitySet="Modalidade">
                 <ScalarProperty Name="disponivel" ColumnName="disponivel" />
                 <ScalarProperty Name="ativa" ColumnName="ativa" />
                 <ScalarProperty Name="ValorMensalidade" ColumnName="ValorMensalidade" />
                 <ScalarProperty Name="ValorInscrição" ColumnName="ValorInscrição" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="Modalidade" ColumnName="Modalidade" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="tipoModalidade" ColumnName="tipoModalidade" />
+                <ScalarProperty Name="modalidadeUID" ColumnName="modalidadeUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TurmaSet">
-            <EntityTypeMapping TypeName="Model1.TurmaSet">
-              <MappingFragment StoreEntitySet="TurmaSet">
-                <ScalarProperty Name="modalidadeUID" ColumnName="modalidadeUID" />
+          <EntitySetMapping Name="Permissaos">
+            <EntityTypeMapping TypeName="Model1.Permissao">
+              <MappingFragment StoreEntitySet="Permissao">
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="tipoLogin" ColumnName="tipoLogin" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+                <ScalarProperty Name="permissaoUID" ColumnName="permissaoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoas">
+            <EntityTypeMapping TypeName="Model1.Pessoa">
+              <MappingFragment StoreEntitySet="Pessoa">
+                <ScalarProperty Name="nivelAcesso" ColumnName="nivelAcesso" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+                <ScalarProperty Name="nascimento" ColumnName="nascimento" />
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professors">
+            <EntityTypeMapping TypeName="Model1.Professor">
+              <MappingFragment StoreEntitySet="Professor">
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="autonomoUID" ColumnName="autonomoUID" />
+                <ScalarProperty Name="coordenadorUID" ColumnName="coordenadorUID" />
+                <ScalarProperty Name="bolsistaUID" ColumnName="bolsistaUID" />
+                <ScalarProperty Name="professorUID" ColumnName="professorUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfessorTurmas">
+            <EntityTypeMapping TypeName="Model1.ProfessorTurma">
+              <MappingFragment StoreEntitySet="ProfessorTurma">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="professorUID" ColumnName="professorUID" />
+                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
+                <ScalarProperty Name="professorturmaUID" ColumnName="professorturmaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turmas">
+            <EntityTypeMapping TypeName="Model1.Turma">
+              <MappingFragment StoreEntitySet="Turma">
                 <ScalarProperty Name="disponivel" ColumnName="disponivel" />
-                <ScalarProperty Name="ativa" ColumnName="ativa" />
                 <ScalarProperty Name="Vagas" ColumnName="Vagas" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="DuracaoAula" ColumnName="DuracaoAula" />
                 <ScalarProperty Name="HorarioInicio" ColumnName="HorarioInicio" />
+                <ScalarProperty Name="ativa" ColumnName="ativa" />
+                <ScalarProperty Name="modalidadeUID" ColumnName="modalidadeUID" />
                 <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-  </EntityContainerMapping>
+        </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

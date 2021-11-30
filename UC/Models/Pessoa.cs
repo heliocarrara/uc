@@ -16,7 +16,12 @@ namespace UC.Models
     {
         public Pessoa()
         {
-            this.LoginSet = new HashSet<Login>();
+            this.Alunoes = new HashSet<Aluno>();
+            this.Autonomoes = new HashSet<Autonomo>();
+            this.Bolsistas = new HashSet<Bolsista>();
+            this.Coordenadors = new HashSet<Coordenador>();
+            this.Logins = new HashSet<Login>();
+            this.Permissaos = new HashSet<Permissao>();
         }
     
         public long pessoaUID { get; set; }
@@ -27,6 +32,11 @@ namespace UC.Models
         public string telefone { get; set; }
         public int nivelAcesso { get; set; }
     
-        public virtual ICollection<Login> LoginSet { get; set; }
+        public virtual ICollection<Aluno> Alunoes { get; set; }
+        public virtual ICollection<Autonomo> Autonomoes { get; set; }
+        public virtual ICollection<Bolsista> Bolsistas { get; set; }
+        public virtual ICollection<Coordenador> Coordenadors { get; set; }
+        public virtual ICollection<Login> Logins { get; set; }
+        public virtual ICollection<Permissao> Permissaos { get; set; }
     }
 }

@@ -12,17 +12,22 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TurmaSet
+    public partial class Modalidade
     {
-        public long turmaUID { get; set; }
-        public System.DateTime HorarioInicio { get; set; }
-        public double DuracaoAula { get; set; }
+        public Modalidade()
+        {
+            this.Turmas = new HashSet<Turma>();
+        }
+    
+        public long modalidadeUID { get; set; }
+        public int tipoModalidade { get; set; }
+        public string nome { get; set; }
         public string Descricao { get; set; }
-        public int Vagas { get; set; }
+        public double ValorInscrição { get; set; }
+        public double ValorMensalidade { get; set; }
         public bool ativa { get; set; }
         public bool disponivel { get; set; }
-        public long modalidadeUID { get; set; }
     
-        public virtual ModalidadeSet Modalidade { get; set; }
+        public virtual ICollection<Turma> Turmas { get; set; }
     }
 }

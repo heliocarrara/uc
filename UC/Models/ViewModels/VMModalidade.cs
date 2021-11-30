@@ -11,11 +11,14 @@ namespace UC.Models.ViewModels
         #region PROPERTIES
         public long modalidadeUID { get; set; }
         public long tipoModalidade { get; set; }
-        public string Modalidade { get; set; }
+        public string nome { get; set; }
         public string Descrição { get; set; }
         public List<VMTurma> Turmas { get; set; }
         public string ValorInscrição { get; set; }
         public string ValorMensalidade { get; set; }
+
+        public bool ativa { get; set; }
+        public bool disponivel { get; set; }
         #endregion
 
         #region CONTRUCTORS
@@ -24,27 +27,24 @@ namespace UC.Models.ViewModels
 
         }
 
-        public VMModalidade(ModalidadeSet modalidade)
+        public VMModalidade(Modalidade modalidade, List<Turma> turmas)
         {
             this.modalidadeUID = modalidade.modalidadeUID;
             this.tipoModalidade = modalidade.tipoModalidade;
-            this.Modalidade = modalidade.Modalidade;
+            this.nome = modalidade.nome;
             this.Descrição = modalidade.Descricao;
             this.ValorInscrição = "R$" + modalidade.ValorInscrição + ",00";
             this.ValorMensalidade = "R$" + modalidade.ValorMensalidade + ",00";
+            this.ativa = modalidade.ativa;
+            this.disponivel = modalidade.disponivel;
 
             this.Turmas = new List<VMTurma>();
 
-            if (modalidade.TurmaSet1 != null && modalidade.TurmaSet1.Any())
+            if (turmas != null && turmas.Any())
             {
-                var lista = modalidade.TurmaSet1.Where(x => x.ativa && x.disponivel).ToList();
-
-                if (lista != null && lista.Any())
+                foreach (var cadaTurma in turmas)
                 {
-                    foreach (var cadaTurma in lista)
-                    {
-                        this.Turmas.Add(new VMTurma(cadaTurma));
-                    }
+                    this.Turmas.Add(new VMTurma(cadaTurma));
                 }
             }
             

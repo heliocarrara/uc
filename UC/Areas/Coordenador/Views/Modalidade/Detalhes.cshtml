@@ -15,12 +15,22 @@
                 <li class="list-group-item"><h3>Vagas Totais: @Model.Turmas.Sum(x => x.Vagas)</h3></li>
             </ul>
         </div>
+        <div class="row">
+            @Html.ActionLink("Editar", "Editar", "Modalidade", new { Area = "Cadastro", modalidadeUID = Model.modalidadeUID }, new { @class = "btn btn-warning" })
+
+            @Html.ActionLink("Excluir", "Excluir", "Modalidade", new { Area = "Cadastro", modalidadeUID = Model.modalidadeUID }, new { @class = "btn btn-danger" })
+
+            @Html.ActionLink("Escolher depois", "Detalhes", "Modalidade", new { Area = "Cadastro", modalidadeUID = Model.modalidadeUID }, new { @class = "btn btn-default" })
+
+            @Html.ActionLink("Incluir Turma", "NovaTurma", "Turma", new { Area = "Cadastro", modalidadeUID = Model.modalidadeUID }, new { @class = "btn btn-success" })
+
+        </div>
     </div>
    <br />
-   <div class="panel panel-info">
+   <div class="panel panel-success panel-heading">
        <span class="panel-title-col">Turmas da Modalidade</span>
    </div>
-    <div class="panel">
+    <div class="panel panel-success">
         @if (Model.Turmas != null && Model.Turmas.Any())
         {
             foreach (var cadaTurma in Model.Turmas)
@@ -39,6 +49,20 @@
                             <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@cadaTurma.Vagas</h3></li>
                         </ul>
                         
+                    </div>
+                    <div class="row">
+                        <div class="btn-modalidade">
+                            @Html.ActionLink("Inscrever", "NovaInscricao", "InscricaoTurma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-success" })
+                        </div>
+                        <div class="btn-modalidade">
+                            @Html.ActionLink("Editar", "Detalhes", "Modalidade", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-warning" })
+                        </div>
+                        <div class="btn-modalidade">
+                            @Html.ActionLink("Excluir", "Detalhes", "Modalidade", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
+                        </div>
+                        <div class="btn-modalidade">
+                            @Html.ActionLink("Escolher depois", "Detalhes", "Modalidade", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-default" })
+                        </div>
                     </div>
                 </div>
             }

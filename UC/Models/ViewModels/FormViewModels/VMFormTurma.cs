@@ -26,7 +26,7 @@ namespace UC.Models.ViewModels.FormViewModels
             this.modalidadeUID = modalidadeUID;
         }
 
-        public VMFormTurma(TurmaSet turma)
+        public VMFormTurma(Turma turma)
         {
             this.turmaUID = turma.turmaUID;
             this.modalidadeUID = turma.modalidadeUID;
@@ -39,6 +39,7 @@ namespace UC.Models.ViewModels.FormViewModels
             this.horaTermino = termino.Hour;
             this.minutoTermino = termino.Minute;
             this.vagas = turma.Vagas;
+            this.descricao = turma.Descricao;
         }
     }
 }

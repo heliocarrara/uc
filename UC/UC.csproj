@@ -226,10 +226,14 @@
     <Compile Include="Areas\Aluno\AlunoAreaRegistration.cs" />
     <Compile Include="Areas\Bolsista\BolsistaAreaRegistration.cs" />
     <Compile Include="Areas\Cadastro\CadastroAreaRegistration.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\ModalidadeController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\TurmaController.cs" />
     <Compile Include="Areas\Comum\ComumAreaRegistration.cs" />
     <Compile Include="Areas\Comum\Controllers\ModalidadeController.cs" />
     <Compile Include="Areas\Comum\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Coordenador\Controllers\TurmaController.cs" />
+    <Compile Include="Areas\Coordenador\Controllers\ModalidadeController.cs" />
+    <Compile Include="Areas\Coordenador\Controllers\PainelController.cs" />
     <Compile Include="Areas\Coordenador\CoordenadorAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -241,25 +245,52 @@
     <Compile Include="Models\Aluno.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Curso.cs">
+    <Compile Include="Models\AtividadeAula.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Aula.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Autonomo.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bolsista.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chamada.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Coordenador.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiaSemanaTurma.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Enumerators\TipoModalidade.cs" />
     <Compile Include="Models\Enumerators\TipoLogin.cs" />
     <Compile Include="Models\IUnityOfHelpers.cs" />
+    <Compile Include="Models\JustificativaAula.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Login.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ministrante.cs">
+    <Compile Include="Models\Modalidade.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModalidadeSet.cs">
+    <Compile Include="Models\Permissao.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pessoa.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TurmaSet.cs">
+    <Compile Include="Models\Professor.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProfessorTurma.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Turma.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UCEntityHelpers\BaseHelper.cs" />
@@ -282,11 +313,14 @@
     </Compile>
     <Compile Include="Models\UnityOfHelpers.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormCadastroLogin.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormModalidade.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormTurma.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListTurma.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListPessoas.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListUsuarios.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListModalidade.cs" />
     <Compile Include="Models\ViewModels\VMModalidade.cs" />
+    <Compile Include="Models\ViewModels\VMPainelCoordenador.cs" />
     <Compile Include="Models\ViewModels\VMTurma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CustomIdentity.cs" />
@@ -359,6 +393,13 @@
     <Content Include="App_Code\UCHelpers.cshtml" />
     <Content Include="Areas\Comum\Views\Modalidade\Detalhes.cshtml" />
     <Content Include="Areas\Cadastro\Views\Turma\FormularioTurma.cshtml" />
+    <Content Include="Areas\Coordenador\Views\Painel\DetalhesPainel.cshtml" />
+    <Content Include="Areas\Coordenador\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Cadastro\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Coordenador\Views\Modalidade\Detalhes.cshtml" />
+    <Content Include="Areas\Coordenador\Views\Modalidade\ListaModalidade.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Modalidade\FormularioModalidade.cshtml" />
+    <Content Include="Areas\Coordenador\Views\Turma\ListaTurma.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -404,7 +445,6 @@
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Shared\" />
     <Folder Include="Areas\Comum\Model\" />
-    <Folder Include="Areas\Coordenador\Controllers\" />
     <Folder Include="Areas\Coordenador\Data\" />
     <Folder Include="Areas\Coordenador\Views\Shared\" />
   </ItemGroup>

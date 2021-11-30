@@ -12,11 +12,14 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ministrante
+    public partial class Permissao
     {
-        public int ministranteUID { get; set; }
-        public string cursoUID { get; set; }
-        public string pessoaUID { get; set; }
-        public bool ativo { get; set; }
+        public long permissaoUID { get; set; }
+        public long pessoaUID { get; set; }
+        public int tipoLogin { get; set; }
+        public System.DateTime dataCriacao { get; set; }
+        public System.DateTime validade { get; set; }
+    
+        public virtual Pessoa Pessoa { get; set; }
     }
 }

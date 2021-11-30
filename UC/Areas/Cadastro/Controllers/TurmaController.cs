@@ -9,11 +9,13 @@ using UC.Models.ViewModels.FormViewModels;
 
 namespace UC.Areas.Cadastro.Controllers
 {
+    [System.Web.Http.Authorize(Roles = "Coordenador")]
     public class TurmaController : BaseController
     {
+        const string formulario = "FormularioTurma";
         public ActionResult Index()
         {
-            return View("Index");
+            return RedirectToAction("Index", "Home", new { Area = "" }); ;
         }
 
         public ActionResult NovaTurma(long modalidadeUID)
@@ -22,12 +24,126 @@ namespace UC.Areas.Cadastro.Controllers
             {
                 var model = new VMFormTurma(modalidadeUID);
 
-                ViewBag.Message = "Formulários";
+                ViewBag.Message = "Formulário de Turma";
 
-                return View("FormularioTurma", model);
+                return View(formulario, model);
             }
             catch (Exception ex)
             {
+                return Index();
+            }
+        }
+
+        public ActionResult Nova()
+        {
+            try
+            {
+                throw new NotImplementedException("Não implementado.");
+
+                return Index();
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult Editar(long turmaUID)
+        {
+            try
+            {
+                var turma = idbucContext.Turmas.Find(turmaUID);
+
+                var model = new VMFormTurma(turma);
+
+                return View(formulario, model);
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult Excluir(long turmaUID)
+        {
+            try
+            {
+                var turma = idbucContext.Turmas.Find(turmaUID);
+
+                turma.ativa = false;
+
+                AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " foi excluida com sucesso!");
+
+                idbucContext.SaveChanges();
+
+                return RedirectToAction("Lista", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult Reciclar(long turmaUID)
+        {
+            try
+            {
+                var turma = idbucContext.Turmas.Find(turmaUID);
+
+                turma.ativa = true;
+                AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " está de volta!");
+
+                idbucContext.SaveChanges();
+
+                return RedirectToAction("Lixeira", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult Desativar(long turmaUID)
+        {
+            try
+            {
+                var turma = idbucContext.Turmas.Find(turmaUID);
+
+                turma.disponivel = false;
+
+                AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " foi desativada com sucesso!");
+                idbucContext.SaveChanges();
+
+                return RedirectToAction("Lista", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult Ativar(long turmaUID)
+        {
+            try
+            {
+                var turma = idbucContext.Turmas.Find(turmaUID);
+
+                turma.disponivel = true;
+
+                AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " está de volta!");
+
+                idbucContext.SaveChanges();
+
+                return RedirectToAction("Lixeira", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
                 return Index();
             }
         }
@@ -46,7 +162,7 @@ namespace UC.Areas.Cadastro.Controllers
 
                 if (!form.turmaUID.HasValue || form.turmaUID.Value > 0)
                 {
-                    var turma = new TurmaSet()
+                    var turma = new Turma()
                     {
                         turmaUID = 0,
                         ativa = true,
@@ -58,13 +174,13 @@ namespace UC.Areas.Cadastro.Controllers
                         DuracaoAula = horarioTermino.Subtract(horarioInicio).TotalMinutes
                     };
 
-                    idbucContext.TurmaSet.Add(turma);
+                    idbucContext.Turmas.Add(turma);
 
                     idbucContext.SaveChanges();
                 }
                 else
                 {
-                    var turma = idbucContext.TurmaSet.Find(form.turmaUID.Value);
+                    var turma = idbucContext.Turmas.Find(form.turmaUID.Value);
 
                     turma.Descricao = form.descricao;
                     turma.disponivel = form.disponivel;
@@ -80,7 +196,7 @@ namespace UC.Areas.Cadastro.Controllers
                 ViewBag.Message = "Turma Cadastrada com Sucesso!";
                 AddMessage(UserMessageType.success, "Turma Cadastrada com Sucesso!!!");
 
-                return RedirectToAction("Detalhes", "Modalidade", new { Area = "Comum", modalidadeUID = form.modalidadeUID});
+                return RedirectToAction("Lista", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole, modalidadeUID = form.modalidadeUID});
             }
             catch (Exception ex)
             {

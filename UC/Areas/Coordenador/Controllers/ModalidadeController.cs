@@ -1,21 +1,19 @@
-﻿using UC.Models.UCEntityHelpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using UC.Models;
+using UC.Controllers;
 using UC.Models.ViewModels;
 using UC.Models.ViewModels.ListViewModels;
-using UC.Controllers;
 
-namespace UC.Areas.Comum.Controllers
+namespace UC.Areas.Coordenador.Controllers
 {
+    [System.Web.Http.Authorize(Roles = "Coordenador")]
     public class ModalidadeController : BaseController
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home", new { Area = ""});
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Lista()
@@ -37,30 +35,39 @@ namespace UC.Areas.Comum.Controllers
 
                 ViewBag.Message = "Modalidades";
 
-                return View(model);
+                return View("ListaModalidade", model);
             }
             catch (Exception ex)
             {
+                AddMessage(UserMessageType.error, ex);
                 return Index();
             }
         }
 
-        public ActionResult Detalhes(long modalidadeUID)
+        public ActionResult Lixeira()
         {
             try
             {
-                var modalidade = idbucContext.Modalidades.FirstOrDefault(x => x.ativa && x.disponivel && x.modalidadeUID == modalidadeUID);
+                var lista = new List<VMModalidade>();
 
-                var turmas = idbucContext.Turmas.Where(x => x.modalidadeUID == modalidadeUID).ToList();
+                var modalidades = idbucContext.Modalidades.Where(x => x.ativa == false || x.disponivel == false).ToList();
 
-                var model = new VMModalidade(modalidade, turmas);
+                foreach (var cadaModalidade in modalidades)
+                {
+                    var turmas = idbucContext.Turmas.Where(x => x.ativa && x.disponivel && x.modalidadeUID == cadaModalidade.modalidadeUID).ToList();
 
-                ViewBag.Message = "Detalhes Modalidade";
+                    lista.Add(new VMModalidade(cadaModalidade, turmas));
+                }
 
-                return View(model);
+                var model = new VMListModalidade(lista);
+
+                ViewBag.Message = "Modalidades desativadas";
+
+                return View("ListaModalidade", model);
             }
             catch (Exception ex)
             {
+                AddMessage(UserMessageType.error, ex);
                 return Index();
             }
         }
