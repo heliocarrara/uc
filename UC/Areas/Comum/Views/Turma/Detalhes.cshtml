@@ -1,0 +1,93 @@
+﻿@model UC.Models.ViewModels.VMTurma
+
+@if (Model != null)
+{
+    <div class="panel panel-info panel-detalhes-turma">
+        <div class="panel-heading panel-title-row">
+            Turma nº: @Model.turmaUID - @Model.Modalidade.nome
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item"><h3><strong>Descrição da Modalidade: </strong>@Model.Modalidade.Descricao</h3></li>
+                <li class="list-group-item"><h3><strong>Descrição da Turma: </strong>@Model.Descricao</h3></li>
+                <li class="list-group-item"><h3><strong>Horario de Inicio: </strong>@Model.HorarioInicio.ToShortTimeString()</h3></li>
+                <li class="list-group-item"><h3><strong>Horario de Término: </strong>@Model.HorarioTermino.ToShortTimeString()</h3></li>
+                <li class="list-group-item"><h3><strong>Dias da Semana: Segunda, Terça e Quarta</strong></h3></li>
+                <li class="list-group-item"><h3><strong>Minutos: @Model.DuracaoAula Min</strong></h3></li>
+                <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@Model.Vagas</h3></li>
+            </ul>
+
+        </div>
+        @if (UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario")
+        {
+            <div class="row">
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Adicionar Aluno", "NovoDestaTurma", "Aluno", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-success" })
+                </div>
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Editar", "Editar", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-warning" })
+                </div>
+                @if (Model.ativa)
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Excluir", "Excluir", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Reciclar", "Reciclar", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+
+                @if (Model.disponivel)
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Desativar", "Desativar", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Reativar", "Ativar", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <h2>Lista de Alunos</h2>
+
+    <table class="table-bordered" style="min-width: 100%; text-align:center;">
+        <thead>
+            <tr style="line-height: 3em;">
+                <th style="text-align: center;">Nome</th>
+                <th style="text-align: center;">Situação</th>
+                <th style="text-align: center;">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cadaAluno in Model.Alunos)
+            {
+                <tr>
+                    <td>@cadaAluno.nome</td>
+                    @if (cadaAluno.ativo)
+                    {
+                        <td class="success">Regular</td>
+                    }
+                    else
+                    {
+                        <td class="warning">Irregular</td>
+                    }
+                    <td>@Html.ActionLink("Detalhes", "Detalhes", "Aluno", new { Area = "Aluno", alunoUID = cadaAluno.alunoUID }, new { @class = "btn btn-info" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="panel-body">
+        <h3>Erro ao carregar página.</h3>
+    </div>
+}

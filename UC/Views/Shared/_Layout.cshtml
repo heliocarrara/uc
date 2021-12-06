@@ -47,15 +47,31 @@
                 var nome = "Olá, " + UC.Utility.SimpleSessionPersister.Username;
                 var perfil = "Perfil: " + UC.Utility.SimpleSessionPersister.UserRole;
 
-                <div>@Html.ActionLink(nome, "Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "" })</div>
-                <div>@Html.ActionLink(perfil, "SelecionarPerfil", "Account", new { Area = "" }, new { @class = "" })</div>
-                <div>@Html.ActionLink("Sair", "LogOut", "Account", new { Area = "" }, new { @class = "" })</div>
+                <div class="btn-group">
+                    <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @nome
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.ActionLink("Acessar Painel", "Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "" })
+                        </li>
+                        <li>
+                            @Html.ActionLink(perfil, "SelecionarPerfil", "Account", new { Area = "" }, new { @class = "" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Sair", "LogOut", "Account", new { Area = "" }, new { @class = "" })
+                        </li>
+                    </ul>
+                </div>
             }
             else
             {
 
                 <div>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, new { @class = "" })</div>
             }
+
+            
         </div>
     </div>
     <div class="container body-content">

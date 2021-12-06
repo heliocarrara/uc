@@ -15,7 +15,7 @@ namespace UC.Models.ViewModels
         public string Descricao { get; set; }
         public int Vagas { get; set; }
         public Modalidade Modalidade { get; set; }
-
+        public List<VMAluno> Alunos { get; set; }
         public bool ativa { get; set; }
         public bool disponivel { get; set; }
         #endregion
@@ -39,6 +39,15 @@ namespace UC.Models.ViewModels
 
             this.ativa = turma.ativa;
             this.disponivel = turma.disponivel;
+            this.Alunos = new List<VMAluno>();
+
+            if (turma.Alunoes != null && turma.Alunoes.Any())
+            {
+                foreach (var cadaAluno in turma.Alunoes.ToList())
+                {
+                    this.Alunos.Add(new VMAluno(cadaAluno));
+                }
+            }
         }
         #endregion
     }

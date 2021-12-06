@@ -222,6 +222,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\AlunoController.cs" />
+    <Compile Include="Areas\Comum\Controllers\TurmaController.cs" />
+    <Compile Include="Areas\Coordenador\Controllers\AlunoController.cs" />
     <Compile Include="Areas\Coordenador\Controllers\PessoaController.cs" />
     <Compile Include="Areas\Secretario\SecretarioAreaRegistration.cs" />
     <Compile Include="Areas\Aluno\AlunoAreaRegistration.cs" />
@@ -317,6 +320,7 @@
       <DependentUpon>UCModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UnityOfHelpers.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormAluno.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormCadastroLogin.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormModalidade.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormPermissao.cs" />
@@ -326,6 +330,7 @@
     <Compile Include="Models\ViewModels\ListViewModels\VMListPessoas.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListUsuarios.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListModalidade.cs" />
+    <Compile Include="Models\ViewModels\VMAluno.cs" />
     <Compile Include="Models\ViewModels\VMModalidade.cs" />
     <Compile Include="Models\ViewModels\VMPainelCoordenador.cs" />
     <Compile Include="Models\ViewModels\VMPermissao.cs" />
@@ -398,6 +403,8 @@
     <Content Include="Areas\Coordenador\Views\Turma\ListaTurma.cshtml" />
     <Content Include="Areas\Cadastro\Views\Permissao\FormularioPermissao.cshtml" />
     <Content Include="Areas\Coordenador\Views\Permissao\ListaPermissao.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Aluno\FormularioAluno.cshtml" />
+    <Content Include="Areas\Comum\Views\Turma\Detalhes.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

@@ -1,0 +1,55 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormAluno
+
+@{
+    ViewBag.Title = "Novo Aluno";
+}
+
+@using (@Html.BeginForm("GravarFormulario", "Aluno", FormMethod.Post))
+{
+    if (Model.pessoaUID.HasValue)
+    {
+        @Html.HiddenFor(m => m.pessoaUID, Model.pessoaUID.Value)
+    }
+
+    <div>
+        <div class="panel-heading">
+            <h2>Formulário de Aluno</h2>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.cpf, "CPF:")
+                @Html.TextBoxFor(m => m.cpf, new { @class = "form-control more-large", placeholder = "Somente números..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.turmaUID, "Turma Desejada:")
+                @Html.DropDownListFor(m => m.turmaUID, Model.turmas, new { @class = "form-control" })
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.nome))
+            {
+                <div class="panel-info panel-collapse panel-heading">
+                    <h3>Encontrado: <strong>@Model.nome</strong></h3>
+                </div>
+            }
+        </div>
+        <div class="panel-footer more-large text-center">
+            @if (String.IsNullOrWhiteSpace(Model.nome))
+            {
+                <button type="submit" class="btn btn-success">Buscar Pessoa pelo CPF</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-success">Salvar as Alterações</button>
+            }
+
+            @if (Model.turmaUID.HasValue)
+            {
+                @Html.ActionLink("Voltar", "Detalhes", "Turma", new { Area = "Comum", turmaUID = Model.turmaUID.Value }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("Voltar", "Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
+            }
+
+        </div>
+    </div>
+}

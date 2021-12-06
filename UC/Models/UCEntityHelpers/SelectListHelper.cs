@@ -71,6 +71,36 @@ namespace UC.Models.UCEntityHelpers
             return result;
         }
 
+        public SelectList TurmasDisponiveis(long? turmaUID)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            var turmasDisponiveis = idbucContext.Turmas.Where(x => x.ativa && x.disponivel).ToList();
+
+            foreach (var cadaTurma in turmasDisponiveis)
+            {
+                var nome = cadaTurma.Modalidade.nome + " - " + cadaTurma.HorarioInicio.ToShortTimeString();
+                aux.Add(new SelectListItem()
+                {
+                    Text = nome,
+                    Value = cadaTurma.turmaUID.ToString()
+                });
+            }
+
+            if (turmaUID.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", turmaUID.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
         //private SelectList WebConfigList(string ListName, int? selectedValue)
         //{
         //    try
