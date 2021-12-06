@@ -61,6 +61,7 @@ namespace UC.Areas.Comum.Controllers
             }
             catch (Exception ex)
             {
+                AddMessage(UserMessageType.error, ex);
                 return Index();
             }
         }
