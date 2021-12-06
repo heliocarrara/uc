@@ -21,5 +21,7 @@ namespace UC.Models
         UrlHelper urlHelper { get; }
 
         ILoggedUserHelper UsuarioLogado { get; }
+
+        ISelectListHelper SelectLists { get; }
     }
 }

@@ -1,0 +1,35 @@
+﻿@model List<UC.Models.ViewModels.VMPessoa>
+
+@{
+    ViewBag.Title = "Listar Pessoas";
+}
+
+<h2>Listar Usuários</h2>
+
+<table class="table-bordered" style="min-width: 100%; text-align:center;">
+    <thead>
+        <tr style="line-height: 3em;">
+            <th style="text-align: center;">ID</th>
+            <th style="text-align: center;">Nome</th>
+            <th style="text-align: center;">CPF</th>
+            <th style="text-align: center;">Nascimento</th>
+            <th style="text-align: center;">Fone</th>
+            <th style="text-align: center;">Endereço</th>
+            <th style="text-align: center;">Permissões</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cadaPessoa in Model)
+        {
+            <tr>
+                <td>@cadaPessoa.pessoaUID</td>
+                <td style="text-align: left; padding-left: 10px;">@cadaPessoa.nome</td>
+                <td>@cadaPessoa.cpf</td>
+                <td>@cadaPessoa.nascimento</td>
+                <td>@cadaPessoa.telefone</td>
+                <td>@cadaPessoa.endereco</td>
+                <td>@Html.ActionLink("Listar", "ListaPermissao", "Pessoa", new { Area = UC.Utility.SimpleSessionPersister.UserRole, pessoaUID = cadaPessoa.pessoaUID }, new { @class = "btn btn-default" })</td>
+            </tr>
+        }
+    </tbody>
+</table>

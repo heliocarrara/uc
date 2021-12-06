@@ -7,7 +7,7 @@ namespace UC.Models.Enumerators
         [Description("Aluno")]
         Aluno = 1,
 
-        [Description("Administrador")]
+        [Description("Secretario")]
         Administrador = 2,
 
         [Description("Bolsista")]
@@ -19,7 +19,7 @@ namespace UC.Models.Enumerators
         [Description("Uniselva")]
         Uniselva = 5,
 
-        [Description("Secretario")]
-        Secretario = 6
+        [Description("Visitante")]
+        Visitante = 6
     }
 }

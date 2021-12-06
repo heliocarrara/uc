@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace UC.Models.ViewModels.FormViewModels
 {
     public class VMFormModalidade
     {
+        public SelectList ListaTiposDeModalidade { get; set; }
         public long modalidadeUID { get; set; }
         public string nome { get; set; }
         public string Descricao { get; set; }

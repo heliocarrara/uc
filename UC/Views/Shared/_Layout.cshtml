@@ -45,8 +45,10 @@
             @if (UC.Utility.SimpleSessionPersister.IsLogged)
             {
                 var nome = "Olá, " + UC.Utility.SimpleSessionPersister.Username;
+                var perfil = "Perfil: " + UC.Utility.SimpleSessionPersister.UserRole;
 
                 <div>@Html.ActionLink(nome, "Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "" })</div>
+                <div>@Html.ActionLink(perfil, "SelecionarPerfil", "Account", new { Area = "" }, new { @class = "" })</div>
                 <div>@Html.ActionLink("Sair", "LogOut", "Account", new { Area = "" }, new { @class = "" })</div>
             }
             else
