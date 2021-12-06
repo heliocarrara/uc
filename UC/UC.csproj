@@ -222,15 +222,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Administrador\AdministradorAreaRegistration.cs" />
+    <Compile Include="Areas\Coordenador\Controllers\PessoaController.cs" />
+    <Compile Include="Areas\Secretario\SecretarioAreaRegistration.cs" />
     <Compile Include="Areas\Aluno\AlunoAreaRegistration.cs" />
     <Compile Include="Areas\Bolsista\BolsistaAreaRegistration.cs" />
     <Compile Include="Areas\Cadastro\CadastroAreaRegistration.cs" />
     <Compile Include="Areas\Cadastro\Controllers\ModalidadeController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\PermissaoController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\TurmaController.cs" />
     <Compile Include="Areas\Comum\ComumAreaRegistration.cs" />
     <Compile Include="Areas\Comum\Controllers\ModalidadeController.cs" />
-    <Compile Include="Areas\Comum\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Coordenador\Controllers\PermissaoController.cs" />
     <Compile Include="Areas\Coordenador\Controllers\TurmaController.cs" />
     <Compile Include="Areas\Coordenador\Controllers\ModalidadeController.cs" />
     <Compile Include="Areas\Coordenador\Controllers\PainelController.cs" />
@@ -266,6 +268,7 @@
     <Compile Include="Models\DiaSemanaTurma.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enumerators\EnumExtensions.cs" />
     <Compile Include="Models\Enumerators\TipoModalidade.cs" />
     <Compile Include="Models\Enumerators\TipoLogin.cs" />
     <Compile Include="Models\IUnityOfHelpers.cs" />
@@ -295,7 +298,9 @@
     </Compile>
     <Compile Include="Models\UCEntityHelpers\BaseHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\Interfaces\ILoggedUserHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\Interfaces\ISelectListHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\LoggedUserHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\SelectListHelper.cs" />
     <Compile Include="Models\UCModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -314,13 +319,17 @@
     <Compile Include="Models\UnityOfHelpers.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormCadastroLogin.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormModalidade.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormPermissao.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormTurma.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListPermissao.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListTurma.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListPessoas.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListUsuarios.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListModalidade.cs" />
     <Compile Include="Models\ViewModels\VMModalidade.cs" />
     <Compile Include="Models\ViewModels\VMPainelCoordenador.cs" />
+    <Compile Include="Models\ViewModels\VMPermissao.cs" />
+    <Compile Include="Models\ViewModels\VMPessoa.cs" />
     <Compile Include="Models\ViewModels\VMTurma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CustomIdentity.cs" />
@@ -356,28 +365,15 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Comum\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Comum\Views\Shared\About.cshtml" />
-    <Content Include="Areas\Comum\Views\Shared\Contact.cshtml" />
-    <Content Include="Areas\Comum\Views\Shared\Index.cshtml" />
-    <Content Include="Areas\Comum\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Comum\Views\Web.config" />
     <Content Include="Areas\Bolsista\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Bolsista\Views\Home\About.cshtml" />
-    <Content Include="Areas\Bolsista\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Bolsista\Views\Home\Index.cshtml" />
     <Content Include="Areas\Bolsista\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Bolsista\Views\Web.config" />
-    <Content Include="Areas\Administrador\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Administrador\Views\Home\About.cshtml" />
-    <Content Include="Areas\Administrador\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Administrador\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Administrador\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Administrador\Views\Shared\Error.cshtml" />
-    <Content Include="Areas\Administrador\Views\Web.config" />
+    <Content Include="Areas\Secretario\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Secretario\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Secretario\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Secretario\Views\Web.config" />
     <Content Include="Areas\Aluno\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Aluno\Views\Home\About.cshtml" />
-    <Content Include="Areas\Aluno\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Aluno\Views\Home\Index.cshtml" />
     <Content Include="Areas\Aluno\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Aluno\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Aluno\Views\Web.config" />
@@ -400,6 +396,8 @@
     <Content Include="Areas\Coordenador\Views\Modalidade\ListaModalidade.cshtml" />
     <Content Include="Areas\Cadastro\Views\Modalidade\FormularioModalidade.cshtml" />
     <Content Include="Areas\Coordenador\Views\Turma\ListaTurma.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Permissao\FormularioPermissao.cshtml" />
+    <Content Include="Areas\Coordenador\Views\Permissao\ListaPermissao.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -431,13 +429,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\CadastroLogin.cshtml" />
     <Content Include="Views\Shared\_Mensagens.cshtml" />
-    <Content Include="Views\Shared\ListarUsuarios.cshtml" />
+    <Content Include="Areas\Coordenador\Views\Pessoa\ListaPessoas.cshtml" />
     <Content Include="Areas\Comum\Views\Modalidade\Lista.cshtml" />
+    <Content Include="Views\Account\SelecionarPermissao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administrador\Controllers\" />
-    <Folder Include="Areas\Administrador\Model\" />
     <Folder Include="Areas\Aluno\Controllers\" />
     <Folder Include="Areas\Aluno\Model\" />
     <Folder Include="Areas\Bolsista\Controllers\" />
@@ -445,8 +442,11 @@
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Shared\" />
     <Folder Include="Areas\Comum\Model\" />
+    <Folder Include="Areas\Comum\Views\Shared\" />
     <Folder Include="Areas\Coordenador\Data\" />
     <Folder Include="Areas\Coordenador\Views\Shared\" />
+    <Folder Include="Areas\Secretario\Controllers\" />
+    <Folder Include="Areas\Secretario\Model\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

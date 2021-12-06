@@ -9,6 +9,7 @@ using UC.Models.ViewModels.ListViewModels;
 using UC.Utility;
 using UC.Models.UCEntityHelpers;
 using UC.Models.Enumerators;
+using UC.Models.ViewModels;
 
 namespace UC.Controllers
 {
@@ -35,7 +36,7 @@ namespace UC.Controllers
 
                 if (usuario.validade < hoje)
                 {
-                    usuario = idbucContext.Logins.FirstOrDefault(x => x.usuario == cpf && x.validade >= hoje);
+                    usuario = idbucContext.Logins.FirstOrDefault(x => x.usuario == cpf && x.validade > hoje);
 
                     if (usuario == null)
                     {
@@ -51,7 +52,7 @@ namespace UC.Controllers
 
                 SimpleSessionPersister.Logar(pessoa);
 
-                return RedirectToAction("Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole });
+                return SelecionarPerfil();
             }
             catch (Exception ex)
             {
@@ -68,6 +69,61 @@ namespace UC.Controllers
                 AddMessage(UserMessageType.info, "Login encerrado.");
 
                 return Index();
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult MudarPermissao (long permissaoUID)
+        {
+            try
+            {
+                var permissao = idbucContext.Permissaos.Find(permissaoUID);
+
+                if (permissao == null)
+                {
+                    throw new Exception("Permissão não existe.");
+                }
+
+                if (permissao.validade < DateTime.Today)
+                {
+                    throw new Exception("Permissão expirada.");
+                }
+
+                if (permissao.pessoaUID.ToString() != SimpleSessionPersister.Id)
+                {
+                    throw new Exception("Esta permissão não é sua.");
+                }
+
+                SimpleSessionPersister.LogarComPermissao(permissao);
+
+                return RedirectToAction("Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult SelecionarPerfil()
+        {
+            try
+            {
+                var model = new List<VMPermissao>();
+                var pessoaUID = long.Parse(SimpleSessionPersister.Id);
+
+                var permissoes = idbucContext.Permissaos.Where(x => x.pessoaUID == pessoaUID).ToList();
+
+                foreach(var cadaPermissao in permissoes)
+                {
+                    model.Add(new VMPermissao(cadaPermissao, myUnityOfHelpers));
+                }
+
+                return View("SelecionarPermissao", model);
             }
             catch (Exception ex)
             {
@@ -113,6 +169,14 @@ namespace UC.Controllers
         {
             try
             {
+                var cadastro = idbucContext.Pessoas.FirstOrDefault(x => x.cpf == form.cpf);
+
+                if (cadastro != null)
+                {
+                    AddMessage(UserMessageType.error, "Este CPF já tem cadastro sistema.");
+                    return RedirectToAction("Login", "Home", "");
+                }
+
                 var pessoa = new Pessoa
                 {
                     pessoaUID = 0,
@@ -121,7 +185,7 @@ namespace UC.Controllers
                     nascimento = form.nascimento,
                     endereco = form.cep,
                     telefone = form.telefone,
-                    nivelAcesso = (int)TipoLogin.Coordenador
+                    nivelAcesso = (int)TipoLogin.Visitante
                 };
 
                 myUnityOfHelpers.idbucContext.Pessoas.Add(pessoa);

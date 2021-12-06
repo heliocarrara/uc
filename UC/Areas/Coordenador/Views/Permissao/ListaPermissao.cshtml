@@ -1,0 +1,40 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListPermissao
+
+@if (Model != null && Model.Permissoes.Any())
+{
+<div class="panel panel-default">
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Tipo</th>
+                <th>Criação</th>
+                <th>Validade</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cadaPermissao in Model.Permissoes)
+            {
+                <tr>
+                    <td>@cadaPermissao.pessoa.nome</td>
+                    <td>@cadaPermissao.pessoa.cpf</td>
+                    <td>@cadaPermissao.tipoDeLogin</td>
+                    <td>@cadaPermissao.dataCriacao.ToShortDateString()</td>
+                    <td>@cadaPermissao.validade.ToShortDateString()</td>
+                    <td>
+                        @Html.ActionLink("Excluir", "Excluir", "Permissao", new { permissaoUID = cadaPermissao.permissaoUID, Area = "Cadastro" }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+else
+{
+    <div class="panel-body">
+        <h3>Não há permissões no momento.</h3>
+    </div>
+}

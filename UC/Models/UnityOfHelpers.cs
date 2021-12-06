@@ -48,6 +48,7 @@ namespace UC.Models
         #region PUBLIC GET HELPERS
 
         public ILoggedUserHelper UsuarioLogado { get { if (usuarioLogado == null) { usuarioLogado = new LoggedUserHelper(_url, _db, this); } return UsuarioLogado; } }
+        public ISelectListHelper SelectLists { get { if (selectLists == null) { selectLists = new SelectListHelper(_url, _db, this); } return selectLists; } }
 
 
         /*public IProjetoHelper Projetos { get { if (projetos == null) { projetos = new ProjetoHelper(_url, _db, _services, this); } return projetos; } }
@@ -120,6 +121,7 @@ namespace UC.Models
         #region PRIVATE HELPERS' INSTANCES
 
         private LoggedUserHelper usuarioLogado { get; set; }
+        private SelectListHelper selectLists { get; set; }
         //private ProjetoHelper projetos { get; set; }
 
         //private ProgramaHelper programas { get; set; }

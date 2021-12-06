@@ -6,7 +6,7 @@ using UC.Models.ViewModels.FormViewModels;
 
 namespace UC.Areas.Cadastro.Controllers
 {
-    [System.Web.Http.Authorize(Roles = "Coordenador")]
+    [System.Web.Http.Authorize(Roles = "Coordenador, Secretario")]
     public class ModalidadeController: BaseController
     {
         const string formulario = "FormularioModalidade";
