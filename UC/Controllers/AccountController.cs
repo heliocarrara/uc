@@ -116,7 +116,7 @@ namespace UC.Controllers
                 var model = new List<VMPermissao>();
                 var pessoaUID = long.Parse(SimpleSessionPersister.Id);
 
-                var permissoes = idbucContext.Permissaos.Where(x => x.pessoaUID == pessoaUID).ToList();
+                var permissoes = idbucContext.Permissaos.Where(x => x.pessoaUID == pessoaUID && x.validade > DateTime.Now).ToList();
 
                 foreach(var cadaPermissao in permissoes)
                 {

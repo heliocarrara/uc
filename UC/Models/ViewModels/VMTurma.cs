@@ -16,6 +16,7 @@ namespace UC.Models.ViewModels
         public int Vagas { get; set; }
         public Modalidade Modalidade { get; set; }
         public List<VMAluno> Alunos { get; set; }
+        public List<VMBolsista> Bolsistas { get; set; }
         public bool ativa { get; set; }
         public bool disponivel { get; set; }
         #endregion
@@ -41,11 +42,20 @@ namespace UC.Models.ViewModels
             this.disponivel = turma.disponivel;
             this.Alunos = new List<VMAluno>();
 
-            if (turma.Alunoes != null && turma.Alunoes.Any())
+            if (turma.Alunoes != null && turma.Alunoes.Any(x => x.ativo))
             {
-                foreach (var cadaAluno in turma.Alunoes.ToList())
+                foreach (var cadaAluno in turma.Alunoes.Where(x => x.ativo).ToList())
                 {
                     this.Alunos.Add(new VMAluno(cadaAluno));
+                }
+            }
+
+            this.Bolsistas = new List<VMBolsista>();
+            if (turma.Bolsistas != null && turma.Bolsistas.Any(x => x.ativo && x.validade > DateTime.Now))
+            {
+                foreach (var cadaBolsista in turma.Bolsistas.Where(x => x.ativo && x.validade > DateTime.Now).ToList())
+                {
+                    this.Bolsistas.Add(new VMBolsista(cadaBolsista));
                 }
             }
         }

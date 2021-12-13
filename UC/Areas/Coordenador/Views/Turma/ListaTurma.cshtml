@@ -17,12 +17,17 @@
                     <li class="list-group-item"><h3><strong>Dias da Semana: Segunda, Terça e Quarta</strong></h3></li>
                     <li class="list-group-item"><h3><strong>Duração: @cadaTurma.DuracaoAula Min</strong></h3></li>
                     <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@cadaTurma.Vagas</h3></li>
+                    <li class="list-group-item"><h3><strong>Nº de Bolsistas: </strong>@cadaTurma.Bolsistas.Count</h3></li>
+                    <li class="list-group-item"><h3><strong>Nº de Alunos: </strong>@cadaTurma.Alunos.Count</h3></li>
                 </ul>
 
             </div>
             @if (UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario")
             {
                 <div class="row">
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Detalhes", "Detalhes", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-info" })
+                    </div>
                     <div class="btn-modalidade">
                         @Html.ActionLink("Adicionar Aluno", "NovoDestaTurma", "Aluno", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-success" })
                     </div>
@@ -55,9 +60,9 @@
                         </div>
                     }
 
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Listar Alunos", "Detalhes", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-default" })
-                    </div>
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Listar Bolsistas", "Lista", "Bolsista", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-info" })
+                </div>
                 </div>
             }
         </div>

@@ -1,0 +1,41 @@
+﻿@model List<UC.Models.ViewModels.VMAluno>
+
+<br />
+<div class="panel panel-info panel-detalhes-turma">
+    <div class="panel-heading panel-title-row">
+        Alunos
+    </div>
+    <div class="panel-body">
+        <table class="table-bordered" style="min-width: 100%; text-align:center;">
+            <thead>
+                <tr style="line-height: 3em;">
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Situação</th>
+                    <th style="text-align: center;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaAluno in Model)
+                {
+                    <tr>
+                        <td>@cadaAluno.nome</td>
+                        @if (cadaAluno.ativo)
+                        {
+                            <td class="success">Regular</td>
+                        }
+                        else
+                        {
+                            <td class="warning">Irregular</td>
+                        }
+                        <td>@Html.ActionLink("Detalhes", "Detalhes", "Aluno", new { Area = "Aluno", alunoUID = cadaAluno.alunoUID }, new { @class = "btn btn-info" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario")
+    {
+        @Html.ActionLink("Adicionar Aluno", "Novo", "Aluno", new { Area = "Cadastro"}, new { @class = "btn btn-success" })
+    }
+</div>
+

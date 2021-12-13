@@ -42,29 +42,11 @@
         <EntityTypeShape EntityType="Model1.Login" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="Model1.Pessoa" Width="1.5" PointX="0.75" PointY="2.125" />
         <AssociationConnector Association="Model1.FK_Aluno_Turma" />
-        <AssociationConnector Association="Model1.FK_AlunoSet_PessoaSet" />
-        <AssociationConnector Association="Model1.FK_Chamada_Aluno" />
-        <AssociationConnector Association="Model1.FK_JustificativaAula_Aluno" />
-        <AssociationConnector Association="Model1.FK_AtividadeAula_Aula" />
-        <AssociationConnector Association="Model1.FK_Aula_DiaSemanaTurma" />
-        <AssociationConnector Association="Model1.FK_Aula_Turma" />
-        <AssociationConnector Association="Model1.FK_Chamada_Aula" />
         <AssociationConnector Association="Model1.FK_JustificativaAula_Aula" />
-        <AssociationConnector Association="Model1.FK_Autonomo_Pessoa" />
-        <AssociationConnector Association="Model1.FK_Professor_Autonomo" />
-        <AssociationConnector Association="Model1.FK_Bolsista_Pessoa" />
-        <AssociationConnector Association="Model1.FK_Bolsista_Turma" />
-        <AssociationConnector Association="Model1.FK_Professor_Bolsista" />
-        <AssociationConnector Association="Model1.FK_Chamada_JustificativaAula" />
-        <AssociationConnector Association="Model1.FK_Coordenador_Pessoa" />
-        <AssociationConnector Association="Model1.FK_Professor_Coordenador" />
-        <AssociationConnector Association="Model1.FK_DiaSemanaTurma_Turma" />
         <AssociationConnector Association="Model1.FK_LoginSet_PessoaSet" />
         <AssociationConnector Association="Model1.FK_Turma_Modalidade" />
         <AssociationConnector Association="Model1.FK_Permissao_Pessoa" />
-        <AssociationConnector Association="Model1.FK_ProfessorTurma_Professor" />
-        <AssociationConnector Association="Model1.FK_ProfessorTurma_Turma" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

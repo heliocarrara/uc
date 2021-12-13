@@ -43,10 +43,6 @@ namespace UC.Areas.Coordenador.Controllers
                 AddMessage(UserMessageType.error, ex);
                 return Index();
             }
-
-            //CRIAR VIEW LISTAALUNO
-            //CRIAR VMALUNO
-            //CRIAR ESTA LISTA NO COMUM E PARA SECRETARIO
         }
     }
 }
