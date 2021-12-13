@@ -71,13 +71,26 @@
     <br />
     <div class="panel-info">
         <div class="panel-heading centralizar">
-            <h1>Gerencia de <strong>Gerencia de Alunos</strong></h1>
+            <h1>Gerencia de <strong>Alunos</strong></h1>
         </div>
         <div class="panel-body">
             <div class="row">
                 @Html.ActionLink("Listar Todos", "Lista", "Aluno", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
 
                 @Html.ActionLink("Incluir Novo", "Novo", "Aluno", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="panel-info">
+        <div class="panel-heading centralizar">
+            <h1>Gerencia de <strong>Bolsista</strong></h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                @Html.ActionLink("Listar Todos", "Lista", "Bolsista", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
+
+                @Html.ActionLink("Incluir Novo", "Novo", "Bolsista", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
             </div>
         </div>
     </div>
