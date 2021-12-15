@@ -222,6 +222,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Bolsista\Controllers\PainelController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\AlunoController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\BolsistaController.cs" />
     <Compile Include="Areas\Comum\Controllers\TurmaController.cs" />
@@ -411,6 +412,7 @@
     <Content Include="Areas\Comum\Views\Turma\Detalhes.cshtml" />
     <Content Include="Areas\Coordenador\Views\Bolsista\ListaBolsistas.cshtml" />
     <Content Include="Areas\Cadastro\Views\Bolsista\FormularioBolsista.cshtml" />
+    <Content Include="Areas\Bolsista\Views\Painel\DetalhesPainel.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -452,7 +454,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Aluno\Controllers\" />
     <Folder Include="Areas\Aluno\Model\" />
-    <Folder Include="Areas\Bolsista\Controllers\" />
     <Folder Include="Areas\Bolsista\Model\" />
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Professor\" />
