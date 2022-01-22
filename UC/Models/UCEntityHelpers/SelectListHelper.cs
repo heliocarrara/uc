@@ -101,6 +101,33 @@ namespace UC.Models.UCEntityHelpers
             return result;
         }
 
+        public SelectList DiasDaSemana(int? diaDaSemana)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            foreach (DiaSemanal val in Enum.GetValues(typeof(DiaSemanal)))
+            {
+                aux.Add(new SelectListItem()
+                {
+                    Text = val.ToFriendlyString(),
+                    Value = ((int)val).ToString()
+                });
+            }
+
+            if (diaDaSemana.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", diaDaSemana.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
         //private SelectList WebConfigList(string ListName, int? selectedValue)
         //{
         //    try

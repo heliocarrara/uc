@@ -27,7 +27,7 @@ namespace UC.Models.ViewModels
 
         }
 
-        public VMModalidade(Modalidade modalidade, List<Turma> turmas)
+        public VMModalidade(Modalidade modalidade)
         {
             this.modalidadeUID = modalidade.modalidadeUID;
             this.tipoModalidade = modalidade.tipoModalidade;
@@ -40,67 +40,13 @@ namespace UC.Models.ViewModels
 
             this.Turmas = new List<VMTurma>();
 
-            if (turmas != null && turmas.Any())
+            if (modalidade.Turmas != null && modalidade.Turmas.Any())
             {
-                foreach (var cadaTurma in turmas)
+                foreach (var cadaTurma in modalidade.Turmas.ToList())
                 {
                     this.Turmas.Add(new VMTurma(cadaTurma));
                 }
             }
-            
-
-            //switch (tipoModalidadeUID)
-            //{
-            //    case ((int)TipoModalidade.Hidroginastica):
-            //        this.Modalidade = "Hidroginástica";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Treinamento_Funcional):
-            //        this.Modalidade = "Treinamento Funcional";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Natacao):
-            //        this.Modalidade = "Natação";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Muay_Thay):
-            //        this.Modalidade = "Muay Thay Fitness";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Ritmos):
-            //        this.Modalidade = "Ritmos";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Bale):
-            //        this.Modalidade = "Balé Clássico";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Submission):
-            //        this.Modalidade = "Submission No Gi";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$80,00";
-            //        break;
-            //    case ((int)TipoModalidade.Futebol_de_Campo):
-            //        this.Modalidade = "Futebol de Campo";
-            //        this.Descrição = "";
-            //        this.ValorMensalidade = "R$25,00";
-            //        break;
-            //    default:
-            //        this.Modalidade = "Erro";
-            //        this.Descrição = "Erro";
-            //        this.ValorMensalidade = "Erro";
-            //        break;
-            //}
-
-            //var turmas = u.idbucContext.TurmaSet.Where(x => x.ativa && x.disponivel).ToList();
-
-
         }
         #endregion
 

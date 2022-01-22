@@ -1,10 +1,10 @@
 ﻿@model UC.Models.ViewModels.FormViewModels.VMFormTurma
 
 @{
-    ViewBag.Title = "Detalhes da Modalidade";
+    ViewBag.Title = "Formulário de Turma";
 }
 
-@using (@Html.BeginForm("GravarFormulario", "Turma", FormMethod.Post))
+@using (@Html.BeginForm("GravarFormularioTurma", "Turma", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.modalidadeUID, Model.modalidadeUID)
     @Html.HiddenFor(m => m.turmaUID, Model.turmaUID)
@@ -42,15 +42,20 @@
                     @Html.TextBoxFor(m => m.minutoTermino, new { @class = "form-control", @placeholder = "Somente numero..." })
                 </div>
             </div>
-            <div class="form-group">s
-                @Html.LabelFor(m => m.disponivel, "Nº de Vagas:")
-                @Html.CheckBoxFor(m => m.disponivel, new { @class = "form-control"})
+            <div class="form-group">
+                <h3>Deixar Disponível: </h3>@Html.CheckBoxFor(m => m.disponivel, new { @class = "form-control" })
             </div>
         </div>
         <div class="panel-footer more-large text-center">
             <button type="submit" class="btn btn-success">Acessar</button>
-            @Html.ActionLink("Cadastre-se", "NovoCadastro", "Account", "", new { @class = "btn btn-info" })
-            @Html.ActionLink("Listar", "VerCadastros", "Account", "", new { @class = "btn btn-info" })
+            @if (Model.turmaUID.HasValue)
+            {
+                @Html.ActionLink("Voltar para Turma", "Detalhes", "Turma", new { turmaUID = Model.turmaUID.HasValue, Area = "Comum", @class = "btn btn-info" })
+            }
+            else
+            {
+                @Html.ActionLink("Voltar para Modalidade", "Detalhes", "Modalidade", new { modalidadeUID = Model.modalidadeUID, Area = "Comum", @class = "btn btn-info" })
+            }
         </div>
     </div>
 }

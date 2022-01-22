@@ -4,18 +4,18 @@
 {
     <div class="panel panel-info panel-detalhes-turma">
         <div class="panel-heading panel-title-row">
-            Turma nº: @Model.turmaUID - @Model.Modalidade.nome
+            <strong> @Model.Nome</strong>
         </div>
         <div class="panel-body">
             <ul class="list-group">
                 <li class="list-group-item"><h3><strong>Descrição da Modalidade: </strong>@Model.Modalidade.Descricao</h3></li>
                 <li class="list-group-item"><h3><strong>Descrição da Turma: </strong>@Model.Descricao</h3></li>
+                <li class="list-group-item"><h3><strong>Dias Semanais: </strong>@Model.DiasDaSemana.todosOsDias</h3></li>
                 <li class="list-group-item"><h3><strong>Horario de Inicio: </strong>@Model.HorarioInicio.ToShortTimeString()</h3></li>
                 <li class="list-group-item"><h3><strong>Horario de Término: </strong>@Model.HorarioTermino.ToShortTimeString()</h3></li>
-                <li class="list-group-item"><h3><strong>Dias da Semana: Segunda, Terça e Quarta</strong></h3></li>
-                <li class="list-group-item"><h3><strong>Minutos: @Model.DuracaoAula Min</strong></h3></li>
+                <li class="list-group-item"><h3><strong>Duração: @Model.DuracaoAula Min</strong></h3></li>
                 <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@Model.Vagas</h3></li>
-                <li class="list-group-item"><h3><strong>Nº de Bolsistas: </strong>@Model.Bolsistas.Count</h3></li>
+                <li class="list-group-item"><h3><strong>Nº de Professores: </strong>@Model.Bolsistas.Count</h3></li>
                 <li class="list-group-item"><h3><strong>Nº de Alunos: </strong>@Model.Alunos.Count</h3></li>
             </ul>
 
@@ -24,23 +24,12 @@
         {
             <div class="row">
                 <div class="btn-modalidade">
-                    
-                </div>
-                <div class="btn-modalidade">
                     @Html.ActionLink("Editar", "Editar", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-warning" })
                 </div>
-                @if (Model.ativa)
-                {
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Excluir", "Excluir", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
-                    </div>
-                }
-                else
-                {
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Reciclar", "Reciclar", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
-                    </div>
-                }
+
+                <div class="btn-modalidade">
+                    @Html.ActionLink("Excluir", "Excluir", "Turma", new { Area = "Cadastro", turmaUID = Model.turmaUID }, new { @class = "btn btn-danger" })
+                </div>
 
                 @if (Model.disponivel)
                 {
@@ -68,6 +57,10 @@
         @Html.Partial("_PartialViewListaBolsista", Model.Bolsistas)
     }
 
+    if (Model.DiasDaSemana != null)
+    {
+        @Html.Partial("_PartialViewListaDiaSemana", Model.DiasDaSemana)
+    }
 }
 else
 {

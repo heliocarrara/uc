@@ -6,7 +6,7 @@
     {
         <div class="panel panel-info panel-detalhes-turma">
             <div class="panel-heading panel-title-row">
-                Turma nº: @cadaTurma.turmaUID - @cadaTurma.Modalidade.nome
+                Turma: @cadaTurma.Nome
             </div>
             <div class="panel-body">
                 <ul class="list-group">
@@ -14,10 +14,10 @@
                     <li class="list-group-item"><h3><strong>Descrição da Turma: </strong>@cadaTurma.Descricao</h3></li>
                     <li class="list-group-item"><h3><strong>Horario de Inicio: </strong>@cadaTurma.HorarioInicio.ToShortTimeString()</h3></li>
                     <li class="list-group-item"><h3><strong>Horario de Término: </strong>@cadaTurma.HorarioTermino.ToShortTimeString()</h3></li>
-                    <li class="list-group-item"><h3><strong>Dias da Semana: Segunda, Terça e Quarta</strong></h3></li>
-                    <li class="list-group-item"><h3><strong>Duração: @cadaTurma.DuracaoAula Min</strong></h3></li>
+                    <li class="list-group-item"><h3><strong>Dias da Semana: </strong>@cadaTurma.DiasDaSemana.todosOsDias</h3></li>
+                    <li class="list-group-item"><h3><strong>Duração: </strong>@cadaTurma.DuracaoAula Min</h3></li>
                     <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@cadaTurma.Vagas</h3></li>
-                    <li class="list-group-item"><h3><strong>Nº de Bolsistas: </strong>@cadaTurma.Bolsistas.Count</h3></li>
+                    <li class="list-group-item"><h3><strong>Professores: </strong>@cadaTurma.Bolsistas.Count</h3></li>
                     <li class="list-group-item"><h3><strong>Nº de Alunos: </strong>@cadaTurma.Alunos.Count</h3></li>
                 </ul>
 
@@ -34,35 +34,9 @@
                     <div class="btn-modalidade">
                         @Html.ActionLink("Editar", "Editar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-warning" })
                     </div>
-                    @if (cadaTurma.ativa)
-                    {
-                        <div class="btn-modalidade">
-                            @Html.ActionLink("Excluir", "Excluir", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="btn-modalidade">
-                            @Html.ActionLink("Reciclar", "Reciclar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
-                        </div>
-                    }
-
-                    @if (cadaTurma.disponivel)
-                    {
-                        <div class="btn-modalidade">
-                            @Html.ActionLink("Desativar", "Desativar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="btn-modalidade">
-                            @Html.ActionLink("Reativar", "Ativar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-danger" })
-                        </div>
-                    }
-
-                <div class="btn-modalidade">
-                    @Html.ActionLink("Listar Bolsistas", "Lista", "Bolsista", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-info" })
-                </div>
+                    <div class="btn-modalidade">
+                        @Html.ActionLink("Listar Bolsistas", "Lista", "Bolsista", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-info" })
+                    </div>
                 </div>
             }
         </div>

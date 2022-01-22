@@ -19,11 +19,6 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                if (Utility.SimpleSessionPersister.UserRole == "Coordenador")
-                {
-                    return RedirectToAction("Detalhes", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
-                }
-
                 var turma = idbucContext.Turmas.Find(turmaUID);
 
                 var model = new VMTurma(turma);

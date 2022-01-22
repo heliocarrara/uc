@@ -275,6 +275,7 @@
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Enumerators\EnumExtensions.cs" />
+    <Compile Include="Models\Enumerators\DiaSemanal.cs" />
     <Compile Include="Models\Enumerators\TipoModalidade.cs" />
     <Compile Include="Models\Enumerators\TipoLogin.cs" />
     <Compile Include="Models\IUnityOfHelpers.cs" />
@@ -304,8 +305,10 @@
     </Compile>
     <Compile Include="Models\UCEntityHelpers\BaseHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\Interfaces\ILoggedUserHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\Interfaces\ITurmaHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\Interfaces\ISelectListHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\LoggedUserHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\TurmaHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\SelectListHelper.cs" />
     <Compile Include="Models\UCModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -326,9 +329,11 @@
     <Compile Include="Models\ViewModels\FormViewModels\VMFormAluno.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormBolsista.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormCadastroLogin.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormDiaDaSemanaTurma.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormModalidade.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormPermissao.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormTurma.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListDiasDaSemana.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListPermissao.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListTurma.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListPessoas.cs" />
@@ -336,6 +341,7 @@
     <Compile Include="Models\ViewModels\ListViewModels\VMListModalidade.cs" />
     <Compile Include="Models\ViewModels\VMAluno.cs" />
     <Compile Include="Models\ViewModels\VMBolsista.cs" />
+    <Compile Include="Models\ViewModels\VMDiaSemanal.cs" />
     <Compile Include="Models\ViewModels\VMModalidade.cs" />
     <Compile Include="Models\ViewModels\VMPainelCoordenador.cs" />
     <Compile Include="Models\ViewModels\VMPermissao.cs" />
@@ -413,6 +419,7 @@
     <Content Include="Areas\Coordenador\Views\Bolsista\ListaBolsistas.cshtml" />
     <Content Include="Areas\Cadastro\Views\Bolsista\FormularioBolsista.cshtml" />
     <Content Include="Areas\Bolsista\Views\Painel\DetalhesPainel.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Turma\FormularioDiaSemana.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -449,6 +456,7 @@
     <Content Include="Views\Account\SelecionarPermissao.cshtml" />
     <Content Include="Views\Shared\_PartialViewListaBolsista.cshtml" />
     <Content Include="Views\Shared\_PartialViewListaAluno.cshtml" />
+    <Content Include="Views\Shared\_PartialViewListaDiaSemana.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

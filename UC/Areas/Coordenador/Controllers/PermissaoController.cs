@@ -15,7 +15,7 @@ namespace UC.Areas.Coordenador.Controllers
         const string viewLista = "ListaPermissao";
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Detalhes", "Painel");
         }
 
         public ActionResult Lista()

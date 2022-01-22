@@ -11,7 +11,12 @@ namespace UC.Areas.Coordenador.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Detalhes", "Painel");
+        }
+
+        public ActionResult Detalhes(long turmaUID)
+        {
+            return RedirectToAction("Detalhes", "Turma", new { Area = "Comum", turmaUID = turmaUID});
         }
 
         public ActionResult Lista()

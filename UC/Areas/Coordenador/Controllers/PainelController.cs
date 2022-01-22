@@ -18,12 +18,6 @@ namespace UC.Areas.Coordenador.Controllers
 
         public ActionResult Detalhes()
         {
-            //Pega a pessoa, cargo
-            //modalidades
-            //turmas
-            //pessoa
-
-
             return View("DetalhesPainel");
         }
     }

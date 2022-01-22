@@ -13,9 +13,8 @@ namespace UC.Areas.Coordenador.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Detalhes", "Painel");
         }
-
         public ActionResult Lista()
         {
             try

@@ -6,20 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8ec597bbd33347d4b5d4a006ab550c23" Name="Diagram1" >
         <EntityTypeShape EntityType="Model1.Aula" Width="1.5" PointX="7.5" PointY="8.875" />
-        <EntityTypeShape EntityType="Model1.Chamada" Width="1.5" PointX="9.75" PointY="7" />
-        <EntityTypeShape EntityType="Model1.DiaSemanaTurma" Width="1.5" PointX="5.25" PointY="10.625" />
-        <EntityTypeShape EntityType="Model1.JustificativaAula" Width="1.5" PointX="7.5" PointY="5.125" />
         <EntityTypeShape EntityType="Model1.Modalidade" Width="1.5" PointX="0.75" PointY="7.125" />
         <EntityTypeShape EntityType="Model1.Turma" Width="1.5" PointX="3" PointY="6.875" />
         <AssociationConnector Association="Model1.FK_AlunoSet_PessoaSet" />
         <AssociationConnector Association="Model1.FK_AlunoSet_TurmaSet" />
-        <AssociationConnector Association="Model1.FK_Chamada_Aluno" />
-        <AssociationConnector Association="Model1.FK_JustificativaAula_Aluno" />
-        <AssociationConnector Association="Model1.FK_Aula_DiaSemanaTurma" />
         <AssociationConnector Association="Model1.FK_Aula_Turma" />
-        <AssociationConnector Association="Model1.FK_Chamada_Aula" />
-        <AssociationConnector Association="Model1.FK_Chamada_JustificativaAula" />
-        <AssociationConnector Association="Model1.FK_DiaSemanaTurma_Turma" />
         <AssociationConnector Association="Model1.FK_TurmaSet_ModalidadeSet" />
         <EntityTypeShape EntityType="Model1.AtividadeAula" Width="1.5" PointX="9.75" PointY="11.5" />
         <EntityTypeShape EntityType="Model1.Autonomo" Width="1.5" PointX="5.25" PointY="15" />
@@ -42,10 +33,17 @@
         <EntityTypeShape EntityType="Model1.Login" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="Model1.Pessoa" Width="1.5" PointX="0.75" PointY="2.125" />
         <AssociationConnector Association="Model1.FK_Aluno_Turma" />
-        <AssociationConnector Association="Model1.FK_JustificativaAula_Aula" />
         <AssociationConnector Association="Model1.FK_LoginSet_PessoaSet" />
         <AssociationConnector Association="Model1.FK_Turma_Modalidade" />
         <AssociationConnector Association="Model1.FK_Permissao_Pessoa" />
+        <EntityTypeShape EntityType="Model1.Chamada" Width="1.5" PointX="9.75" PointY="6.75" />
+        <AssociationConnector Association="Model1.FK_Chamada_Aluno" />
+        <AssociationConnector Association="Model1.FK_Chamada_Aula" />
+        <EntityTypeShape EntityType="Model1.JustificativaAula" Width="1.5" PointX="12" PointY="11" />
+        <AssociationConnector Association="Model1.FK_JustificativaAula_Chamada" />
+        <EntityTypeShape EntityType="Model1.DiaSemanaTurma" Width="1.5" PointX="5.25" PointY="7.625" />
+        <AssociationConnector Association="Model1.FK_Aula_DiaSemanaTurma" />
+        <AssociationConnector Association="Model1.FK_DiaSemanaTurma_Turma" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
