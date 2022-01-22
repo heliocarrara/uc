@@ -17,7 +17,6 @@ namespace UC.Models
         public Aluno()
         {
             this.Chamadas = new HashSet<Chamada>();
-            this.JustificativaAulas = new HashSet<JustificativaAula>();
         }
     
         public long alunoUID { get; set; }
@@ -29,6 +28,5 @@ namespace UC.Models
         public virtual Turma Turma { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public virtual ICollection<Chamada> Chamadas { get; set; }
-        public virtual ICollection<JustificativaAula> JustificativaAulas { get; set; }
     }
 }

@@ -23,11 +23,6 @@ namespace UC.Models
         public bool ativo { get; set; }
         public long turmaUID { get; set; }
         public int diaSemanal { get; set; }
-        public string nome { get; set; }
-        public int HoraInicio { get; set; }
-        public int MinutoInicio { get; set; }
-        public int HoraTermino { get; set; }
-        public int MinutoTermino { get; set; }
     
         public virtual ICollection<Aula> Aulas { get; set; }
         public virtual Turma Turma { get; set; }

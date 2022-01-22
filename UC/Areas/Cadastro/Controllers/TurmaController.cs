@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models;
+using UC.Models.Enumerators;
 using UC.Models.ViewModels.FormViewModels;
 
 namespace UC.Areas.Cadastro.Controllers
@@ -12,10 +13,11 @@ namespace UC.Areas.Cadastro.Controllers
     [System.Web.Http.Authorize(Roles = "Coordenador, Secretario")]
     public class TurmaController : BaseController
     {
-        const string formulario = "FormularioTurma";
+        const string formularioTurma = "FormularioTurma";
+        const string formularioDiaSemana = "FormularioDiaSemana";
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home", new { Area = "" }); ;
+            return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole});
         }
 
         public ActionResult NovaTurma(long modalidadeUID)
@@ -26,21 +28,7 @@ namespace UC.Areas.Cadastro.Controllers
 
                 ViewBag.Message = "Formulário de Turma";
 
-                return View(formulario, model);
-            }
-            catch (Exception ex)
-            {
-                return Index();
-            }
-        }
-
-        public ActionResult Nova()
-        {
-            try
-            {
-                throw new NotImplementedException("Não implementado.");
-
-                return Index();
+                return View(formularioTurma, model);
             }
             catch (Exception ex)
             {
@@ -57,7 +45,7 @@ namespace UC.Areas.Cadastro.Controllers
 
                 var model = new VMFormTurma(turma);
 
-                return View(formulario, model);
+                return View(formularioTurma, model);
             }
             catch (Exception ex)
             {
@@ -66,7 +54,7 @@ namespace UC.Areas.Cadastro.Controllers
             }
         }
 
-        public ActionResult Excluir(long turmaUID)
+        public ActionResult ExcluirTurma(long turmaUID)
         {
             try
             {
@@ -74,11 +62,32 @@ namespace UC.Areas.Cadastro.Controllers
 
                 turma.ativa = false;
 
-                AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " foi excluida com sucesso!");
+                AddMessage(UserMessageType.success, "A turma: " + turma.Modalidade.nome + " de " + turma.HorarioInicio.ToShortTimeString() + " foi excluída com sucesso!");
 
                 idbucContext.SaveChanges();
 
-                return RedirectToAction("Lista", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+                return RedirectToAction("Detalhes", "Turma", new { turmaUID = turmaUID, Area = "Comum" });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult ExcluirDia(long diasemanaturmaUID)
+        {
+            try
+            {
+                var DiaSemana = idbucContext.DiaSemanaTurmas.Find(diasemanaturmaUID);
+
+                DiaSemana.ativo = false;
+
+                AddMessage(UserMessageType.success, "O dia: " + ((DiaSemanal)DiaSemana.diaSemanal).ToFriendlyString() + " foi excluido com sucesso!");
+
+                idbucContext.SaveChanges();
+
+                return RedirectToAction("Detalhes", "Turma", new { turmaUID = DiaSemana.turmaUID, Area = "Comum" });
             }
             catch (Exception ex)
             {
@@ -148,7 +157,72 @@ namespace UC.Areas.Cadastro.Controllers
             }
         }
 
-        public ActionResult GravarFormulario(VMFormTurma form)
+        public ActionResult NovoDiaSemanal(long turmaUID)
+        {
+            try
+            {
+                var turma = idbucContext.Turmas.Find(turmaUID);
+
+                var model = new VMFormDiaDaSemanaTurma(myUnityOfHelpers, turma);
+
+                return View(formularioDiaSemana, model);
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult GravarFormularioDiaDaSemana(VMFormDiaDaSemanaTurma form)
+        {
+            try
+            {
+                if (!form.diaSemanal.HasValue)
+                {
+                    throw new Exception("Selecione o Dia Semanal desejado.");
+                }
+
+                if (form.turmaUID <= 0)
+                {
+                    throw new Exception("Erro ao carregar turma.");
+                }
+
+                if (idbucContext.DiaSemanaTurmas.Any(x => x.ativo && x.turmaUID == form.turmaUID && x.diaSemanal == form.diaSemanal.Value))
+                {
+                    throw new Exception("Já existe este dia semanal para esta turma.");
+                }
+
+                var novo = new DiaSemanaTurma
+                {
+                    diasemanaturmaUID = 0,
+                    ativo = true,
+                    diaSemanal = form.diaSemanal.Value,
+                    turmaUID = form.turmaUID
+                };
+
+                idbucContext.DiaSemanaTurmas.Add(novo);
+
+                idbucContext.SaveChanges();
+
+                AddMessage(UserMessageType.success, "Cadastro de dia semanal foi realizado com sucesso!");
+
+                return RedirectToAction("Detalhes", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole, turmaUID = form.turmaUID });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+
+                if (form.turmaUID > 0)
+                {
+                    return NovoDiaSemanal(form.turmaUID);
+                }
+
+                return Index();
+            }
+        }
+
+        public ActionResult GravarFormularioTurma(VMFormTurma form)
         {
             try
             {

@@ -14,20 +14,12 @@ namespace UC.Models
     
     public partial class JustificativaAula
     {
-        public JustificativaAula()
-        {
-            this.Chamadas = new HashSet<Chamada>();
-        }
-    
         public long justificativaaulaUID { get; set; }
-        public long alunoUID { get; set; }
-        public long aulaUID { get; set; }
+        public long chamadaUID { get; set; }
         public bool ativa { get; set; }
         public string justificativa { get; set; }
         public bool aprovadaCoordenador { get; set; }
     
-        public virtual Aluno Aluno { get; set; }
-        public virtual Aula Aula { get; set; }
-        public virtual ICollection<Chamada> Chamadas { get; set; }
+        public virtual Chamada Chamada { get; set; }
     }
 }

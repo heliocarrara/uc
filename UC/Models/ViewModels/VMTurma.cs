@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Models.ViewModels
 {
@@ -13,11 +14,12 @@ namespace UC.Models.ViewModels
         public DateTime HorarioTermino { get; set; }
         public double DuracaoAula { get; set; }
         public string Descricao { get; set; }
+        public string Nome { get; set; }
         public int Vagas { get; set; }
         public Modalidade Modalidade { get; set; }
         public List<VMAluno> Alunos { get; set; }
         public List<VMBolsista> Bolsistas { get; set; }
-        public bool ativa { get; set; }
+        public VMListDiasDaSemana DiasDaSemana { get; set; }
         public bool disponivel { get; set; }
         #endregion
 
@@ -38,10 +40,10 @@ namespace UC.Models.ViewModels
             this.HorarioTermino = this.HorarioInicio.AddMinutes(this.DuracaoAula);
             this.Modalidade = turma.Modalidade;
 
-            this.ativa = turma.ativa;
             this.disponivel = turma.disponivel;
-            this.Alunos = new List<VMAluno>();
+            this.Nome = turma.Modalidade.nome + " - " +turma.HorarioInicio.ToShortTimeString();
 
+            this.Alunos = new List<VMAluno>();
             if (turma.Alunoes != null && turma.Alunoes.Any(x => x.ativo))
             {
                 foreach (var cadaAluno in turma.Alunoes.Where(x => x.ativo).ToList())
@@ -58,6 +60,8 @@ namespace UC.Models.ViewModels
                     this.Bolsistas.Add(new VMBolsista(cadaBolsista));
                 }
             }
+
+            this.DiasDaSemana = new VMListDiasDaSemana(turma);
         }
         #endregion
     }

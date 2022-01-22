@@ -9,7 +9,7 @@ namespace UC.Models.ViewModels
     {
         public long alunoUID { get; set; }
         public string nome { get; set; }
-        public bool ativo { get; set; }
+        public Turma turma { get; set; }
 
         public VMAluno()
         {
@@ -19,7 +19,7 @@ namespace UC.Models.ViewModels
         {
             this.alunoUID = aluno.alunoUID;
             this.nome = aluno.Pessoa.nome;
-            this.ativo = aluno.ativo;
+            this.turma = aluno.Turma;
         }
     }
 }

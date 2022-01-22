@@ -28,9 +28,7 @@ namespace UC.Areas.Comum.Controllers
 
                 foreach (var cadaModalidade in modalidades)
                 {
-                    var turmas = idbucContext.Turmas.Where(x => x.ativa && x.disponivel && x.modalidadeUID == cadaModalidade.modalidadeUID).ToList();
-
-                    lista.Add(new VMModalidade(cadaModalidade, turmas));
+                    lista.Add(new VMModalidade(cadaModalidade));
                 }
 
                 var model = new VMListModalidade(lista);
@@ -51,9 +49,7 @@ namespace UC.Areas.Comum.Controllers
             {
                 var modalidade = idbucContext.Modalidades.FirstOrDefault(x => x.ativa && x.disponivel && x.modalidadeUID == modalidadeUID);
 
-                var turmas = idbucContext.Turmas.Where(x => x.modalidadeUID == modalidadeUID).ToList();
-
-                var model = new VMModalidade(modalidade, turmas);
+                var model = new VMModalidade(modalidade);
 
                 ViewBag.Message = "Detalhes Modalidade";
 

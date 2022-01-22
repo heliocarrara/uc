@@ -13,7 +13,7 @@ namespace UC.Areas.Coordenador.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home", new { Area = "" });
+            return RedirectToAction("Detalhes", "Painel");
         }
 
         public ActionResult Lista()
@@ -26,9 +26,7 @@ namespace UC.Areas.Coordenador.Controllers
 
                 foreach (var cadaModalidade in modalidades)
                 {
-                    var turmas = idbucContext.Turmas.Where(x => x.ativa && x.disponivel && x.modalidadeUID == cadaModalidade.modalidadeUID).ToList();
-
-                    lista.Add(new VMModalidade(cadaModalidade, turmas));
+                    lista.Add(new VMModalidade(cadaModalidade));
                 }
 
                 var model = new VMListModalidade(lista);
@@ -54,9 +52,7 @@ namespace UC.Areas.Coordenador.Controllers
 
                 foreach (var cadaModalidade in modalidades)
                 {
-                    var turmas = idbucContext.Turmas.Where(x => x.ativa && x.disponivel && x.modalidadeUID == cadaModalidade.modalidadeUID).ToList();
-
-                    lista.Add(new VMModalidade(cadaModalidade, turmas));
+                    lista.Add(new VMModalidade(cadaModalidade));
                 }
 
                 var model = new VMListModalidade(lista);
