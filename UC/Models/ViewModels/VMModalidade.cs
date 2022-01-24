@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UC.Models.Enumerators;
+using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Models.ViewModels
 {
@@ -13,7 +14,7 @@ namespace UC.Models.ViewModels
         public long tipoModalidade { get; set; }
         public string nome { get; set; }
         public string Descrição { get; set; }
-        public List<VMTurma> Turmas { get; set; }
+        public VMListTurma ListaTurma { get; set; }
         public string ValorInscrição { get; set; }
         public string ValorMensalidade { get; set; }
 
@@ -38,15 +39,7 @@ namespace UC.Models.ViewModels
             this.ativa = modalidade.ativa;
             this.disponivel = modalidade.disponivel;
 
-            this.Turmas = new List<VMTurma>();
-
-            if (modalidade.Turmas != null && modalidade.Turmas.Any())
-            {
-                foreach (var cadaTurma in modalidade.Turmas.ToList())
-                {
-                    this.Turmas.Add(new VMTurma(cadaTurma));
-                }
-            }
+            this.ListaTurma = new VMListTurma (modalidade);
         }
         #endregion
 

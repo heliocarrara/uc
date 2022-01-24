@@ -1,0 +1,11 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormChamada
+
+@{
+    ViewBag.Title = "Formulário de Chamada";
+}
+
+
+@Html.HiddenFor(m => m.aulaUID, Model.aulaUID)
+@Html.HiddenFor(m => m.alunoUID, Model.alunoUID)
+
+

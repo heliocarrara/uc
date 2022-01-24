@@ -1,50 +1,41 @@
 ﻿@model UC.Models.ViewModels.ListViewModels.VMListTurma
 
-@if (Model.Turmas != null && Model.Turmas.Any())
-{
-    foreach (var cadaTurma in Model.Turmas)
-    {
-        <div class="panel panel-info panel-detalhes-turma">
-            <div class="panel-heading panel-title-row">
-                Turma: @cadaTurma.Nome
-            </div>
-            <div class="panel-body">
-                <ul class="list-group">
-                    <li class="list-group-item"><h3><strong>Descrição da Modalidade: </strong>@cadaTurma.Modalidade.Descricao</h3></li>
-                    <li class="list-group-item"><h3><strong>Descrição da Turma: </strong>@cadaTurma.Descricao</h3></li>
-                    <li class="list-group-item"><h3><strong>Horario de Inicio: </strong>@cadaTurma.HorarioInicio.ToShortTimeString()</h3></li>
-                    <li class="list-group-item"><h3><strong>Horario de Término: </strong>@cadaTurma.HorarioTermino.ToShortTimeString()</h3></li>
-                    <li class="list-group-item"><h3><strong>Dias da Semana: </strong>@cadaTurma.DiasDaSemana.todosOsDias</h3></li>
-                    <li class="list-group-item"><h3><strong>Duração: </strong>@cadaTurma.DuracaoAula Min</h3></li>
-                    <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@cadaTurma.Vagas</h3></li>
-                    <li class="list-group-item"><h3><strong>Professores: </strong>@cadaTurma.Bolsistas.Count</h3></li>
-                    <li class="list-group-item"><h3><strong>Nº de Alunos: </strong>@cadaTurma.Alunos.Count</h3></li>
-                </ul>
+@{
+    ViewBag.Title = "Turmas";
+}
 
-            </div>
-            @if (UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario")
-            {
-                <div class="row">
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Detalhes", "Detalhes", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-info" })
-                    </div>
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Adicionar Aluno", "NovoDestaTurma", "Aluno", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-success" })
-                    </div>
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Editar", "Editar", "Turma", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-warning" })
-                    </div>
-                    <div class="btn-modalidade">
-                        @Html.ActionLink("Listar Bolsistas", "Lista", "Bolsista", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-info" })
-                    </div>
-                </div>
-            }
+<div class="panel panel-info">
+    <span class="panel-title-col">Turmas</span>
+</div>
+<div class="panel-body">
+    @if (Model.Turmas != null && Model.Turmas.Any())
+    {
+        <table class="table-bordered" style="min-width: 100%; text-align:center;">
+            <thead>
+                <tr style="line-height: 3em;">
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Recorrência</th>
+                    <th style="text-align: center;">Duração da Aula</th>
+                    <th style="text-align: center;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaTurma in Model.Turmas)
+                {
+                    <tr>
+                        <td>@cadaTurma.Nome</td>
+                        <td>@cadaTurma.DiasDaSemana.todosOsDias</td>
+                        <td>@cadaTurma.DuracaoAula Min</td>
+                        <td>@Html.ActionLink("Saiba Mais", "Detalhes", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-default" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="panel-body">
+            <h3>Não há tumas disponíveis no momento.</h3>
         </div>
     }
-}
-else
-{
-    <div class="panel-body">
-        <h3>Não há tumas disponíveis no momento.</h3>
-    </div>
-}
+</div>

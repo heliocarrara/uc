@@ -12,7 +12,7 @@
         <ul class="list-group">
             <li class="list-group-item"><h3>Inscrição: @Model.ValorInscrição</h3></li>
             <li class="list-group-item"><h3>Mensalidade: @Model.ValorMensalidade</h3></li>
-            <li class="list-group-item"><h3>Vagas Totais: @Model.Turmas.Sum(x => x.Vagas)</h3></li>
+            <li class="list-group-item"><h3>Vagas Totais: @Model.ListaTurma.VagasTotais</h3></li>
         </ul>
     </div>
 
@@ -46,28 +46,30 @@
 <div class="panel panel-info">
     <span class="panel-title-col">Turmas da Modalidade</span>
 </div>
-<div class="panel">
-    @if (Model.Turmas != null && Model.Turmas.Any())
+<div class="panel-body">
+    @if (Model.ListaTurma != null)
     {
-        foreach (var cadaTurma in Model.Turmas)
-        {
-            <div class="panel panel-info panel-detalhes-turma">
-                <div class="panel-heading panel-title-row">
-                        @cadaTurma.Nome
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3><strong>Descrição: </strong>@cadaTurma.Descricao</h3></li>
-                        <li class="list-group-item"><h3><strong>Horario de Inicio: </strong>@cadaTurma.HorarioInicio.ToShortTimeString()</h3></li>
-                        <li class="list-group-item"><h3><strong>Horario de Término: </strong>@cadaTurma.HorarioTermino.ToShortTimeString()</h3></li>
-                        <li class="list-group-item"><h3><strong>Dias da Semana: @cadaTurma.DiasDaSemana.todosOsDias</strong></h3></li>
-                        <li class="list-group-item"><h3><strong>Duração: @cadaTurma.DuracaoAula Min</strong></h3></li>
-                        <li class="list-group-item"><h3><strong>Nº de Vagas: </strong>@cadaTurma.Vagas</h3></li>
-                    </ul>
-                        
-                </div>
-            </div>
-        }
+        <table class="table-bordered" style="min-width: 100%; text-align:center;">
+            <thead>
+                <tr style="line-height: 3em;">
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Recorrência</th>
+                    <th style="text-align: center;">Duração da Aula</th>
+                    <th style="text-align: center;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaTurma in Model.ListaTurma.Turmas)
+                {
+                    <tr>
+                        <td>@cadaTurma.Nome</td>
+                        <td>@cadaTurma.DiasDaSemana.todosOsDias</td>
+                        <td>@cadaTurma.DuracaoAula Min</td>
+                        <td>@Html.ActionLink("Saiba Mais", "Detalhes", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-default" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
     else
     {

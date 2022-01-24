@@ -1,0 +1,34 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListChamada
+<br />
+<div class="panel panel-success panel-detalhes-turma">
+    <div class="panel-heading panel-title-row">
+        Lista de Chamada
+    </div>
+    <div class="panel-body">
+        <table class="table-bordered" style="min-width: 100%; text-align:center;">
+            <thead>
+                <tr style="line-height: 3em;">
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Situação</th>
+                    <th style="text-align: center;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaChamada in Model.chamadas)
+                {
+                    var classSituacao = cadaChamada.Presente ? "green" : "red";
+                    <tr>
+                        <td>@cadaChamada.Nome</td>
+                        <td style="color:@classSituacao;">@cadaChamada.Situacao </td>
+                        <td>
+                            @Html.ActionLink("Mudar Situacao", "MudarSituacao", "Chamada", new { Area = "Cadastro", chamadaUID = cadaChamada.chamadaUID }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Excluir", "Excluir", "Chamada", new { Area = "Cadastro", chamadaUID = cadaChamada.chamadaUID }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

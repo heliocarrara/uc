@@ -1,0 +1,33 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListAula
+<br />
+<div class="panel panel-info panel-detalhes-turma">
+    <div class="panel-heading panel-title-row">
+        Lista de Aulas
+    </div>
+    <div class="panel-body">
+        <table class="table-bordered" style="min-width: 100%; text-align:center;">
+            <thead>
+                <tr style="line-height: 3em;">
+                    <th style="text-align: center;">Dia</th>
+                    <th style="text-align: center;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaAula in Model.Aulas)
+                {
+                    <tr>
+                        <td>@cadaAula.diaAula.ToLongDateString()</td>
+                        <td>
+                            @Html.ActionLink("Detalhes", "Detalhes", "Aula", new { Area = "Comum", aulaUID = cadaAula.aulaUID }, new { @class = "btn btn-info" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if ((UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario") && Model.turmaUID.HasValue)
+    {
+        @Html.ActionLink("Incluir Aula", "Nova", "Aula", new { Area = "Cadastro", turmaUID = Model.turmaUID.Value }, new { @class = "btn btn-success" })
+    }
+</div>
+

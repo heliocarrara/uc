@@ -1,0 +1,38 @@
+﻿@model UC.Models.ViewModels.VMAula
+
+@{
+    ViewBag.Title = "Detalhes da Aula";
+}
+<div class="row">
+    <div class="btn-modalidade">
+        @Html.ActionLink("Voltar para Turma", "Detalhes", "Turma", new { Area = "Comum", turmaUID = Model.turmaUID }, new { @class = "btn btn-info" })
+    </div>
+    <div class="btn-modalidade">
+        @Html.ActionLink("Incluir Atividade", "Nova", "AtividadeAula", new { Area = "Cadastro", aulaUID = Model.aulaUID }, new { @class = "btn btn-info" })
+    </div>
+    @if (Model.ListaChamada == null || !Model.ListaChamada.chamadas.Any())
+    {
+        <div class="btn-modalidade">
+            @Html.ActionLink("Incluir Chamada", "Nova", "Chamada", new { Area = "Cadastro", aulaUID = Model.aulaUID }, new { @class = "btn btn-info" })
+        </div>
+    }
+    
+</div>
+
+<div class="panel panel-info panel-detalhes-modalidade">
+    <div class="panel-heading">
+        <span class="panel-title-col"><strong>Data da Aula: @Model.diaAula.ToShortDateString()</strong></span>
+    </div>
+    <div class="panel-body">
+        @if (Model.ListaAtividadeAula != null)
+        {
+            @Html.Partial("_PartialViewListaAtividadeAula", Model.ListaAtividadeAula)
+        }
+        <br />
+        @if (Model.ListaChamada != null)
+        {
+            @Html.Partial("_PartialViewListaChamada", Model.ListaChamada)
+        }
+    </div>
+</div>
+

@@ -1,0 +1,55 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListFormChamada
+
+@{
+    ViewBag.Title = "Formulário de Chamada";
+}
+
+@using (@Html.BeginForm("GravarFormularioChamada", "Chamada", FormMethod.Post))
+{
+    @Html.Hidden("aulaUID", Model.aulaUID)
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 style="text-align: center;">Formulário de Chamada</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table-bordered" style="min-width: 100%; text-align:center;">
+                <thead>
+                    <tr style="line-height: 3em;">
+                        <th style="text-align: center;">ID</th>
+                        <th style="text-align: center;">Presente</th>
+                        <th style="text-align: left; padding-left: 10px;">Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.chamadas.Count; i++)
+                    {
+                        <tr style="line-height: 3em;">
+                            <td>
+                                @Model.chamadas[i].alunoUID
+                                <span style="display: none;">
+                                    @Html.EditorFor(model => Model.chamadas[i].alunoUID)
+                                    @Html.EditorFor(model => Model.chamadas[i].chamadaUID)
+                                </span>
+                            </td>
+                            <td>@Html.EditorFor(model => Model.chamadas[i].presenca)</td>
+                            <td style="text-align: left; padding-left: 10px;">@Model.chamadas[i].nomeAluno</td>
+                        </tr>
+
+                        @*
+            <tr style="line-height: 3em;">
+                <td>@Html.CheckBox(Model.lista.Items[i].Value, Model.lista.Items[i].Selected)</td>
+                <td style="text-align: left; padding-left: 10px;">@Model.lista.Items[i].Text</td>
+            </tr>
+                        *@
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="panel-footer more-large text-center">
+            <button type="submit" class="btn btn-success">Salvar as Alterações</button>
+            @Html.ActionLink("Voltar", "Detalhes", "Aula", new { Area = "Comum", aulaUID = Model.aulaUID }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

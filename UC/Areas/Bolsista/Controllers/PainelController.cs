@@ -16,7 +16,7 @@ namespace UC.Areas.Bolsista.Controllers
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
-        public ActionResult Detalhes()
+        /*public ActionResult Detalhes()
         {
             try
             {
@@ -32,6 +32,6 @@ namespace UC.Areas.Bolsista.Controllers
                 AddMessage(UserMessageType.error, ex);
                 return Index();
             }
-        }
+        }*/
     }
 }

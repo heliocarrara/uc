@@ -21,13 +21,11 @@ namespace UC.Models
     
         public long bolsistaUID { get; set; }
         public long pessoaUID { get; set; }
-        public long turmaUID { get; set; }
         public System.DateTime dataCriacao { get; set; }
         public System.DateTime validade { get; set; }
         public bool ativo { get; set; }
     
         public virtual Pessoa Pessoa { get; set; }
-        public virtual Turma Turma { get; set; }
         public virtual ICollection<Professor> Professors { get; set; }
     }
 }

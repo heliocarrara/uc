@@ -11,13 +11,13 @@ using UC.Models.ViewModels.FormViewModels;
 namespace UC.Areas.Cadastro.Controllers
 {
     [System.Web.Http.Authorize(Roles = "Coordenador, Secretario")]
-    public class BolsistaController : BaseController
+    public class ProfessorTurmaController : BaseController
     {
-        const string formulario = "FormularioBolsista";
+        /*const string Formulario = "FormularioBolsista";
         public ActionResult Index()
         {
-            return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole });
-        }/*
+            return RedirectToAction("Lista", "Bolsista", new { Area = Utility.SimpleSessionPersister.UserRole });
+        }
 
         public ActionResult Novo()
         {
@@ -25,7 +25,7 @@ namespace UC.Areas.Cadastro.Controllers
             {
                 var model = new VMFormBolsista(myUnityOfHelpers);
 
-                return View(formulario, model);
+                return View(Formulario, model);
             }
             catch (Exception ex)
             {

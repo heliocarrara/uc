@@ -14,17 +14,11 @@ namespace UC.Models
     
     public partial class DiaSemanaTurma
     {
-        public DiaSemanaTurma()
-        {
-            this.Aulas = new HashSet<Aula>();
-        }
-    
         public long diasemanaturmaUID { get; set; }
         public bool ativo { get; set; }
         public long turmaUID { get; set; }
         public int diaSemanal { get; set; }
     
-        public virtual ICollection<Aula> Aulas { get; set; }
         public virtual Turma Turma { get; set; }
     }
 }

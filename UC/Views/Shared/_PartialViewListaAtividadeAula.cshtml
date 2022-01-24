@@ -1,0 +1,42 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListAtividadeAula
+<br />
+<div class="panel panel-detalhes-turma">
+    <div class="panel-heading panel-info panel-title-row">
+        Atividades da Aula
+    </div>
+    <div class="panel-body">
+        @foreach (var cadaAtividade in Model.atividadeAulas)
+        {
+            <div class="panel-default ">
+                <ul class="list-group">
+                    <li class="list-group-item"><h2>@cadaAtividade.ordem - @cadaAtividade.titulo</h2></li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item"><h3><strong>Duração: </strong>@cadaAtividade.duracaoMin Min</h3></li>
+                    <li class="list-group-item"><h3><strong>Descrição: </strong>@cadaAtividade.descricao</h3></li>
+                </ul>
+
+                @if (UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario")
+                {
+                    <div class="row">
+                        @if (cadaAtividade.aprovado)
+                        {
+                            <div class="btn-modalidade">
+                                @Html.ActionLink("Excluir", "MudarSituacao", "AtividadeAula", new { Area = "Cadastro", atividadeaulaUID = cadaAtividade.atividadeaulaUID }, new { @class = "btn btn-danger" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn-modalidade">
+                                @Html.ActionLink("Aprovar", "Aprovar", "AtividadeAula", new { Area = "Cadastro", atividadeaulaUID = cadaAtividade.atividadeaulaUID }, new { @class = "btn btn-success" })
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <br />
+        }
+    </div>
+</div>
+
+

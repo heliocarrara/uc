@@ -17,8 +17,9 @@ namespace UC.Models.ViewModels
         public string Nome { get; set; }
         public int Vagas { get; set; }
         public Modalidade Modalidade { get; set; }
-        public List<VMAluno> Alunos { get; set; }
-        public List<VMBolsista> Bolsistas { get; set; }
+        public VMListAluno ListaAlunos { get; set; }
+        public VMListAula ListaAula { get; set; }
+        public VMListProfessorTurma ListaProfessoresTurma { get; set; }
         public VMListDiasDaSemana DiasDaSemana { get; set; }
         public bool disponivel { get; set; }
         #endregion
@@ -43,23 +44,11 @@ namespace UC.Models.ViewModels
             this.disponivel = turma.disponivel;
             this.Nome = turma.Modalidade.nome + " - " +turma.HorarioInicio.ToShortTimeString();
 
-            this.Alunos = new List<VMAluno>();
-            if (turma.Alunoes != null && turma.Alunoes.Any(x => x.ativo))
-            {
-                foreach (var cadaAluno in turma.Alunoes.Where(x => x.ativo).ToList())
-                {
-                    this.Alunos.Add(new VMAluno(cadaAluno));
-                }
-            }
+            this.ListaAlunos = new VMListAluno(turma);
 
-            this.Bolsistas = new List<VMBolsista>();
-            if (turma.Bolsistas != null && turma.Bolsistas.Any(x => x.ativo && x.validade > DateTime.Now))
-            {
-                foreach (var cadaBolsista in turma.Bolsistas.Where(x => x.ativo && x.validade > DateTime.Now).ToList())
-                {
-                    this.Bolsistas.Add(new VMBolsista(cadaBolsista));
-                }
-            }
+            this.ListaProfessoresTurma = new VMListProfessorTurma(turma);
+
+            this.ListaAula = new VMListAula(turma);
 
             this.DiasDaSemana = new VMListDiasDaSemana(turma);
         }
