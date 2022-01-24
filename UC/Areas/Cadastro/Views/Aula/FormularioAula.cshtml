@@ -1,0 +1,37 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormAula
+
+@{
+    ViewBag.Title = "Nova aula";
+}
+
+@using (@Html.BeginForm("GravarFormularioAula", "Aula", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.aulaUID, Model.aulaUID)
+    @Html.HiddenFor(m => m.turmaUID, Model.turmaUID)
+
+    <div>
+        <div class="panel-heading">
+            <h2>Formulário de Aula</h2>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.dataRealizacao, "Data da Aula:")
+                <input type="date" class="form-control" value=@Model.dataRealizacao name=@Html.NameFor(m => m.dataRealizacao) id=@Html.IdFor(m => m.dataRealizacao) a/>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.duracaoMin, "Duração da Aula (em minutos):")
+                @Html.TextBoxFor(m => m.duracaoMin, new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.duracaoMin, "Aula Extra: ")
+                @Html.CheckBoxFor(m => m.aulaExtra, new { @class = "" })
+            </div>
+        </div>
+        <div class="panel-footer more-large text-center">
+
+            <button type="submit" class="btn btn-success">Salvar</button>
+
+            @Html.ActionLink("Voltar", "Detalhes", "Turma", new { Area = "Comum", turmaUID = Model.turmaUID }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

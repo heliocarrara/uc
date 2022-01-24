@@ -26,7 +26,7 @@ namespace UC.Models
         public bool ativa { get; set; }
     
         public virtual Aluno Aluno { get; set; }
-        public virtual Aula Aula { get; set; }
         public virtual ICollection<JustificativaAula> JustificativaAulas { get; set; }
+        public virtual Aula Aula { get; set; }
     }
 }

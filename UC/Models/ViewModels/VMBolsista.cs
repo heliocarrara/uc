@@ -10,7 +10,6 @@ namespace UC.Models.ViewModels
         public long bolsistaUID { get; set; }
         public string nome { get; set; }
         public string cpf { get; set; }
-        public string turma { get; set; }
 
         public VMBolsista()
         {
@@ -21,7 +20,6 @@ namespace UC.Models.ViewModels
             this.bolsistaUID = bolsista.bolsistaUID;
             this.cpf = bolsista.Pessoa.cpf;
             this.nome = bolsista.Pessoa.nome;
-            this.turma = bolsista.Turma.Modalidade.nome + " - " + bolsista.Turma.HorarioInicio.ToShortTimeString();
         }
     }
 }

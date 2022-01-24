@@ -21,7 +21,6 @@ namespace UC.Models
         }
     
         public long aulaUID { get; set; }
-        public long diasemanaturmaUID { get; set; }
         public System.DateTime dataRealizacao { get; set; }
         public long turmaUID { get; set; }
         public bool ativa { get; set; }
@@ -31,6 +30,5 @@ namespace UC.Models
         public virtual ICollection<AtividadeAula> AtividadeAulas { get; set; }
         public virtual Turma Turma { get; set; }
         public virtual ICollection<Chamada> Chamadas { get; set; }
-        public virtual DiaSemanaTurma DiaSemanaTurma { get; set; }
     }
 }

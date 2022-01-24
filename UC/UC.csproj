@@ -224,7 +224,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Bolsista\Controllers\PainelController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\AlunoController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\ProfessorTurmaController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\ChamadaController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\AtividadeAulaController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\AulaController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\BolsistaController.cs" />
+    <Compile Include="Areas\Comum\Controllers\AulaController.cs" />
     <Compile Include="Areas\Comum\Controllers\TurmaController.cs" />
     <Compile Include="Areas\Coordenador\Controllers\AlunoController.cs" />
     <Compile Include="Areas\Coordenador\Controllers\BolsistaController.cs" />
@@ -326,6 +331,9 @@
       <DependentUpon>UCModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UnityOfHelpers.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormAtividadeAula.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormChamada.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormAula.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormAluno.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormBolsista.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormCadastroLogin.cs" />
@@ -333,19 +341,30 @@
     <Compile Include="Models\ViewModels\FormViewModels\VMFormModalidade.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormPermissao.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormTurma.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListChamada.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListAtividadeAula.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListAula.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListProfessorTurma.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListDiasDaSemana.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListFormChamada.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListPermissao.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListAluno.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListTurma.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListPessoas.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListUsuarios.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListModalidade.cs" />
     <Compile Include="Models\ViewModels\VMAluno.cs" />
+    <Compile Include="Models\ViewModels\VMAtividadesAula.cs" />
     <Compile Include="Models\ViewModels\VMBolsista.cs" />
+    <Compile Include="Models\ViewModels\VMChamada.cs" />
     <Compile Include="Models\ViewModels\VMDiaSemanal.cs" />
+    <Compile Include="Models\ViewModels\VMAula.cs" />
+    <Compile Include="Models\ViewModels\VMJustificativaAula.cs" />
     <Compile Include="Models\ViewModels\VMModalidade.cs" />
     <Compile Include="Models\ViewModels\VMPainelCoordenador.cs" />
     <Compile Include="Models\ViewModels\VMPermissao.cs" />
     <Compile Include="Models\ViewModels\VMPessoa.cs" />
+    <Compile Include="Models\ViewModels\VMProfessorTurma.cs" />
     <Compile Include="Models\ViewModels\VMTurma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CustomIdentity.cs" />
@@ -420,6 +439,11 @@
     <Content Include="Areas\Cadastro\Views\Bolsista\FormularioBolsista.cshtml" />
     <Content Include="Areas\Bolsista\Views\Painel\DetalhesPainel.cshtml" />
     <Content Include="Areas\Cadastro\Views\Turma\FormularioDiaSemana.cshtml" />
+    <Content Include="Areas\Comum\Views\Aula\Detalhes.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Chamada\FormularioListaChamada.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Chamada\FormularioChamada.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Aula\FormularioAula.cshtml" />
+    <Content Include="Areas\Cadastro\Views\AtividadeAula\FormularioAtividadeAula.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -457,6 +481,11 @@
     <Content Include="Views\Shared\_PartialViewListaBolsista.cshtml" />
     <Content Include="Views\Shared\_PartialViewListaAluno.cshtml" />
     <Content Include="Views\Shared\_PartialViewListaDiaSemana.cshtml" />
+    <Content Include="Views\Shared\_PartialViewListaChamada.cshtml" />
+    <Content Include="Views\Shared\_PartialViewListaAtividadeAula.cshtml" />
+    <Content Include="Views\Shared\_PartialViewListaAula.cshtml" />
+    <Content Include="Views\Shared\_PartialViewListaProfessorTurma.cshtml" />
+    <Content Include="Views\Shared\_PartialInfoTurma.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

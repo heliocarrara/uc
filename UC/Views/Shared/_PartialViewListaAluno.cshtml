@@ -1,4 +1,4 @@
-﻿@model List<UC.Models.ViewModels.VMAluno>
+﻿@model UC.Models.ViewModels.ListViewModels.VMListAluno
 
 <br />
 <div class="panel panel-info panel-detalhes-turma">
@@ -15,11 +15,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var cadaAluno in Model)
+                @foreach (var cadaAluno in Model.Alunos)
                 {
                     <tr>
                         <td>@cadaAluno.nome</td>
-                        @if (true)
+                        @if (cadaAluno.situacaoRegular)
                         {
                             <td class="success">Regular</td>
                         }
@@ -33,9 +33,9 @@
             </tbody>
         </table>
     </div>
-    @if (UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario")
+    @if ((UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario") && Model.turmaUID.HasValue)
     {
-        @Html.ActionLink("Adicionar Aluno", "Novo", "Aluno", new { Area = "Cadastro"}, new { @class = "btn btn-success" })
+        @Html.ActionLink("Adicionar Aluno", "Novo", "Aluno", new { Area = "Cadastro", turmaUID = Model.turmaUID.Value}, new { @class = "btn btn-success" })
     }
 </div>
 

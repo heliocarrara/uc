@@ -1,0 +1,37 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListProfessorTurma
+<br />
+<div class="panel panel-info panel-detalhes-turma">
+    <div class="panel-heading panel-title-row">
+        Lista de Professores
+    </div>
+    <div class="panel-body">
+        <table class="table-bordered" style="min-width: 100%; text-align:center;">
+            <thead>
+                <tr style="line-height: 3em;">
+                    <th style="text-align: center;">Nome</th>
+                    <th style="text-align: center;">Vínculo</th>
+                    <th style="text-align: center;">Validade</th>
+                    <th style="text-align: center;">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaProfessor in Model.ProfessoresDaTurma)
+                {
+                    <tr>
+                        <td>@cadaProfessor.nome</td>
+                        <td>@cadaProfessor.vinculo</td>
+                        <td>@cadaProfessor.validade</td>
+                        <td>
+                            @Html.ActionLink("Excluir", "Excluir", "ProfessorTurma", new { Area = "Cadastro", professorTurmaUID = cadaProfessor.professorTurmaUID }, new { @class = "btn btn-warning" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if ((UC.Utility.SimpleSessionPersister.UserRole == "Coordenador" || UC.Utility.SimpleSessionPersister.UserRole == "Secretario") && Model.turmaUID.HasValue)
+    {
+        @Html.ActionLink("Incluir Professor", "Novo", "ProfessorTurma", new { Area = "Cadastro", turmaUID = Model.turmaUID.Value }, new { @class = "btn btn-success" })
+    }
+</div>
+

@@ -8,8 +8,9 @@ namespace UC.Models.ViewModels
     public class VMAluno
     {
         public long alunoUID { get; set; }
+        public long turmaUID { get; set; }
         public string nome { get; set; }
-        public Turma turma { get; set; }
+        public bool situacaoRegular { get; set; }
 
         public VMAluno()
         {
@@ -18,8 +19,9 @@ namespace UC.Models.ViewModels
         public VMAluno(Aluno aluno)
         {
             this.alunoUID = aluno.alunoUID;
+            this.turmaUID = aluno.turmaUID;
             this.nome = aluno.Pessoa.nome;
-            this.turma = aluno.Turma;
+            this.situacaoRegular = aluno.ativo;
         }
     }
 }

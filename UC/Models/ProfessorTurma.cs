@@ -19,7 +19,7 @@ namespace UC.Models
         public long professorUID { get; set; }
         public bool ativo { get; set; }
     
-        public virtual Professor Professor { get; set; }
         public virtual Turma Turma { get; set; }
+        public virtual Professor Professor { get; set; }
     }
 }

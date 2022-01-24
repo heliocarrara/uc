@@ -10,7 +10,7 @@ namespace UC.Models.Enumerators
         [Description("Secretario")]
         Administrador = 2,
 
-        [Description("Bolsista")]
+        [Description("Professor")]
         Bolsista = 3,
 
         [Description("Coordenador")]
