@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace UC.Areas.Bolsista
+namespace UC.Areas.Professor
 {
-    public class BolsistaAreaRegistration : AreaRegistration 
+    public class ProfessorAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Bolsista";
+                return "Professor";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Bolsista_default",
-                "Bolsista/{controller}/{action}/{id}",
+                "Professor_default",
+                "Professor/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

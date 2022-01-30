@@ -222,7 +222,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Bolsista\Controllers\PainelController.cs" />
+    <Compile Include="Areas\Professor\Controllers\PainelController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\AlunoController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\ProfessorTurmaController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\ChamadaController.cs" />
@@ -236,7 +236,7 @@
     <Compile Include="Areas\Coordenador\Controllers\PessoaController.cs" />
     <Compile Include="Areas\Secretario\SecretarioAreaRegistration.cs" />
     <Compile Include="Areas\Aluno\AlunoAreaRegistration.cs" />
-    <Compile Include="Areas\Bolsista\BolsistaAreaRegistration.cs" />
+    <Compile Include="Areas\Professor\ProfessorAreaRegistration.cs" />
     <Compile Include="Areas\Cadastro\CadastroAreaRegistration.cs" />
     <Compile Include="Areas\Cadastro\Controllers\ModalidadeController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\PermissaoController.cs" />
@@ -401,9 +401,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Comum\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Comum\Views\Web.config" />
-    <Content Include="Areas\Bolsista\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Bolsista\Views\Shared\Error.cshtml" />
-    <Content Include="Areas\Bolsista\Views\Web.config" />
+    <Content Include="Areas\Professor\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Professor\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Professor\Views\Web.config" />
     <Content Include="Areas\Secretario\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Secretario\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Secretario\Views\Shared\Error.cshtml" />
@@ -437,7 +437,7 @@
     <Content Include="Areas\Comum\Views\Turma\Detalhes.cshtml" />
     <Content Include="Areas\Coordenador\Views\Bolsista\ListaBolsistas.cshtml" />
     <Content Include="Areas\Cadastro\Views\Bolsista\FormularioBolsista.cshtml" />
-    <Content Include="Areas\Bolsista\Views\Painel\DetalhesPainel.cshtml" />
+    <Content Include="Areas\Professor\Views\Painel\DetalhesPainel.cshtml" />
     <Content Include="Areas\Cadastro\Views\Turma\FormularioDiaSemana.cshtml" />
     <Content Include="Areas\Comum\Views\Aula\Detalhes.cshtml" />
     <Content Include="Areas\Cadastro\Views\Chamada\FormularioListaChamada.cshtml" />
@@ -491,7 +491,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Aluno\Controllers\" />
     <Folder Include="Areas\Aluno\Model\" />
-    <Folder Include="Areas\Bolsista\Model\" />
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Professor\" />
     <Folder Include="Areas\Cadastro\Views\Shared\" />
@@ -499,6 +498,7 @@
     <Folder Include="Areas\Comum\Views\Shared\" />
     <Folder Include="Areas\Coordenador\Data\" />
     <Folder Include="Areas\Coordenador\Views\Shared\" />
+    <Folder Include="Areas\Professor\Model\" />
     <Folder Include="Areas\Secretario\Controllers\" />
     <Folder Include="Areas\Secretario\Model\" />
   </ItemGroup>
