@@ -14,17 +14,11 @@ namespace UC.Models
     
     public partial class Autonomo
     {
-        public Autonomo()
-        {
-            this.Professors = new HashSet<Professor>();
-        }
-    
         public long autonomoUID { get; set; }
         public long pessoaUID { get; set; }
         public bool ativo { get; set; }
         public System.DateTime validade { get; set; }
     
         public virtual Pessoa Pessoa { get; set; }
-        public virtual ICollection<Professor> Professors { get; set; }
     }
 }

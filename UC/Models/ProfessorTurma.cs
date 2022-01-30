@@ -18,8 +18,10 @@ namespace UC.Models
         public long turmaUID { get; set; }
         public long professorUID { get; set; }
         public bool ativo { get; set; }
+        public System.DateTime dataCriacao { get; set; }
+        public System.DateTime validade { get; set; }
     
-        public virtual Turma Turma { get; set; }
         public virtual Professor Professor { get; set; }
+        public virtual Turma Turma { get; set; }
     }
 }

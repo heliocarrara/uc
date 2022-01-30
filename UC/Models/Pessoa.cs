@@ -22,6 +22,7 @@ namespace UC.Models
             this.Logins = new HashSet<Login>();
             this.Permissaos = new HashSet<Permissao>();
             this.Bolsistas = new HashSet<Bolsista>();
+            this.Professors = new HashSet<Professor>();
         }
     
         public long pessoaUID { get; set; }
@@ -38,5 +39,6 @@ namespace UC.Models
         public virtual ICollection<Login> Logins { get; set; }
         public virtual ICollection<Permissao> Permissaos { get; set; }
         public virtual ICollection<Bolsista> Bolsistas { get; set; }
+        public virtual ICollection<Professor> Professors { get; set; }
     }
 }

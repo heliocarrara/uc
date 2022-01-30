@@ -14,11 +14,6 @@ namespace UC.Models
     
     public partial class Bolsista
     {
-        public Bolsista()
-        {
-            this.Professors = new HashSet<Professor>();
-        }
-    
         public long bolsistaUID { get; set; }
         public long pessoaUID { get; set; }
         public System.DateTime dataCriacao { get; set; }
@@ -26,6 +21,5 @@ namespace UC.Models
         public bool ativo { get; set; }
     
         public virtual Pessoa Pessoa { get; set; }
-        public virtual ICollection<Professor> Professors { get; set; }
     }
 }

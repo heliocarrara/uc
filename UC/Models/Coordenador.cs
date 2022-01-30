@@ -14,16 +14,10 @@ namespace UC.Models
     
     public partial class Coordenador
     {
-        public Coordenador()
-        {
-            this.Professors = new HashSet<Professor>();
-        }
-    
         public long coordenadorUID { get; set; }
         public bool ativo { get; set; }
         public long pessoaUID { get; set; }
     
         public virtual Pessoa Pessoa { get; set; }
-        public virtual ICollection<Professor> Professors { get; set; }
     }
 }
