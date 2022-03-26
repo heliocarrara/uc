@@ -20,15 +20,12 @@ namespace UC.Models
         }
     
         public long professorUID { get; set; }
-        public Nullable<long> bolsistaUID { get; set; }
-        public Nullable<long> coordenadorUID { get; set; }
-        public Nullable<long> autonomoUID { get; set; }
         public bool ativo { get; set; }
+        public long pessoaUID { get; set; }
+        public System.DateTime dataCriacao { get; set; }
         public System.DateTime validade { get; set; }
     
-        public virtual Autonomo Autonomo { get; set; }
-        public virtual Bolsista Bolsista { get; set; }
-        public virtual Coordenador Coordenador { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
         public virtual ICollection<ProfessorTurma> ProfessorTurmas { get; set; }
     }
 }

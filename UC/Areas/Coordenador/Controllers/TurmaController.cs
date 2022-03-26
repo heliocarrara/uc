@@ -25,7 +25,7 @@ namespace UC.Areas.Coordenador.Controllers
             {
                 var turma = idbucContext.Turmas.Where(x => x.ativa && x.disponivel).ToList();
 
-                var model = new VMListTurma(turma);
+                var model = new VMListTurma(myUnityOfHelpers, turma);
 
                 ViewBag.Message = "Turmas";
 
@@ -44,7 +44,7 @@ namespace UC.Areas.Coordenador.Controllers
             {
                 var turma = idbucContext.Turmas.Where(x => x.ativa == false || x.disponivel == false).ToList();
 
-                var model = new VMListTurma(turma);
+                var model = new VMListTurma(myUnityOfHelpers, turma);
 
                 ViewBag.Message = "Turmas desativadas";
 

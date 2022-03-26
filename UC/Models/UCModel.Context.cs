@@ -33,7 +33,6 @@ namespace UC.Models
         public DbSet<Modalidade> Modalidades { get; set; }
         public DbSet<Permissao> Permissaos { get; set; }
         public DbSet<Pessoa> Pessoas { get; set; }
-        public DbSet<ProfessorTurma> ProfessorTurmas { get; set; }
         public DbSet<Turma> Turmas { get; set; }
         public DbSet<Chamada> Chamadas { get; set; }
         public DbSet<JustificativaAula> JustificativaAulas { get; set; }
@@ -41,5 +40,6 @@ namespace UC.Models
         public DbSet<Bolsista> Bolsistas { get; set; }
         public DbSet<Aula> Aulas { get; set; }
         public DbSet<Professor> Professors { get; set; }
+        public DbSet<ProfessorTurma> ProfessorTurmas { get; set; }
     }
 }

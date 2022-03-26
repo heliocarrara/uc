@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
-using UC.Models.ViewModels.ListViewModels;
+using UC.Models.ViewModels;
 
-namespace UC.Areas.Bolsista.Controllers
+namespace UC.Areas.Professor.Controllers
 {
-    [System.Web.Http.Authorize(Roles = "Bolsista")]
+    [System.Web.Http.Authorize(Roles = "Professor")]
     public class PainelController : BaseController
     {
         public ActionResult Index()
@@ -16,14 +16,14 @@ namespace UC.Areas.Bolsista.Controllers
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
-        /*public ActionResult Detalhes()
+        public ActionResult Detalhes()
         {
             try
             {
                 var pessoaUID = long.Parse(Utility.SimpleSessionPersister.Id);
 
-                var turmas = idbucContext.Turmas.Where(x => x.ativa && x.Bolsistas.Any(y => y.ativo && y.pessoaUID == pessoaUID && y.validade > DateTime.Now)).ToList();
-                var model = new VMListTurma(turmas);
+                var professor = idbucContext.Professors.FirstOrDefault(x => x.ativo && x.pessoaUID == pessoaUID && x.validade > DateTime.Now);
+                var model = new VMPainelProfessor(myUnityOfHelpers, professor);
 
                 return View("DetalhesPainel", model);
             }
@@ -32,6 +32,6 @@ namespace UC.Areas.Bolsista.Controllers
                 AddMessage(UserMessageType.error, ex);
                 return Index();
             }
-        }*/
+        }
     }
 }

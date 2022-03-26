@@ -10,5 +10,6 @@ namespace UC.Models.UCEntityHelpers.Interfaces
     public interface ITurmaHelper
     {
         string GetNomeTurma(Turma turma);
+        string GetDiasDaSemana(Turma turma);
     }
 }

@@ -4,89 +4,54 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
+using UC.Models.Enumerators;
 using UC.Models.ViewModels;
 using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Areas.Coordenador.Controllers
 {
-    [System.Web.Http.Authorize(Roles = "Coordenador")]
+    [System.Web.Http.Authorize(Roles = "Coordenador, Secretario")]
     public class PermissaoController : BaseController
     {
         const string viewLista = "ListaPermissao";
         public ActionResult Index()
         {
-            return RedirectToAction("Detalhes", "Painel");
+            return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole });
         }
 
         public ActionResult Lista()
         {
-            try
-            {
-                var lista = new List<VMPermissao>();
+            var lista = idbucContext.Permissaos.Where(x => x.validade >= DateTime.Now).ToList();
 
-                var permissao = idbucContext.Permissaos.Where(x => x.validade > DateTime.Now).ToList();
+            var model = new VMListPermissao(lista);
 
-                foreach (var cadaPermissao in permissao)
-                {
-                    lista.Add(new VMPermissao(cadaPermissao, myUnityOfHelpers));
-                }
+            ViewBag.Message = "Permissões";
 
-                lista = lista.OrderBy(x => x.pessoa.nome).ToList();
-
-                var model = new VMListPermissao(lista);
-
-                ViewBag.Message = "Permissões";
-
-                return View(viewLista, model);
-            }
-            catch (Exception ex)
-            {
-                AddMessage(UserMessageType.error, ex);
-                return Index();
-            }
+            return View(viewLista, model);
         }
 
-        public ActionResult ListaPorPessoa(long pessoaUID)
-        {
-            try
-            {
-                var model = new List<VMPermissao>();
 
-                var permissoes = idbucContext.Permissaos.Where(x => x.pessoaUID == pessoaUID).ToList();
-
-                foreach (var cadaPermissao in permissoes)
-                {
-                    model.Add(new VMPermissao(cadaPermissao, myUnityOfHelpers));
-                }
-
-                ViewBag.Message = "Permissões";
-
-                return View(viewLista, model);
-            }
-            catch (Exception ex)
-            {
-                AddMessage(UserMessageType.error, ex);
-                return Index();
-            }
-        }
-
-        //public ActionResult Lixeira()
+        //public ActionResult Excluir(long permissaoUID)
         //{
-        //    try
+        //    var permissao = idbucContext.Permissaos.Find(permissaoUID);
+
+        //    if (permissao != null)
         //    {
-        //        var turma = idbucContext.Turmas.Where(x => x.ativa == false || x.disponivel == false).ToList();
-
-        //        var model = new VMListTurma(turma);
-
-        //        ViewBag.Message = "Turmas desativadas";
-
-        //        return View("ListaTurma", model);
+        //        switch (permissao.tipoLogin)
+        //        {
+        //            case (int)TipoLogin.Professor:
+        //                return RedirectToAction("Exluir", "Professor", new { Area = "Cadastro", alunoUID = 0 });
+        //            case (int)TipoLogin.Aluno:
+        //                return RedirectToAction("Exluir", "Professor", new { Area = "Cadastro", alunoUID = 0 });
+        //            case (int)TipoLogin.Visitante:
+        //                break;
+        //            default:
+        //                break;
+        //        }
         //    }
-        //    catch (Exception ex)
-        //    {
-        //        AddMessage(UserMessageType.error, ex);
-        //        return Index();
-        //    }
+
+        //    AddMessage(UserMessageType.error, "Erro ao tentar excluir. Não é possível por aqui.");
+        //    return Index();
         //}
     }
 }

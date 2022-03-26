@@ -60,9 +60,9 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                @Html.ActionLink("Listar Todas", "Lista", "Permissao", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Consultar pelo CPF", "Lista", "Permissao", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, new { @class = "btn btn-default" })
 
-                @Html.ActionLink("Incluir Nova", "Nova", "Permissao", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Incluir Professor", "Novo", "Professor", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
             </div>
         </div>
     </div>

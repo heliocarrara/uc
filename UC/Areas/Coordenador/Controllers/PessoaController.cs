@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models.ViewModels;
+using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Areas.Coordenador.Controllers
 {
@@ -19,16 +20,7 @@ namespace UC.Areas.Coordenador.Controllers
         {
             try
             {
-                var model = new List<VMPessoa>();
-
-                var pessoas = idbucContext.Pessoas.ToList();
-
-                foreach (var cadaPessoa in pessoas)
-                {
-                    model.Add(new VMPessoa(cadaPessoa));
-                }
-
-                model = model.OrderBy(x => x.nome).ToList();
+                var model = new VMListPessoa(idbucContext.Pessoas.OrderBy(x => x.nome).ToList());
 
                 ViewBag.Message = "Pessoas";
 

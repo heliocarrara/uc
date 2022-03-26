@@ -13,7 +13,12 @@ namespace UC.Areas.Comum.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole });
+            if (Utility.SimpleSessionPersister.IsLogged)
+            {
+                return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+
+            return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
         public ActionResult Detalhes(long aulaUID)

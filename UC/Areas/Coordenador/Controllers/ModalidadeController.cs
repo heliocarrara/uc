@@ -26,7 +26,7 @@ namespace UC.Areas.Coordenador.Controllers
 
                 foreach (var cadaModalidade in modalidades)
                 {
-                    lista.Add(new VMModalidade(cadaModalidade));
+                    lista.Add(new VMModalidade(myUnityOfHelpers, cadaModalidade));
                 }
 
                 var model = new VMListModalidade(lista);
@@ -52,7 +52,7 @@ namespace UC.Areas.Coordenador.Controllers
 
                 foreach (var cadaModalidade in modalidades)
                 {
-                    lista.Add(new VMModalidade(cadaModalidade));
+                    lista.Add(new VMModalidade(myUnityOfHelpers, cadaModalidade));
                 }
 
                 var model = new VMListModalidade(lista);

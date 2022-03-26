@@ -23,14 +23,5 @@ namespace UC.Models.ViewModels.FormViewModels
             this.DiasDisponiveis = u.SelectLists.DiasDaSemana(null);
             this.turmaUID = turma.turmaUID;
         }
-
-        /*public VMFormDiaDaSemanaTurma(IUnityOfHelpers u, DiaSemanaTurma dia)
-        {
-            this.DiasDisponiveis = u.SelectLists.DiasDaSemana(dia.diaSemanal);
-            this.turmaUID = dia.turmaUID;
-            this.HorarioInicio = dia.Turma.HorarioInicio.ToShortTimeString();
-            this.diaSemanal = dia.diaSemanal;
-            this.diasemanaturmaUID = dia.diasemanaturmaUID;
-        }*/
     }
 }

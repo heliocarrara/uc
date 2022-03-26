@@ -12,6 +12,11 @@ namespace UC.Areas.Comum.Controllers
     {
         public ActionResult Index()
         {
+            if (Utility.SimpleSessionPersister.IsLogged)
+            {
+                return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
@@ -21,7 +26,7 @@ namespace UC.Areas.Comum.Controllers
             {
                 var turma = idbucContext.Turmas.Find(turmaUID);
 
-                var model = new VMTurma(turma);
+                var model = new VMTurma(myUnityOfHelpers, turma);
 
                 ViewBag.Message = "Detalhes Turma";
 

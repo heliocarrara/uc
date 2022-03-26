@@ -120,7 +120,7 @@ namespace UC.Controllers
 
                 foreach(var cadaPermissao in permissoes)
                 {
-                    model.Add(new VMPermissao(cadaPermissao, myUnityOfHelpers));
+                    model.Add(new VMPermissao(cadaPermissao));
                 }
 
                 return View("SelecionarPermissao", model);

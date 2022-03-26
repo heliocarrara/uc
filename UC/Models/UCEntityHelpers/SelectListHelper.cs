@@ -128,6 +128,35 @@ namespace UC.Models.UCEntityHelpers
             return result;
         }
 
+        public SelectList ProfessoresDisponiveis(long? professorUID)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            var professoresDisponiveis = idbucContext.Professors.Where(x => x.ativo && x.validade > DateTime.Now).ToList();
+
+            foreach (var cadaProfessor in professoresDisponiveis)
+            {
+                aux.Add(new SelectListItem()
+                {
+                    Text = cadaProfessor.Pessoa.nome,
+                    Value = cadaProfessor.professorUID.ToString()
+                });
+            }
+
+            if (professorUID.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", professorUID.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
         //private SelectList WebConfigList(string ListName, int? selectedValue)
         //{
         //    try

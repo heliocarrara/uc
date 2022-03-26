@@ -15,9 +15,9 @@ namespace UC.Areas.Coordenador
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Coordenador_default",
-                "Coordenador/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Coordenador_default",
+                url: "Coordenador/{controller}/{action}/{id}",
+                defaults: new { controller = "Painel", action = "Detalhes", id = UrlParameter.Optional }
             );
         }
     }

@@ -15,7 +15,12 @@ namespace UC.Areas.Comum.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Home", new { Area = ""});
+            if (Utility.SimpleSessionPersister.IsLogged)
+            {
+                return RedirectToAction("Detalhes", "Painel", new { Area = Utility.SimpleSessionPersister.UserRole });
+            }
+
+            return RedirectToAction("Index", "Home", new { Area = "" });
         }
 
         public ActionResult Lista()
@@ -28,7 +33,7 @@ namespace UC.Areas.Comum.Controllers
 
                 foreach (var cadaModalidade in modalidades)
                 {
-                    lista.Add(new VMModalidade(cadaModalidade));
+                    lista.Add(new VMModalidade(myUnityOfHelpers, cadaModalidade));
                 }
 
                 var model = new VMListModalidade(lista);
@@ -49,7 +54,7 @@ namespace UC.Areas.Comum.Controllers
             {
                 var modalidade = idbucContext.Modalidades.FirstOrDefault(x => x.ativa && x.disponivel && x.modalidadeUID == modalidadeUID);
 
-                var model = new VMModalidade(modalidade);
+                var model = new VMModalidade(myUnityOfHelpers, modalidade);
 
                 ViewBag.Message = "Detalhes Modalidade";
 

@@ -145,10 +145,9 @@
             <PropertyRef Name="professorUID" />
           </Key>
           <Property Name="professorUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="bolsistaUID" Type="bigint" />
-          <Property Name="coordenadorUID" Type="bigint" />
-          <Property Name="autonomoUID" Type="bigint" />
           <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="pessoaUID" Type="bigint" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
           <Property Name="validade" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ProfessorTurma">
@@ -159,6 +158,8 @@
           <Property Name="turmaUID" Type="bigint" Nullable="false" />
           <Property Name="professorUID" Type="bigint" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="validade" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Turma">
           <Key>
@@ -329,39 +330,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Professor_Autonomo">
-          <End Role="Autonomo" Type="Self.Autonomo" Multiplicity="0..1" />
+        <Association Name="FK_Professor_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
           <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Autonomo">
-              <PropertyRef Name="autonomoUID" />
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
             </Principal>
             <Dependent Role="Professor">
-              <PropertyRef Name="autonomoUID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Professor_Bolsista">
-          <End Role="Bolsista" Type="Self.Bolsista" Multiplicity="0..1" />
-          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bolsista">
-              <PropertyRef Name="bolsistaUID" />
-            </Principal>
-            <Dependent Role="Professor">
-              <PropertyRef Name="bolsistaUID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Professor_Coordenador">
-          <End Role="Coordenador" Type="Self.Coordenador" Multiplicity="0..1" />
-          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Coordenador">
-              <PropertyRef Name="coordenadorUID" />
-            </Principal>
-            <Dependent Role="Professor">
-              <PropertyRef Name="coordenadorUID" />
+              <PropertyRef Name="pessoaUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -470,16 +447,8 @@
             <End Role="Pessoa" EntitySet="Pessoa" />
             <End Role="Permissao" EntitySet="Permissao" />
           </AssociationSet>
-          <AssociationSet Name="FK_Professor_Autonomo" Association="Self.FK_Professor_Autonomo">
-            <End Role="Autonomo" EntitySet="Autonomo" />
-            <End Role="Professor" EntitySet="Professor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Professor_Bolsista" Association="Self.FK_Professor_Bolsista">
-            <End Role="Bolsista" EntitySet="Bolsista" />
-            <End Role="Professor" EntitySet="Professor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Professor_Coordenador" Association="Self.FK_Professor_Coordenador">
-            <End Role="Coordenador" EntitySet="Coordenador" />
+          <AssociationSet Name="FK_Professor_Pessoa" Association="Self.FK_Professor_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
             <End Role="Professor" EntitySet="Professor" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfessorTurma_Professor" Association="Self.FK_ProfessorTurma_Professor">
@@ -508,7 +477,6 @@
           <EntitySet Name="Modalidades" EntityType="Model.Modalidade" />
           <EntitySet Name="Permissaos" EntityType="Model.Permissao" />
           <EntitySet Name="Pessoas" EntityType="Model.Pessoa" />
-          <EntitySet Name="ProfessorTurmas" EntityType="Model.ProfessorTurma" />
           <EntitySet Name="Turmas" EntityType="Model.Turma" />
           <AssociationSet Name="FK_Aluno_Turma" Association="Model.FK_Aluno_Turma">
             <End Role="Turma" EntitySet="Turmas" />
@@ -537,10 +505,6 @@
           <AssociationSet Name="FK_Permissao_Pessoa" Association="Model.FK_Permissao_Pessoa">
             <End Role="Pessoa" EntitySet="Pessoas" />
             <End Role="Permissao" EntitySet="Permissaos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProfessorTurma_Turma" Association="Model.FK_ProfessorTurma_Turma">
-            <End Role="Turma" EntitySet="Turmas" />
-            <End Role="ProfessorTurma" EntitySet="ProfessorTurmas" />
           </AssociationSet>
           <EntitySet Name="Chamadas" EntityType="Model.Chamada" />
           <AssociationSet Name="FK_Chamada_Aluno" Association="Model.FK_Chamada_Aluno">
@@ -576,20 +540,17 @@
             <End Role="Chamada" EntitySet="Chamadas" />
           </AssociationSet>
           <EntitySet Name="Professors" EntityType="Model.Professor" />
-          <AssociationSet Name="FK_Professor_Autonomo" Association="Model.FK_Professor_Autonomo">
-            <End Role="Autonomo" EntitySet="Autonomoes" />
-            <End Role="Professor" EntitySet="Professors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Professor_Bolsista" Association="Model.FK_Professor_Bolsista">
-            <End Role="Bolsista" EntitySet="Bolsistas" />
-            <End Role="Professor" EntitySet="Professors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Professor_Coordenador" Association="Model.FK_Professor_Coordenador">
-            <End Role="Coordenador" EntitySet="Coordenadors" />
+          <EntitySet Name="ProfessorTurmas" EntityType="Model.ProfessorTurma" />
+          <AssociationSet Name="FK_Professor_Pessoa" Association="Model.FK_Professor_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoas" />
             <End Role="Professor" EntitySet="Professors" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfessorTurma_Professor" Association="Model.FK_ProfessorTurma_Professor">
             <End Role="Professor" EntitySet="Professors" />
+            <End Role="ProfessorTurma" EntitySet="ProfessorTurmas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfessorTurma_Turma" Association="Model.FK_ProfessorTurma_Turma">
+            <End Role="Turma" EntitySet="Turmas" />
             <End Role="ProfessorTurma" EntitySet="ProfessorTurmas" />
           </AssociationSet>
           </EntityContainer>
@@ -629,7 +590,6 @@
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Pessoa" Relationship="Model.FK_Autonomo_Pessoa" FromRole="Autonomo" ToRole="Pessoa" />
-          <NavigationProperty Name="Professors" Relationship="Model.FK_Professor_Autonomo" FromRole="Autonomo" ToRole="Professor" />
         </EntityType>
         <EntityType Name="Coordenador">
           <Key>
@@ -639,7 +599,6 @@
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <Property Name="pessoaUID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Pessoa" Relationship="Model.FK_Coordenador_Pessoa" FromRole="Coordenador" ToRole="Pessoa" />
-          <NavigationProperty Name="Professors" Relationship="Model.FK_Professor_Coordenador" FromRole="Coordenador" ToRole="Professor" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -694,17 +653,7 @@
           <NavigationProperty Name="Logins" Relationship="Model.FK_LoginSet_PessoaSet" FromRole="Pessoa" ToRole="Login" />
           <NavigationProperty Name="Permissaos" Relationship="Model.FK_Permissao_Pessoa" FromRole="Pessoa" ToRole="Permissao" />
           <NavigationProperty Name="Bolsistas" Relationship="Model.FK_Bolsista_Pessoa" FromRole="Pessoa" ToRole="Bolsista" />
-        </EntityType>
-        <EntityType Name="ProfessorTurma">
-          <Key>
-            <PropertyRef Name="professorturmaUID" />
-          </Key>
-          <Property Name="professorturmaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="turmaUID" Type="Int64" Nullable="false" />
-          <Property Name="professorUID" Type="Int64" Nullable="false" />
-          <Property Name="ativo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Turma" Relationship="Model.FK_ProfessorTurma_Turma" FromRole="ProfessorTurma" ToRole="Turma" />
-          <NavigationProperty Name="Professor" Relationship="Model.FK_ProfessorTurma_Professor" FromRole="ProfessorTurma" ToRole="Professor" />
+          <NavigationProperty Name="Professors" Relationship="Model.FK_Professor_Pessoa" FromRole="Pessoa" ToRole="Professor" />
         </EntityType>
         <EntityType Name="Turma">
           <Key>
@@ -720,9 +669,9 @@
           <Property Name="disponivel" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Alunoes" Relationship="Model.FK_Aluno_Turma" FromRole="Turma" ToRole="Aluno" />
           <NavigationProperty Name="Modalidade" Relationship="Model.FK_Turma_Modalidade" FromRole="Turma" ToRole="Modalidade" />
-          <NavigationProperty Name="ProfessorTurmas" Relationship="Model.FK_ProfessorTurma_Turma" FromRole="Turma" ToRole="ProfessorTurma" />
           <NavigationProperty Name="DiaSemanaTurmas" Relationship="Model.FK_DiaSemanaTurma_Turma" FromRole="Turma" ToRole="DiaSemanaTurma" />
           <NavigationProperty Name="Aulas" Relationship="Model.FK_Aula_Turma" FromRole="Turma" ToRole="Aula" />
+          <NavigationProperty Name="ProfessorTurmas" Relationship="Model.FK_ProfessorTurma_Turma" FromRole="Turma" ToRole="ProfessorTurma" />
         </EntityType>
         <Association Name="FK_Aluno_Turma">
           <End Type="Model.Turma" Role="Turma" Multiplicity="1" />
@@ -808,18 +757,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProfessorTurma_Turma">
-          <End Type="Model.Turma" Role="Turma" Multiplicity="1" />
-          <End Type="Model.ProfessorTurma" Role="ProfessorTurma" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Turma">
-              <PropertyRef Name="turmaUID" />
-            </Principal>
-            <Dependent Role="ProfessorTurma">
-              <PropertyRef Name="turmaUID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Chamada">
           <Key>
             <PropertyRef Name="chamadaUID" />
@@ -900,7 +837,6 @@
           <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Pessoa" Relationship="Model.FK_Bolsista_Pessoa" FromRole="Bolsista" ToRole="Pessoa" />
-          <NavigationProperty Name="Professors" Relationship="Model.FK_Professor_Bolsista" FromRole="Bolsista" ToRole="Professor" />
         </EntityType>
         <Association Name="FK_Bolsista_Pessoa">
           <End Type="Model.Pessoa" Role="Pessoa" Multiplicity="1" />
@@ -969,49 +905,35 @@
             <PropertyRef Name="professorUID" />
           </Key>
           <Property Name="professorUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="bolsistaUID" Type="Int64" />
-          <Property Name="coordenadorUID" Type="Int64" />
-          <Property Name="autonomoUID" Type="Int64" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="pessoaUID" Type="Int64" Nullable="false" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Autonomo" Relationship="Model.FK_Professor_Autonomo" FromRole="Professor" ToRole="Autonomo" />
-          <NavigationProperty Name="Bolsista" Relationship="Model.FK_Professor_Bolsista" FromRole="Professor" ToRole="Bolsista" />
-          <NavigationProperty Name="Coordenador" Relationship="Model.FK_Professor_Coordenador" FromRole="Professor" ToRole="Coordenador" />
+          <NavigationProperty Name="Pessoa" Relationship="Model.FK_Professor_Pessoa" FromRole="Professor" ToRole="Pessoa" />
           <NavigationProperty Name="ProfessorTurmas" Relationship="Model.FK_ProfessorTurma_Professor" FromRole="Professor" ToRole="ProfessorTurma" />
         </EntityType>
-        <Association Name="FK_Professor_Autonomo">
-          <End Type="Model.Autonomo" Role="Autonomo" Multiplicity="0..1" />
+        <EntityType Name="ProfessorTurma">
+          <Key>
+            <PropertyRef Name="professorturmaUID" />
+          </Key>
+          <Property Name="professorturmaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="turmaUID" Type="Int64" Nullable="false" />
+          <Property Name="professorUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="validade" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Professor" Relationship="Model.FK_ProfessorTurma_Professor" FromRole="ProfessorTurma" ToRole="Professor" />
+          <NavigationProperty Name="Turma" Relationship="Model.FK_ProfessorTurma_Turma" FromRole="ProfessorTurma" ToRole="Turma" />
+        </EntityType>
+        <Association Name="FK_Professor_Pessoa">
+          <End Type="Model.Pessoa" Role="Pessoa" Multiplicity="1" />
           <End Type="Model.Professor" Role="Professor" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Autonomo">
-              <PropertyRef Name="autonomoUID" />
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoaUID" />
             </Principal>
             <Dependent Role="Professor">
-              <PropertyRef Name="autonomoUID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Professor_Bolsista">
-          <End Type="Model.Bolsista" Role="Bolsista" Multiplicity="0..1" />
-          <End Type="Model.Professor" Role="Professor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bolsista">
-              <PropertyRef Name="bolsistaUID" />
-            </Principal>
-            <Dependent Role="Professor">
-              <PropertyRef Name="bolsistaUID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Professor_Coordenador">
-          <End Type="Model.Coordenador" Role="Coordenador" Multiplicity="0..1" />
-          <End Type="Model.Professor" Role="Professor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Coordenador">
-              <PropertyRef Name="coordenadorUID" />
-            </Principal>
-            <Dependent Role="Professor">
-              <PropertyRef Name="coordenadorUID" />
+              <PropertyRef Name="pessoaUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1024,6 +946,18 @@
             </Principal>
             <Dependent Role="ProfessorTurma">
               <PropertyRef Name="professorUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfessorTurma_Turma">
+          <End Type="Model.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="Model.ProfessorTurma" Role="ProfessorTurma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="turmaUID" />
+            </Principal>
+            <Dependent Role="ProfessorTurma">
+              <PropertyRef Name="turmaUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1126,16 +1060,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProfessorTurmas">
-            <EntityTypeMapping TypeName="Model.ProfessorTurma">
-              <MappingFragment StoreEntitySet="ProfessorTurma">
-                <ScalarProperty Name="ativo" ColumnName="ativo" />
-                <ScalarProperty Name="professorUID" ColumnName="professorUID" />
-                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
-                <ScalarProperty Name="professorturmaUID" ColumnName="professorturmaUID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Turmas">
             <EntityTypeMapping TypeName="Model.Turma">
               <MappingFragment StoreEntitySet="Turma">
@@ -1209,11 +1133,22 @@
             <EntityTypeMapping TypeName="Model.Professor">
               <MappingFragment StoreEntitySet="Professor">
                 <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="pessoaUID" ColumnName="pessoaUID" />
                 <ScalarProperty Name="ativo" ColumnName="ativo" />
-                <ScalarProperty Name="autonomoUID" ColumnName="autonomoUID" />
-                <ScalarProperty Name="coordenadorUID" ColumnName="coordenadorUID" />
-                <ScalarProperty Name="bolsistaUID" ColumnName="bolsistaUID" />
                 <ScalarProperty Name="professorUID" ColumnName="professorUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfessorTurmas">
+            <EntityTypeMapping TypeName="Model.ProfessorTurma">
+              <MappingFragment StoreEntitySet="ProfessorTurma">
+                <ScalarProperty Name="validade" ColumnName="validade" />
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="professorUID" ColumnName="professorUID" />
+                <ScalarProperty Name="turmaUID" ColumnName="turmaUID" />
+                <ScalarProperty Name="professorturmaUID" ColumnName="professorturmaUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

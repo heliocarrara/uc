@@ -16,24 +16,36 @@ namespace UC.Models.ViewModels.ListViewModels
 
         }
 
-        public VMListTurma(List<Turma> turmas)
+        public VMListTurma(IUnityOfHelpers u, List<Turma> turmas)
         {
             this.Turmas = new List<VMTurma>();
 
             foreach (var cadaTurma in turmas)
             {
-                this.Turmas.Add( new VMTurma(cadaTurma));
+                this.Turmas.Add( new VMTurma(u, cadaTurma));
             }
 
             this.VagasTotais = this.Turmas.Sum(x => x.Vagas);
         }
-        public VMListTurma(Modalidade modalidade)
+        public VMListTurma(IUnityOfHelpers u, Modalidade modalidade)
         {
             this.Turmas = new List<VMTurma>();
 
             foreach (var cadaTurma in modalidade.Turmas.Where(x => x.ativa && x.disponivel).ToList())
             {
-                this.Turmas.Add(new VMTurma(cadaTurma));
+                this.Turmas.Add(new VMTurma(u, cadaTurma));
+            }
+
+            this.VagasTotais = this.Turmas.Sum(x => x.Vagas);
+        }
+
+        public VMListTurma(IUnityOfHelpers u, List<ProfessorTurma> turmas)
+        {
+            this.Turmas = new List<VMTurma>();
+
+            foreach (var cadaTurma in turmas)
+            {
+                this.Turmas.Add(new VMTurma(u, cadaTurma.Turma));
             }
 
             this.VagasTotais = this.Turmas.Sum(x => x.Vagas);
