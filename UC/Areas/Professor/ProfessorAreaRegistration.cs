@@ -15,9 +15,9 @@ namespace UC.Areas.Professor
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Professor_default",
-                "Professor/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Professor_default",
+                url: "Professor/{controller}/{action}/{id}",
+                defaults: new { controller = "Painel", action = "Detalhes", id = UrlParameter.Optional }
             );
         }
     }

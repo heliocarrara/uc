@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Models.ViewModels
 {
@@ -14,6 +15,9 @@ namespace UC.Models.ViewModels
         public string nascimento { get; set; }
         public string endereco { get; set; }
         public string telefone { get; set; }
+        public VMListPermissao Permissoes { get; set; }
+        public VMListProfessorTurma Professores { get; set; }
+        public VMListAluno Alunos { get; set; }
         #endregion
 
         #region CONSTRUCTORS
@@ -29,6 +33,13 @@ namespace UC.Models.ViewModels
             this.nascimento = pessoa.nascimento.ToShortDateString();
             this.endereco = pessoa.endereco;
             this.telefone = pessoa.telefone;
+        }
+
+        public VMPessoa(IUnityOfHelpers u, Pessoa pessoa): this(pessoa)
+        {
+            this.Permissoes = new VMListPermissao(pessoa);
+            this.Professores = new VMListProfessorTurma(u, pessoa);
+            this.Alunos = new VMListAluno(u, pessoa);
         }
         #endregion
     }

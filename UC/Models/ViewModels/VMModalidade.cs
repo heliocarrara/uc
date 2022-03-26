@@ -13,7 +13,7 @@ namespace UC.Models.ViewModels
         public long modalidadeUID { get; set; }
         public long tipoModalidade { get; set; }
         public string nome { get; set; }
-        public string Descrição { get; set; }
+        public string Descricao { get; set; }
         public VMListTurma ListaTurma { get; set; }
         public string ValorInscrição { get; set; }
         public string ValorMensalidade { get; set; }
@@ -28,21 +28,31 @@ namespace UC.Models.ViewModels
 
         }
 
-        public VMModalidade(Modalidade modalidade)
+        public VMModalidade(IUnityOfHelpers u, Modalidade modalidade)
         {
             this.modalidadeUID = modalidade.modalidadeUID;
             this.tipoModalidade = modalidade.tipoModalidade;
             this.nome = modalidade.nome;
-            this.Descrição = modalidade.Descricao;
+            this.Descricao = modalidade.Descricao;
             this.ValorInscrição = "R$" + modalidade.ValorInscrição + ",00";
             this.ValorMensalidade = "R$" + modalidade.ValorMensalidade + ",00";
             this.ativa = modalidade.ativa;
             this.disponivel = modalidade.disponivel;
 
-            this.ListaTurma = new VMListTurma (modalidade);
+            this.ListaTurma = new VMListTurma (u, modalidade);
+        }
+
+        public VMModalidade(Turma turma)
+        {
+            this.modalidadeUID = turma.Modalidade.modalidadeUID;
+            this.tipoModalidade = turma.Modalidade.tipoModalidade;
+            this.nome = turma.Modalidade.nome;
+            this.Descricao = turma.Modalidade.Descricao;
+            this.ValorInscrição = "R$" + turma.Modalidade.ValorInscrição + ",00";
+            this.ValorMensalidade = "R$" + turma.Modalidade.ValorMensalidade + ",00";
         }
         #endregion
 
-        
+
     }
 }

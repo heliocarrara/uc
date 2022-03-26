@@ -20,7 +20,7 @@ namespace UC.Models.ViewModels
         {
         }
 
-        public VMPermissao(Permissao permissao, IUnityOfHelpers u)
+        public VMPermissao(Permissao permissao)
         {
             this.permissaoUID = permissao.permissaoUID;
             this.pessoaUID = permissao.pessoaUID;

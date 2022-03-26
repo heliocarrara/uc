@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace UC.Models.ViewModels.ListViewModels
@@ -8,6 +9,7 @@ namespace UC.Models.ViewModels.ListViewModels
         #region PROPERTIES
         public List<VMProfessorTurma> ProfessoresDaTurma { get; set; }
         public long? turmaUID { get; set; }
+        public long? pessoaUID { get; set; }
         #endregion
 
         #region CONTRUCTORS
@@ -30,15 +32,22 @@ namespace UC.Models.ViewModels.ListViewModels
                 }
             }
         }
-        public VMListProfessorTurma(List<ProfessorTurma> professoresDaTurma)
+
+        public VMListProfessorTurma(IUnityOfHelpers u, Pessoa pessoa)
         {
+            var professor = pessoa.Professors.FirstOrDefault(x => x.ativo && x.validade > DateTime.Now);
             this.ProfessoresDaTurma = new List<VMProfessorTurma>();
 
-            if (professoresDaTurma != null)
+            this.pessoaUID = pessoa.pessoaUID;
+
+            if (professor != null)
             {
-                foreach (var cadaProfessorTurma in professoresDaTurma)
+                if (professor != null && professor.ProfessorTurmas.Any(x => x.ativo))
                 {
-                    this.ProfessoresDaTurma.Add(new VMProfessorTurma(cadaProfessorTurma));
+                    foreach (var cadaProfessorTurma in professor.ProfessorTurmas.Where(x => x.ativo).ToList())
+                    {
+                        this.ProfessoresDaTurma.Add(new VMProfessorTurma(u, cadaProfessorTurma));
+                    }
                 }
             }
         }

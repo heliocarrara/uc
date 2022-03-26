@@ -15,26 +15,18 @@ namespace UC.Models.ViewModels.ListViewModels
             this.DiasSemanais = new List<VMDiaSemanal>();
         }
 
-        public VMListDiasDaSemana(Turma turma)
+        public VMListDiasDaSemana(IUnityOfHelpers u, Turma turma)
         {
             this.turmaUID = turma.turmaUID;
 
             this.DiasSemanais = new List<VMDiaSemanal>();
-            var diasSemanais = turma.DiaSemanaTurmas.Where(x => x.ativo).ToList();
 
-            if (diasSemanais.Any())
+            foreach (var cadaDia in turma.DiaSemanaTurmas.Where(x => x.ativo).ToList())
             {
-                foreach (var cadaDia in diasSemanais.OrderBy(x => x.diaSemanal))
-                {
-                    var VM = new VMDiaSemanal(cadaDia);
-                    this.DiasSemanais.Add(VM);
-                    this.todosOsDias += VM.diaString + " || ";
-                }
+                this.DiasSemanais.Add(new VMDiaSemanal(cadaDia));
             }
-            else
-            {
-                this.todosOsDias = "Nenhum dia cadastrado";
-            }
+
+            this.todosOsDias = u.Turmas.GetDiasDaSemana(turma);
         }
     }
 }

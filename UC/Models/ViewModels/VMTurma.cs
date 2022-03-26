@@ -16,7 +16,7 @@ namespace UC.Models.ViewModels
         public string Descricao { get; set; }
         public string Nome { get; set; }
         public int Vagas { get; set; }
-        public Modalidade Modalidade { get; set; }
+        public VMModalidade Modalidade { get; set; }
         public VMListAluno ListaAlunos { get; set; }
         public VMListAula ListaAula { get; set; }
         public VMListProfessorTurma ListaProfessoresTurma { get; set; }
@@ -30,7 +30,7 @@ namespace UC.Models.ViewModels
 
         }
 
-        public VMTurma (Turma turma)
+        public VMTurma (IUnityOfHelpers u, Turma turma)
         {
             this.turmaUID = turma.turmaUID;
             this.HorarioInicio = turma.HorarioInicio;
@@ -39,18 +39,30 @@ namespace UC.Models.ViewModels
             this.Vagas = turma.Vagas;
 
             this.HorarioTermino = this.HorarioInicio.AddMinutes(this.DuracaoAula);
-            this.Modalidade = turma.Modalidade;
 
             this.disponivel = turma.disponivel;
-            this.Nome = turma.Modalidade.nome + " - " +turma.HorarioInicio.ToShortTimeString();
+            this.Nome = u.Turmas.GetNomeTurma(turma);
 
             this.ListaAlunos = new VMListAluno(turma);
-
+            this.Modalidade = new VMModalidade(turma);
             this.ListaProfessoresTurma = new VMListProfessorTurma(turma);
-
             this.ListaAula = new VMListAula(turma);
+            this.DiasDaSemana = new VMListDiasDaSemana(u, turma);
+        }
 
-            this.DiasDaSemana = new VMListDiasDaSemana(turma);
+        public VMTurma(IUnityOfHelpers u, Aluno aluno)
+        {
+            this.turmaUID = aluno.Turma.turmaUID;
+            this.HorarioInicio = aluno.Turma.HorarioInicio;
+            this.DuracaoAula = aluno.Turma.DuracaoAula;
+            this.Descricao = aluno.Turma.Descricao;
+            this.HorarioTermino = this.HorarioInicio.AddMinutes(this.DuracaoAula);
+            this.Nome = u.Turmas.GetNomeTurma(aluno.Turma);
+
+            this.ListaAula = new VMListAula(aluno);
+            this.Modalidade = new VMModalidade(aluno.Turma);
+            this.DiasDaSemana = new VMListDiasDaSemana(u, aluno.Turma);
+            this.ListaProfessoresTurma = new VMListProfessorTurma(aluno.Turma);
         }
         #endregion
     }

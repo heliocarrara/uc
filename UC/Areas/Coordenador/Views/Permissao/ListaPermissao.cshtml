@@ -1,36 +1,41 @@
 ﻿@model UC.Models.ViewModels.ListViewModels.VMListPermissao
 
-@if (Model != null && Model.Permissoes.Any())
+@if (Model.Permissoes != null && Model.Permissoes.Any())
 {
-<div class="panel panel-default">
-    <table class="table table-bordered table-condensed table-hover">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Tipo</th>
-                <th>Criação</th>
-                <th>Validade</th>
-                <th>Opções</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cadaPermissao in Model.Permissoes)
-            {
-                <tr>
-                    <td>@cadaPermissao.pessoa.nome</td>
-                    <td>@cadaPermissao.pessoa.cpf</td>
-                    <td>@cadaPermissao.tipoDeLogin</td>
-                    <td>@cadaPermissao.dataCriacao.ToShortDateString()</td>
-                    <td>@cadaPermissao.validade.ToShortDateString()</td>
-                    <td>
-                        @Html.ActionLink("Excluir", "Excluir", "Permissao", new { permissaoUID = cadaPermissao.permissaoUID, Area = "Cadastro" }, new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+    <div class="panel panel-info panel-detalhes-turma">
+        <div class="panel-heading panel-title-row">
+            Permissões ativas no sistema
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Tipo</th>
+                        <th>Criação</th>
+                        <th>Validade</th>
+                        <th>Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cadaPermissao in Model.Permissoes)
+                    {
+                        <tr>
+                            <td>@cadaPermissao.pessoa.nome</td>
+                            <td>@cadaPermissao.pessoa.cpf</td>
+                            <td>@cadaPermissao.tipoDeLogin</td>
+                            <td>@cadaPermissao.dataCriacao.ToShortDateString()</td>
+                            <td>@cadaPermissao.validade.ToShortDateString()</td>
+                            <td>
+                                @Html.ActionLink("Excluir", "Excluir", "Permissao", new { permissaoUID = cadaPermissao.permissaoUID, Area = "Cadastro" }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 }
 else
 {

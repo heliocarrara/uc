@@ -13,5 +13,6 @@ namespace UC.Models.UCEntityHelpers.Interfaces
         SelectList TiposDeLogin(int? tipoLogin);
         SelectList TurmasDisponiveis(long? turmaUID);
         SelectList DiasDaSemana(int? diaDaSemana);
+        SelectList ProfessoresDisponiveis(long? professorUID);
     }
 }

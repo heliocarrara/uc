@@ -15,9 +15,9 @@ namespace UC.Areas.Comum
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Comum_default",
-                "Comum/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Comum_default",
+                url: "Comum/{controller}/{action}/{id}",
+                defaults: new { controller = "Painel", action = "Detalhes", id = UrlParameter.Optional }
             );
         }
     }

@@ -8,6 +8,7 @@ namespace UC.Models.ViewModels.ListViewModels
         #region PROPERTIES
         public List<VMAula> Aulas { get; set; }
         public long? turmaUID { get; set; }
+        public long? alunoUID { get; set; }
         #endregion
 
         #region CONTRUCTORS
@@ -30,15 +31,18 @@ namespace UC.Models.ViewModels.ListViewModels
                 }
             }
         }
-        public VMListAula(List<Aula> aulas)
+
+        public VMListAula(Aluno aluno)
         {
+            this.alunoUID = aluno.alunoUID;
+
             this.Aulas = new List<VMAula>();
 
-            if (aulas != null)
+            if (aluno.Turma.Aulas != null)
             {
-                foreach (var cadaAula in aulas)
+                foreach (var cadaChamada in aluno.Turma.Aulas.Where(x => x.ativa).ToList())
                 {
-                    this.Aulas.Add(new VMAula(cadaAula));
+                    this.Aulas.Add(new VMAula(cadaChamada, aluno.alunoUID));
                 }
             }
         }

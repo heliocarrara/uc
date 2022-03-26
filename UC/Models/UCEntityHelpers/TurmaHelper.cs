@@ -29,6 +29,42 @@ namespace UC.Models.UCEntityHelpers
             }
         }
 
+        public string GetDiasDaSemana(Turma turma)
+        {
+            try
+            {
+                var dias = turma.DiaSemanaTurmas.Where(x => x.ativo).OrderBy(x => x.diaSemanal).ToList();
+                var result = string.Empty;
+
+                for (int i = 0; i < dias.Count; i++)
+                {
+                    if (dias.Count > 1)
+                    {
+                        if ((dias.Count - 1) == i)
+                        {
+                            result += " e ";
+                            result += ((DiaSemanal)dias[i].diaSemanal).ToFriendlyString();
+                        }
+                        else
+                        {
+                            result += ((DiaSemanal)dias[i].diaSemanal).ToFriendlyString();
+                            result += " , ";
+                        }
+                    }
+                    else
+                    {
+                        result += ((DiaSemanal)dias[i].diaSemanal).ToFriendlyString();
+                    }
+                }
+
+                return result;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
         #endregion
     }
 }

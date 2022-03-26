@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
-using UC.Models.ViewModels.ListViewModels;
+using UC.Models.ViewModels;
 
 namespace UC.Areas.Professor.Controllers
 {
@@ -22,8 +22,8 @@ namespace UC.Areas.Professor.Controllers
             {
                 var pessoaUID = long.Parse(Utility.SimpleSessionPersister.Id);
 
-                //var turmas = idbucContext.pro.Where(x => x.ativa && x..Any(y => y.ativo && y.pessoaUID == pessoaUID && y.validade > DateTime.Now)).ToList();
-                var model = new VMListTurma();
+                var professor = idbucContext.Professors.FirstOrDefault(x => x.ativo && x.pessoaUID == pessoaUID && x.validade > DateTime.Now);
+                var model = new VMPainelProfessor(myUnityOfHelpers, professor);
 
                 return View("DetalhesPainel", model);
             }

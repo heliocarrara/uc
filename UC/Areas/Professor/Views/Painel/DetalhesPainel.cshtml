@@ -1,23 +1,22 @@
-﻿@model UC.Models.ViewModels.ListViewModels.VMListTurma
-
+﻿@model UC.Models.ViewModels.VMPainelProfessor
 @{
     ViewBag.Title = "Painel Geral";
 }
 
-@if (Model.Turmas != null && Model.Turmas.Any())
+@if (Model.ListaTurmas != null && Model.ListaTurmas.Turmas != null)
 {
-    foreach (var cadaTurma in Model.Turmas)
+    foreach (var cadaTurma in Model.ListaTurmas.Turmas)
     {
         <div class="panel panel-info panel-detalhes-turma">
             <div class="panel-heading panel-title-row">
-                Turma @cadaTurma.Modalidade.nome - @cadaTurma.HorarioInicio.ToShortTimeString()
+                Turma @cadaTurma.Nome
             </div>
             <div class="row">
                 <div class="btn-modalidade">
-                    @Html.ActionLink("Listar Aulas", "Listar", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Detalhes", "Detalhes", "Turma", new { Area = "Comum", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-info" })
                 </div>
                 <div class="btn-modalidade">
-                    @Html.ActionLink("Escolher", "NovoDestaTurma", "Aluno", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Incluir Aluno", "NovoDestaTurma", "Aluno", new { Area = "Cadastro", turmaUID = cadaTurma.turmaUID }, new { @class = "btn btn-success" })
                 </div>
             </div>
         </div>

@@ -15,9 +15,9 @@ namespace UC.Areas.Secretario
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Secretario_default",
-                "Secretario/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Secretario_default",
+                url: "Secretario/{controller}/{action}/{id}",
+                defaults: new { controller = "Painel", action = "Detalhes", id = UrlParameter.Optional }
             );
         }
     }
