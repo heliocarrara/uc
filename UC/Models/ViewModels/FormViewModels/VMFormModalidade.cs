@@ -16,27 +16,31 @@ namespace UC.Models.ViewModels.FormViewModels
         public double ValorMensalidade { get; set; }
         public bool disponivel { get; set; }
         public bool ativa { get; set; }
-        public int tipoModalidade { get; set; }
+        public int? tipoModalidade { get; set; }
 
         public VMFormModalidade()
+        {
+        }
+
+        public VMFormModalidade(IUnityOfHelpers u)
         {
             this.modalidadeUID = 0;
             this.ValorInscrição = 0;
             this.ValorMensalidade = 0;
             this.disponivel = false;
-            this.tipoModalidade = 0;
             this.ativa = true;
+            this.ListaTiposDeModalidade = u.SelectLists.TiposDeModalidade(null);
         }
 
-        public VMFormModalidade(Modalidade modalidade)
+        public VMFormModalidade(IUnityOfHelpers u,Modalidade modalidade)
         {
             this.modalidadeUID = modalidade.modalidadeUID;
             this.nome = modalidade.nome;
-            this.tipoModalidade = modalidade.tipoModalidade;
             this.Descricao = modalidade.Descricao;
             this.ValorInscrição = modalidade.ValorInscrição;
             this.ValorMensalidade = modalidade.ValorMensalidade;
             this.disponivel = modalidade.disponivel;
+            this.ListaTiposDeModalidade = u.SelectLists.TiposDeModalidade(modalidade.tipoModalidade);
         }
     }
 

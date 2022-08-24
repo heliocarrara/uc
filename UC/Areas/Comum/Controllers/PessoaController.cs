@@ -23,6 +23,23 @@ namespace UC.Areas.Comum.Controllers
             return RedirectToAction("Index", "Home", new { Area = ""});
         }
 
+        public ActionResult Lista()
+        {
+            try
+            {
+                var model = new VMListPessoa(idbucContext.Pessoas.OrderBy(x => x.nome).ToList());
+
+                ViewBag.Message = "Pessoas";
+
+                return View("ListaPessoas", model);
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
         public ActionResult Detalhes(long pessoaUID)
         {
             try

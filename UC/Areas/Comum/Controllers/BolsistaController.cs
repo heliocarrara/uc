@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models.ViewModels;
 
-namespace UC.Areas.Coordenador.Controllers
+namespace UC.Areas.Comum.Controllers
 {
-    [System.Web.Http.Authorize(Roles = "Coordenador")]
+    [System.Web.Http.Authorize(Roles = "Coordenador, Secretario")]
     public class BolsistaController : BaseController
     {
         public ActionResult Index()

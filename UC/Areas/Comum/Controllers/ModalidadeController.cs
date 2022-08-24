@@ -52,13 +52,45 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                var modalidade = idbucContext.Modalidades.FirstOrDefault(x => x.ativa && x.disponivel && x.modalidadeUID == modalidadeUID);
+                var modalidade = idbucContext.Modalidades.Find(modalidadeUID);
+
+                if (modalidade == null || !modalidade.ativa)
+                {
+                    throw new Exception("Nenhum resultado encontrado");
+                }
 
                 var model = new VMModalidade(myUnityOfHelpers, modalidade);
 
                 ViewBag.Message = "Detalhes Modalidade";
 
                 return View(model);
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        [System.Web.Http.Authorize(Roles = "Coordenador, Secretario")]
+        public ActionResult Lixeira()
+        {
+            try
+            {
+                var lista = new List<VMModalidade>();
+
+                var modalidades = idbucContext.Modalidades.Where(x => x.ativa == false || x.disponivel == false).ToList();
+
+                foreach (var cadaModalidade in modalidades)
+                {
+                    lista.Add(new VMModalidade(myUnityOfHelpers, cadaModalidade));
+                }
+
+                var model = new VMListModalidade(lista);
+
+                ViewBag.Message = "Modalidades desativadas";
+
+                return View("Lista", model);
             }
             catch (Exception ex)
             {

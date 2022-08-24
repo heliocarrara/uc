@@ -16,15 +16,15 @@
         <div class="panel-body">
             <div class="form-group">
                 @Html.LabelFor(m => m.titulo, "Titulo:")
-                @Html.TextBoxFor(m => m.titulo, new { @class = "form-control more-large", placeholder = "Descreva em poucas palavras..." })
+                @Html.TextBoxFor(m => m.titulo, new { @class = "form-control", placeholder = "Descreva em poucas palavras..." })
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.descricao, "Descrição:")
-                @Html.TextAreaFor(m => m.descricao, new { @class = "form-control more-large", placeholder = "Descreva com detalhes..." })
+                @Html.TextAreaFor(m => m.descricao, new { @class = "form-control", placeholder = "Descreva com detalhes..." })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.duracaoMin, "Duração da aula:")
-                @Html.TextBoxFor(m => m.duracaoMin, new { @class = "form-control more-large", placeholder = "Somente numeros..." })
+                @Html.LabelFor(m => m.duracaoMin, "Duração da atividade: (em min)")
+                @Html.TextBoxFor(m => m.duracaoMin, new { @class = "form-control", placeholder = "Somente numeros..." })
             </div>
         </div>
         <div class="panel-footer more-large text-center">
