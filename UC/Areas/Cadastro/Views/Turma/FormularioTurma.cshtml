@@ -22,17 +22,17 @@
                 @Html.LabelFor(m => m.vagas, "Nº de Vagas:")
                 @Html.TextBoxFor(m => m.vagas, new { @class = "form-control more-large", @placeholder = "Número de vagas..." })
             </div>
-            <div class="row">
+            <div class="">
                 <div class="form-group">
                     @Html.LabelFor(m => m.horaInicio, "Hora de Início:")
-                    @Html.TextBoxFor(m => m.horaInicio, new { @class = "form-control", @placeholder = "Somente numero..." })
+                    @Html.TextBoxFor(m => m.horaInicio, new { @class = "form-control  more-large", @placeholder = "Somente numero..." })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.minutoInicio, "Minuto de Início:")
-                    @Html.TextBoxFor(m => m.minutoInicio, new { @class = "form-control", @placeholder = "Somente numero..." })
+                    @Html.TextBoxFor(m => m.minutoInicio, new { @class = "form-control  more-large", @placeholder = "Somente numero..." })
                 </div>
             </div>
-            <div class="row">
+            <div class="">
                 <div class="form-group">
                     @Html.LabelFor(m => m.horaTermino, "Hora de Término:")
                     @Html.TextBoxFor(m => m.horaTermino, new { @class = "form-control", @placeholder = "Somente numero..." })
@@ -42,8 +42,9 @@
                     @Html.TextBoxFor(m => m.minutoTermino, new { @class = "form-control", @placeholder = "Somente numero..." })
                 </div>
             </div>
-            <div class="form-group">
-                <h3>Deixar Disponível: </h3>@Html.CheckBoxFor(m => m.disponivel, new { @class = "form-control" })
+            <div class="">
+                @Html.EditorFor(m => m.disponivel, new { @class = "form-control" })
+                @Html.LabelFor(m => m.disponivel, "Deixar Disponível:")
             </div>
         </div>
         <div class="panel-footer more-large text-center">
@@ -54,7 +55,7 @@
             }
             else
             {
-                @Html.ActionLink("Voltar para Modalidade", "Detalhes", "Modalidade", new { modalidadeUID = Model.modalidadeUID, Area = "Comum", @class = "btn btn-info" })
+                @Html.ActionLink("Voltar para Modalidade", "Detalhes", "Modalidade", new { Area = "Comum", modalidadeUID = Model.modalidadeUID }, new { @class = "btn btn-info" })
             }
         </div>
     </div>

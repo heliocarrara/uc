@@ -17,8 +17,8 @@ namespace UC.Models
         public Turma()
         {
             this.Alunoes = new HashSet<Aluno>();
-            this.DiaSemanaTurmas = new HashSet<DiaSemanaTurma>();
             this.Aulas = new HashSet<Aula>();
+            this.DiaSemanaTurmas = new HashSet<DiaSemanaTurma>();
             this.ProfessorTurmas = new HashSet<ProfessorTurma>();
         }
     
@@ -32,9 +32,9 @@ namespace UC.Models
         public bool disponivel { get; set; }
     
         public virtual ICollection<Aluno> Alunoes { get; set; }
-        public virtual Modalidade Modalidade { get; set; }
-        public virtual ICollection<DiaSemanaTurma> DiaSemanaTurmas { get; set; }
         public virtual ICollection<Aula> Aulas { get; set; }
+        public virtual ICollection<DiaSemanaTurma> DiaSemanaTurmas { get; set; }
+        public virtual Modalidade Modalidade { get; set; }
         public virtual ICollection<ProfessorTurma> ProfessorTurmas { get; set; }
     }
 }

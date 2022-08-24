@@ -15,10 +15,10 @@ namespace UC.Models
     public partial class Login
     {
         public int loginUID { get; set; }
+        public string usuario { get; set; }
         public string senha { get; set; }
         public System.DateTime validade { get; set; }
         public long pessoaUID { get; set; }
-        public string usuario { get; set; }
     
         public virtual Pessoa Pessoa { get; set; }
     }

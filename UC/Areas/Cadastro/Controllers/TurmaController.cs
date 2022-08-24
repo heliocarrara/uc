@@ -33,7 +33,8 @@ namespace UC.Areas.Cadastro.Controllers
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Detalhes", "Modalidade", new { Area = "Comum", modalidadeUID  = modalidadeUID });
+
             }
         }
 
@@ -50,7 +51,8 @@ namespace UC.Areas.Cadastro.Controllers
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
+
             }
         }
 
@@ -65,13 +67,13 @@ namespace UC.Areas.Cadastro.Controllers
                 AddMessage(UserMessageType.success, "A turma: " + turma.Modalidade.nome + " de " + turma.HorarioInicio.ToShortTimeString() + " foi excluída com sucesso!");
 
                 idbucContext.SaveChanges();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
 
-                return RedirectToAction("Detalhes", "Turma", new { turmaUID = turmaUID, Area = "Comum" });
             }
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
             }
         }
 
@@ -92,7 +94,7 @@ namespace UC.Areas.Cadastro.Controllers
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
             }
         }
 
@@ -107,12 +109,12 @@ namespace UC.Areas.Cadastro.Controllers
 
                 idbucContext.SaveChanges();
 
-                return RedirectToAction("Lixeira", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+                return RedirectToAction("Detalhes", "Turma", new { Area = "Comum", turmaUID = turmaUID });
             }
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
             }
         }
 
@@ -127,12 +129,12 @@ namespace UC.Areas.Cadastro.Controllers
                 AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " foi desativada com sucesso!");
                 idbucContext.SaveChanges();
 
-                return RedirectToAction("Lista", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
             }
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Detalhes", "Turma", new { Area = "Comum", turmaUID = turmaUID });
             }
         }
 
@@ -147,14 +149,13 @@ namespace UC.Areas.Cadastro.Controllers
                 AddMessage(UserMessageType.success, "A turma: " + turma.turmaUID + " está de volta!");
 
                 idbucContext.SaveChanges();
-
-                return RedirectToAction("Lixeira", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole });
             }
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
             }
+
+            return RedirectToAction("Detalhes", "Turma", new { Area = "Comum", turmaUID = turmaUID });
         }
 
         public ActionResult NovoDiaSemanal(long turmaUID)
@@ -170,8 +171,8 @@ namespace UC.Areas.Cadastro.Controllers
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
             }
+            return RedirectToAction("Detalhes", "Turma", new { Area = "Comum", turmaUID = turmaUID });
         }
 
         public ActionResult GravarFormularioDiaDaSemana(VMFormDiaDaSemanaTurma form)
@@ -207,7 +208,7 @@ namespace UC.Areas.Cadastro.Controllers
 
                 AddMessage(UserMessageType.success, "Cadastro de dia semanal foi realizado com sucesso!");
 
-                return RedirectToAction("Detalhes", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole, turmaUID = form.turmaUID });
+                return RedirectToAction("Detalhes", "Turma", new { Area = "Comum", turmaUID = form.turmaUID });
             }
             catch (Exception ex)
             {
@@ -218,7 +219,7 @@ namespace UC.Areas.Cadastro.Controllers
                     return NovoDiaSemanal(form.turmaUID);
                 }
 
-                return Index();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
             }
         }
 
@@ -270,12 +271,12 @@ namespace UC.Areas.Cadastro.Controllers
                 ViewBag.Message = "Turma Cadastrada com Sucesso!";
                 AddMessage(UserMessageType.success, "Turma Cadastrada com Sucesso!!!");
 
-                return RedirectToAction("Lista", "Turma", new { Area = Utility.SimpleSessionPersister.UserRole, modalidadeUID = form.modalidadeUID});
+                return RedirectToAction("Detalhes", "Modalidadde", new { Area = "Comum", modalidadeUID = form.modalidadeUID});
             }
             catch (Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return Index();
+                return RedirectToAction("Lista", "Turma", new { Area = "Comum" });
             }
         }
     }
