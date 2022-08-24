@@ -1,7 +1,7 @@
 # UniverCidade ConvidAtiva
 
 ## 🚀 O que é?
-Este sistema deve realizar o controle das atividades propostas no Programa de Extensão UniverCidade ConvidAtiva, vinculado á UFMT. 
+Este sistema deve realizar o controle das atividades propostas no Programa de Extensão UniverCidade ConvidAtiva, vinculado à UFMT. 
 ```
 Serviço principal: oferecer aulas de esportes nas dependências da universidade.
 ```
