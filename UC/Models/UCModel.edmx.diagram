@@ -7,39 +7,9 @@
       <Diagram DiagramId="8ec597bbd33347d4b5d4a006ab550c23" Name="Diagram1" ZoomLevel="82" >
         <AssociationConnector Association="Model.FK_AlunoSet_TurmaSet" />
         <AssociationConnector Association="Model.FK_TurmaSet_ModalidadeSet" />
-        <EntityTypeShape EntityType="Model.Aluno" Width="1.5" PointX="6" PointY="12.25" />
-        <EntityTypeShape EntityType="Model.AtividadeAula" Width="1.5" PointX="8.25" PointY="8.125" />
-        <EntityTypeShape EntityType="Model.Aula" Width="1.5" PointX="6" PointY="8.125" />
-        <EntityTypeShape EntityType="Model.Autonomo" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="Model.Bolsista" Width="1.5" PointX="3" PointY="22.875" />
-        <EntityTypeShape EntityType="Model.Chamada" Width="1.5" PointX="8.25" PointY="12.25" />
-        <EntityTypeShape EntityType="Model.Coordenador" Width="1.5" PointX="3" PointY="11" />
-        <EntityTypeShape EntityType="Model.DiaSemanaTurma" Width="1.5" PointX="6" PointY="5.25" />
-        <EntityTypeShape EntityType="Model.JustificativaAula" Width="1.5" PointX="10.5" PointY="12.375" />
-        <EntityTypeShape EntityType="Model.Login" Width="1.5" PointX="3" PointY="19.875" />
-        <EntityTypeShape EntityType="Model.Modalidade" Width="1.5" PointX="1.5" PointY="1" />
-        <EntityTypeShape EntityType="Model.Permissao" Width="1.5" PointX="3" PointY="8" />
-        <EntityTypeShape EntityType="Model.Pessoa" Width="1.5" PointX="0.75" PointY="11.625" />
-        <EntityTypeShape EntityType="Model.Professor" Width="1.5" PointX="3" PointY="16.75" />
-        <EntityTypeShape EntityType="Model.ProfessorTurma" Width="1.5" PointX="5.25" PointY="16.75" />
-        <EntityTypeShape EntityType="Model.Turma" Width="1.5" PointX="3.75" PointY="0.75" />
-        <AssociationConnector Association="Model.FK_Aluno_Turma" />
-        <AssociationConnector Association="Model.FK_AlunoSet_PessoaSet" />
-        <AssociationConnector Association="Model.FK_Chamada_Aluno" />
-        <AssociationConnector Association="Model.FK_AtividadeAula_Aula" />
-        <AssociationConnector Association="Model.FK_Aula_Turma" />
-        <AssociationConnector Association="Model.FK_Chamada_Aula" />
-        <AssociationConnector Association="Model.FK_Autonomo_Pessoa" />
-        <AssociationConnector Association="Model.FK_Bolsista_Pessoa" />
-        <AssociationConnector Association="Model.FK_JustificativaAula_Chamada" />
-        <AssociationConnector Association="Model.FK_Coordenador_Pessoa" />
-        <AssociationConnector Association="Model.FK_DiaSemanaTurma_Turma" />
-        <AssociationConnector Association="Model.FK_LoginSet_PessoaSet" />
-        <AssociationConnector Association="Model.FK_Turma_Modalidade" />
-        <AssociationConnector Association="Model.FK_Permissao_Pessoa" />
-        <AssociationConnector Association="Model.FK_Professor_Pessoa" />
-        <AssociationConnector Association="Model.FK_ProfessorTurma_Professor" />
-        <AssociationConnector Association="Model.FK_ProfessorTurma_Turma" />
+        <EntityTypeShape EntityType="Model.ExecucaoMeta" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="Model.Meta" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="Model.FK_ExecucaoMeta_Meta" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

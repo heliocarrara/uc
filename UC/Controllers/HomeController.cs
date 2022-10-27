@@ -6,38 +6,19 @@ using System.Web.Mvc;
 
 namespace UC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
-        }
-        public ActionResult Modalidades()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Login()
-        {
-            ViewBag.Message = "Your login page.";
-
-            return View();
+            try
+            {
+                return RedirectToAction("Detalhes", "Index", new { Area = "Comum" });
+            }
+            catch(Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return View();
+            }
         }
     }
 }

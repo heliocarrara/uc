@@ -30,17 +30,6 @@ namespace UC.Controllers
         #region LOGIN PERSISTANCE
 
         protected string pessoaUID { get { return myUnityOfHelpers.UsuarioLogado.pessoaUID; } }
-
-        //protected long myServidorUID { get { return myUnityOfHelpers.UsuarioLogado.servidorUID; } }
-
-        //protected int myProprietarioUID { get { return myUnityOfHelpers.UsuarioLogado.proprietarioUID; } }
-
-        //protected int myCampusUID { get { return myUnityOfHelpers.UsuarioLogado.campusUID; } }
-
-        //protected string nomeMyCampus { get { return myUnityOfHelpers.UsuarioLogado.nomeCampus; } }
-
-        //protected string nomeMyUnidade { get { return myUnityOfHelpers.UsuarioLogado.nomeUnidade; } }
-
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             if (SimpleSessionPersister.IsLogged)
@@ -58,7 +47,7 @@ namespace UC.Controllers
         {
             AddMessage(UserMessageType.error, "Exceção não tratada foi encontrada no sistema: [" + ExceptionMessage(filterContext.Exception) + "]");
 
-            filterContext.Result = RedirectToAction("Index", "Home", new { Area = string.Empty });
+            filterContext.Result = RedirectToAction("Detalhes", "Index", new { Area = "Comum" });
 
             filterContext.ExceptionHandled = true;
 

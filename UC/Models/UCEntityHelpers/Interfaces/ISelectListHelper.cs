@@ -9,10 +9,7 @@ namespace UC.Models.UCEntityHelpers.Interfaces
 {
     public interface ISelectListHelper
     {
-        SelectList TiposDeModalidade(int? tipoModalidade);
         SelectList TiposDeLogin(int? tipoLogin);
-        SelectList TurmasDisponiveis(long? turmaUID);
         SelectList DiasDaSemana(int? diaDaSemana);
-        SelectList ProfessoresDisponiveis(long? professorUID);
     }
 }

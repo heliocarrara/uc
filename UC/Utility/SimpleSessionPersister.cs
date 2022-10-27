@@ -57,18 +57,6 @@ namespace UC.Utility
             LogOut();
         }
 
-        public static void Logar(Pessoa pessoa)
-        {
-            var tipo = ((TipoLogin)pessoa.nivelAcesso).ToFriendlyString();
-            SetValues(pessoa.pessoaUID.ToString(), pessoa.nome, tipo, false);
-        }
-
-        public static void LogarComPermissao(Permissao p)
-        {
-            var tipo = ((TipoLogin)p.tipoLogin).ToFriendlyString();
-            SetValues(p.pessoaUID.ToString(), p.Pessoa.nome, tipo, false);
-        }
-
         #endregion
 
         #region PUBLIC PROPERTIES

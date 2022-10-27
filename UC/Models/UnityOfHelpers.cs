@@ -49,14 +49,11 @@ namespace UC.Models
 
         public ILoggedUserHelper UsuarioLogado { get { if (usuarioLogado == null) { usuarioLogado = new LoggedUserHelper(_url, _db, this); } return UsuarioLogado; } }
         public ISelectListHelper SelectLists { get { if (selectLists == null) { selectLists = new SelectListHelper(_url, _db, this); } return selectLists; } }
-        public ITurmaHelper Turmas { get { if (turmas == null) { turmas = new TurmaHelper(_url, _db, this); } return turmas; } }
-
         #endregion
         #region PRIVATE HELPERS' INSTANCES
 
         private LoggedUserHelper usuarioLogado { get; set; }
         private SelectListHelper selectLists { get; set; }
-        private TurmaHelper turmas { get; set; }
         #endregion
     }
 }

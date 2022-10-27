@@ -31,15 +31,15 @@
 </head>
 <body>
     <div class="slogan-inicial">
-        <h1>UniverCidade ConvidAtiva</h1>
-        <p>A Universidade Convidando a Cidade a ter uma vida Ativa</p>
+        <h1>@Html.ActionLink("UC", "Index", "Home", new { Area = "" }, new { @class = "h1" })</h1>
+        <p>A realidade em um aspecto diferenciado.</p>
         @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
     </div>
     <div class="navbar" id="navbar-principal">
 
         <div class="container">
-            <div>@Html.ActionLink("Início", "Index", "Home", new { Area = "" }, new { @class = "" })</div>
-            <div>@Html.ActionLink("Modalidades", "Lista", "Modalidade", new { Area = "Comum" }, new { @class = "" })</div>
+            <div>@Html.ActionLink("Incluir Meta", "Nova", "Meta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })</div>
+            @*<div>@Html.ActionLink("Modalidades", "Lista", "Modalidade", new { Area = "Comum" }, new { @class = "" })</div>
             <div>@Html.ActionLink("Sobre", "About", "Home", new { Area = "" }, new { @class = "" })</div>
             <div>@Html.ActionLink("Contato", "Contact", "Home", new { Area = "" }, new { @class = "" })</div>
             @if (UC.Utility.SimpleSessionPersister.IsLogged)
@@ -69,7 +69,7 @@
             {
 
                 <div>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, new { @class = "" })</div>
-            }
+            }*@
 
             
         </div>
@@ -79,7 +79,7 @@
         @RenderBody()
         <hr />
         <footer style="text-align:center">
-            <p>&copy; @DateTime.Now.Year - UniverCidade ConvidAtiva</p>
+            <p>&copy; @DateTime.Now.Year - Universo Carrara</p>
         </footer>
     </div>
 

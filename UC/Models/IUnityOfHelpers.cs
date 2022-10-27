@@ -22,6 +22,5 @@ namespace UC.Models
 
         ILoggedUserHelper UsuarioLogado { get; }
         ISelectListHelper SelectLists { get; }
-        ITurmaHelper Turmas { get; }
     }
 }
