@@ -13,5 +13,15 @@ namespace UC.Models.ViewModels
         {
 
         }
+
+        public VMIndex(List<Meta> metas)
+        {
+            this.Metas = new List<VMMeta>();
+
+            foreach(var cadaMeta in metas)
+            {
+                this.Metas.Add(new VMMeta(cadaMeta));
+            }
+        }
     }
 }

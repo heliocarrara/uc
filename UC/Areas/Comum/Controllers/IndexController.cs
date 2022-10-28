@@ -14,7 +14,8 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                var model = new VMIndex();
+                var metas = idbucContext.Metas.Where(x => x.ativo).ToList();
+                var model = new VMIndex(metas);
 
                 return View(model);
             }

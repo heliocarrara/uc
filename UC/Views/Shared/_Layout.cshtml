@@ -11,32 +11,15 @@
     <title>Login V1</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="https://colorlib.com/etc/lf/Login_v1/images/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/css/util.css">
-    <link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v1/css/main.css">
-    <!--===============================================================================================-->
     <meta name="robots" content="noindex, follow">
 </head>
 <body>
-    <div class="slogan-inicial">
-        <h1>@Html.ActionLink("UC", "Index", "Home", new { Area = "" }, new { @class = "h1" })</h1>
-        <p>A realidade em um aspecto diferenciado.</p>
-        @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
-    </div>
     <div class="navbar" id="navbar-principal">
-
+        <div class="slogan-inicial">
+            <h1>@Html.ActionLink("UC", "Index", "Home", new { Area = "" }, new { @class = "h1" })</h1>
+            <p>A realidade em um aspecto diferenciado.</p>
+            @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+        </div>
         <div class="container">
             <div>@Html.ActionLink("Incluir Meta", "Nova", "Meta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })</div>
             @*<div>@Html.ActionLink("Modalidades", "Lista", "Modalidade", new { Area = "Comum" }, new { @class = "" })</div>
@@ -71,7 +54,7 @@
                 <div>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, new { @class = "" })</div>
             }*@
 
-            
+
         </div>
     </div>
     <div class="container body-content">

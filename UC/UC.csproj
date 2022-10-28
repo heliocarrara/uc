@@ -222,6 +222,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\ExecucaoMetaController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\MetaController.cs" />
     <Compile Include="Areas\Comum\Controllers\IndexController.cs" />
     <Compile Include="Areas\Cadastro\CadastroAreaRegistration.cs" />
     <Compile Include="Areas\Comum\ComumAreaRegistration.cs" />
@@ -263,6 +265,9 @@
       <DependentUpon>UCModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UnityOfHelpers.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormExecucaoMeta.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormMeta.cs" />
+    <Compile Include="Models\ViewModels\VMExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\VMIndex.cs" />
     <Compile Include="Models\ViewModels\VMMeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -311,6 +316,8 @@
     <Content Include="App_Code\UCHelpers.cshtml" />
     <Content Include="Areas\Cadastro\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Comum\Views\Index\Detalhes.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Meta\Nova.cshtml" />
+    <Content Include="Areas\Cadastro\Views\ExecucaoMeta\FormularioExecucaoMeta.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -345,12 +352,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Cadastro\Controllers\" />
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Shared\" />
     <Folder Include="Areas\Comum\Model\" />
     <Folder Include="Areas\Comum\Views\Shared\" />
-    <Folder Include="Models\ViewModels\FormViewModels\" />
     <Folder Include="Models\ViewModels\ListViewModels\" />
   </ItemGroup>
   <ItemGroup>

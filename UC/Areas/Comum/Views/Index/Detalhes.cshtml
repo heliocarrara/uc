@@ -1,2 +1,66 @@
 ﻿@model UC.Models.ViewModels.VMIndex
 
+@{
+    int i = 1, j = 1;
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h1 class="text-center">Metas</h1>
+    </div>
+    <div class="panel-body">
+        @foreach (var cadaMeta in Model.Metas)
+        {
+            <div class="panel panel-default"  style="border-color:brown">
+                <div class="panel-heading"  style="background-color:brown">
+                    <h2>@i - @cadaMeta.nome</h2>
+                </div>
+                <div class="panel-body list-group">
+                    <div class="list-group-item">
+                        <h4><strong>Motivo: </strong>@cadaMeta.motivo</h4>
+                    </div>
+                    <div class="list-group-item">
+                        <h4><strong>Data de Início: </strong>@cadaMeta.dataInicio</h4>
+                    </div>
+                    <div class="list-group-item">
+                        <h4><strong>Data de Término: </strong>@cadaMeta.dataTermino</h4>
+                    </div>
+                    <div class="list-group-item">
+                        <h4><strong>Prioridade: </strong>@cadaMeta.prioridade</h4>
+                    </div>
+                    <div class="list-group-item">
+                        @foreach (var cadaExecucao in cadaMeta.Passos)
+                        {
+                            <div class="panel panel-default" style="border-color:@cadaExecucao.tema">
+                                <div class="panel-body list-group">
+                                    <div class="list-group-item">
+                                        <h4><strong>Passo @cadaExecucao.ordem - </strong>@cadaExecucao.descricao</h4>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <h4><strong>Data de Início: </strong>@cadaExecucao.dataInicio.ToShortDateString() ás @cadaExecucao.dataInicio.ToShortTimeString()</h4>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <h4><strong>Data de Término: </strong>@cadaExecucao.dataTermino.ToShortDateString() ás @cadaExecucao.dataTermino.ToShortTimeString()</h4>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <h4><strong>Duração: </strong>@cadaExecucao.duracao minutos</h4>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    @Html.ActionLink("Iniciar Execução", "Iniciar", "ExecucaoMeta", new {execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Cadastro"}, new {@class = "btn btn-success"})
+                                    @Html.ActionLink("Editar", "Editar", "ExecucaoMeta", new {execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Cadastro"}, new {@class = "btn btn-warning"})
+                                    @Html.ActionLink("Excluir Passo", "Excluir", "ExecucaoMeta", new {execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Cadastro"}, new {@class = "btn btn-danger"})
+                                </div>
+                            </div>
+                            j++;
+                        }
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    @Html.ActionLink("Incluir Passo", "Novo", "ExecucaoMeta", new { metaUID = cadaMeta.metaUID, Area = "Cadastro"}, new { @class = "btn btn-success"})
+                </div>
+            </div>
+            i++;
+        }
+    </div>
+</div>
