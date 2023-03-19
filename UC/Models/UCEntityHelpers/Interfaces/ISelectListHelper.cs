@@ -11,5 +11,7 @@ namespace UC.Models.UCEntityHelpers.Interfaces
     {
         SelectList TiposDeLogin(int? tipoLogin);
         SelectList DiasDaSemana(int? diaDaSemana);
+        SelectList TiposDeMeta(int? tipo);
+        SelectList SubTiposMeta(int? subTipoMetaUID);
     }
 }

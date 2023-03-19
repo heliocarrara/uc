@@ -25,7 +25,10 @@ namespace UC.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<ExecucaoMeta> ExecucaoMetas { get; set; }
         public DbSet<Meta> Metas { get; set; }
+        public DbSet<SubTipoMeta> SubTipoMetas { get; set; }
+        public DbSet<ExecucaoMeta> ExecucaoMetas { get; set; }
+        public DbSet<AnotacaoExecucaoMeta> AnotacaoExecucaoMetas { get; set; }
+        public DbSet<RegistroSituacaoExecucaoMeta> RegistroSituacaoExecucaoMetas { get; set; }
     }
 }

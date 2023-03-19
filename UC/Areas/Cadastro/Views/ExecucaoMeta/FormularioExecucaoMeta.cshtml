@@ -21,13 +21,17 @@
                 <label>Tema:</label>
                 <input type="color" id="corTema" onchange="carregarCor();">
             </div>
+            @{
+                var dataInicioFormatada = Model.dataInicio.ToString("yyyy-MM-dd HH:mm");
+                var dataTerminoFormatada = Model.dataTermino.ToString("yyyy-MM-dd HH:mm");
+            }
             <div class="list-group-item">
-                <label>Data de Início: @Model.dataInicio.ToShortDateString() ás @Model.dataInicio.ToShortTimeString()</label>
-                <input type="datetime-local" id="@Html.IdFor(m=>m.dataInicio)" name="@Html.NameFor(m=>m.dataInicio)" value="@Html.ValueFor(m=>m.dataInicio)" class="form-control" />
+                <label>Data de Início: A meta iniciou em @Model.meta.dataInicio.ToShortDateString() ás @Model.meta.dataInicio.ToShortTimeString()</label>
+                <input type="datetime-local" id="@Html.IdFor(m=>m.dataInicio)" name="@Html.NameFor(m=>m.dataInicio)" value="@dataInicioFormatada" class="form-control" />
             </div>
             <div class="list-group-item">
-                <label>Data de Término: @Model.dataTermino.ToShortDateString() ás @Model.dataTermino.ToShortTimeString()</label>
-                <input type="datetime-local" id="@Html.IdFor(m=>m.dataTermino)" name="@Html.NameFor(m=>m.dataTermino)" value="@Html.ValueFor(m=>m.dataTermino)" class="form-control" />
+                <label>Data de Término: A meta finaliza em @Model.meta.dataObjetivo.ToShortDateString() ás @Model.meta.dataObjetivo.ToShortTimeString()</label>
+                <input type="datetime-local" id="@Html.IdFor(m=>m.dataTermino)" name="@Html.NameFor(m=>m.dataTermino)" value="@dataTerminoFormatada" class="form-control" />
             </div>
         </div>
     </div>

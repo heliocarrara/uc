@@ -1,0 +1,66 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormMeta
+
+@using (Html.BeginForm("GravarFormulario", "Meta", FormMethod.Post))
+{
+    var titulo = Model.metaUID == 0 ? "Qual a próxima meta?" : "Ajustando Meta";
+
+    @Html.HiddenFor(m => m.metaUID, Model.metaUID)
+    @Html.HiddenFor(m => m.ordem, Model.ordem)
+
+    if (Model.metaUID > 0)
+    {
+        @Html.HiddenFor(m => m.dataInicio, Model.dataInicio)
+        @Html.HiddenFor(m => m.dataTermino, Model.dataTermino)
+    }
+
+    @Html.HiddenFor(m => m.tema, Model.tema)
+
+    <br />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h1>@titulo</h1>
+        </div>
+        <div class="panel-body list-group">
+            <div class="list-group-item">
+                <label>Nome: </label>
+                @Html.TextBoxFor(m => m.nome, new { @class = "form-control" })
+            </div>
+            <div class="list-group-item">
+                <label>Motivo:</label>
+                @Html.TextAreaFor(m => m.motivo, new { @class = "form-control" })
+            </div>
+            @{
+                var dataInicioFormatada = Model.dataInicio.ToString("yyyy-MM-dd HH:mm");
+                var dataTerminoFormatada = Model.dataTermino.ToString("yyyy-MM-dd HH:mm");
+            }
+            <div class="list-group-item">
+                <label>Data de Início: @Model.dataInicio.ToShortDateString() ás @Model.dataInicio.ToShortTimeString()</label>
+                <input type="datetime-local" id="@Html.IdFor(m=>m.dataInicio)" name="@Html.NameFor(m=>m.dataInicio)" value="@dataInicioFormatada" class="form-control" />
+            </div>
+            <div class="list-group-item">
+                <label>Data de Término: @Model.dataTermino.ToShortDateString() ás @Model.dataTermino.ToShortTimeString()</label>
+                <input type="datetime-local" id="@Html.IdFor(m=>m.dataTermino)" name="@Html.NameFor(m=>m.dataTermino)" value="@dataTerminoFormatada" class="form-control" />
+            </div>
+            <div class="list-group-item">
+                <label>Tema:</label>
+                <input type="color" id="corTema" onchange="carregarCor();">
+            </div>
+            <div class="list-group-item">
+                <label>Tipo de Area:</label>
+                @Html.DropDownListFor(m => m.tipoMeta, Model.tiposDisponiveis, new { @class = "form-group" })
+            </div>
+            <div class="list-group-item">
+                <label>SubTipo de Area(Controller?):</label>
+                @Html.DropDownListFor(m => m.subTipoMetaUID, Model.subTipoDisponiveis, new { @class = "form-group" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-success" value="Salvar" />
+}
+<script type="text/javascript">
+    function carregarCor() {
+        $('#@Html.IdFor(m=>m.tema)').val($('#corTema').val());
+    };
+</script>
+

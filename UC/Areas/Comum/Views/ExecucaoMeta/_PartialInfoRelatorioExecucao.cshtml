@@ -1,0 +1,14 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListRelatorioExecucaoMeta
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="text-center">Relatório de Execução - Tempo Gasto</h3>
+    </div>
+    <ul class=" list-group panel-body">
+        <li class="list-group-item">Executado: @Model.MinExecutando Min</li>
+        <li class="list-group-item">Pausa: @Model.MinPausado Min</li>
+        <li class="list-group-item">Foi Interrompida por: @Model.MinImterrompido Min</li>
+        <li class="list-group-item">Atividade adiantada em: @Model.PeriodoAntecedencia Min</li>
+        <li class="list-group-item">Foi Extendido: @Model.PeriodoExtendido Min</li>
+    </ul>
+</div>

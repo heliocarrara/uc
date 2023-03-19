@@ -1,0 +1,31 @@
+﻿@model UC.Models.ViewModels.VMExecucaoMeta
+
+@using UC.Models.Enumerators
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="text-center">Histórico</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="text-center">Data</th>
+                    <th class="text-center">Nova Situação</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaAnotacao in Model.Historico)
+                {
+                    <tr>
+                        <td class="text-center">@cadaAnotacao.dataCriacao</td>
+                        <td>@(((SituacaoPasso)cadaAnotacao.situacaoPasso).ToFriendlyString())</td>
+                        <td class="text-center">@cadaAnotacao.descricao</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

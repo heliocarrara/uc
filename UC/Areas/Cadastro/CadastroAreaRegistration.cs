@@ -12,12 +12,12 @@ namespace UC.Areas.Cadastro
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                name: "Cadastro_default",
-                url: "Cadastro/{controller}/{action}/{id}",
-                defaults: new { controller = "Painel", action = "Detalhes", id = UrlParameter.Optional }
+                "Cadastro_default",
+                "Cadastro/{controller}/{action}/{id}",
+                new { action = "Index", id = UrlParameter.Optional }, namespaces: new string[] { "UC.Areas.Cadastro.Controllers" }
             );
         }
     }

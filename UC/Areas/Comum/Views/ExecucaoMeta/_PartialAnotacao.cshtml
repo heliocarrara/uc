@@ -1,0 +1,74 @@
+﻿@model UC.Models.ViewModels.VMExecucaoMeta
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="text-center">Anotações</h3>
+    </div>
+    <div class="panel-body table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th class="text-center">Data</th>
+                    <th class="text-center">Anotar na Meta</th>
+                    <th class="text-center">Opções</th>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaAnotacao in Model.Anotacoes)
+                {
+                    var incluir = cadaAnotacao.incluirNaMeta ? "Sim" : "Não";
+
+                    <tr>
+                        <td>@cadaAnotacao.descricao</td>
+                        <td class="text-center">@cadaAnotacao.dataCriacao</td>
+                        <td class="text-center">@incluir</td>
+                        <td class="text-center">@Html.ActionLink(" ", "Excluir", new { anotacaoExecucaoMetaUID = cadaAnotacao.anotacaoExecucaoMetaUID, Area = "Cadastro" }, new { @class = "glyphicon glyphicon-trash text-danger" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+            Incluir Anotação
+        </button>
+    </div>
+</div>
+
+@using (Html.BeginForm("AdicionarObservação", "ExecucaoMeta", new { Area = "Cadastro" }, FormMethod.Post, null))
+{
+    @Html.Hidden("execucaoMetaUID", Model.execucaoMetaUID)
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">O que deseja anotar?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="anotacao">Observação:</label>
+                            @Html.TextArea("anotacao", new { @class = "form-control" })
+                            @*<textarea class="form-control" id="observacao" name=""></textarea>*@
+                        </div>
+                        <div class="form-group form-check">
+                            @Html.CheckBox("incluirmeta", false, new { @class = "form-check-input" })
+                            @*<input type="checkbox"  id="incluirmeta" name="incluirmeta">*@
+                            <label class="form-check-label" for="incluirmeta">Incluir na Meta</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

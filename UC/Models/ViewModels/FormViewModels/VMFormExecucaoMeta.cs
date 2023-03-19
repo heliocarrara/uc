@@ -20,8 +20,8 @@ namespace UC.Models.ViewModels.FormViewModels
         {
             this.meta = meta;
             this.metaUID = meta.metaUID;
-            this.dataInicio = meta.dataInicio.Value;
-            this.dataTermino = meta.dataObjetivo.Value;
+            this.dataInicio = meta.dataInicio;
+            this.dataTermino = meta.dataObjetivo;
             this.execucaoMetaUID = 0;
         }
 

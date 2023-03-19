@@ -14,6 +14,12 @@ namespace UC.Models
     
     public partial class ExecucaoMeta
     {
+        public ExecucaoMeta()
+        {
+            this.AnotacaoExecucaoMetas = new HashSet<AnotacaoExecucaoMeta>();
+            this.RegistroSituacaoExecucaoMetas = new HashSet<RegistroSituacaoExecucaoMeta>();
+        }
+    
         public long execucaoMetaUID { get; set; }
         public long metaUID { get; set; }
         public int ordemPasso { get; set; }
@@ -22,7 +28,10 @@ namespace UC.Models
         public System.DateTime dataTermino { get; set; }
         public bool ativo { get; set; }
         public string tema { get; set; }
+        public int situacao { get; set; }
     
         public virtual Meta Meta { get; set; }
+        public virtual ICollection<AnotacaoExecucaoMeta> AnotacaoExecucaoMetas { get; set; }
+        public virtual ICollection<RegistroSituacaoExecucaoMeta> RegistroSituacaoExecucaoMetas { get; set; }
     }
 }

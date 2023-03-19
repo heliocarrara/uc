@@ -1,0 +1,74 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListExecucaoMeta
+
+@using UC.Models.Enumerators;
+
+<div class="list-group hidden-print">
+    @Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+        Buscar Outro Dia
+    </button>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="text-center">Atividades do dia @Model.Dia.ToShortDateString()</h2>
+    </div>
+    <div class="panel-body table-responsive">
+        @{int i = 1;}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Período</th>
+                    <th>Meta</th>
+                    <th>Passo</th>
+                    <th>Situação</th>
+                    <th>Duração</th>
+                    <th class="hidden-print">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaExecucao in Model.AtividadesDoDia)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td width="15%">@cadaExecucao.dataInicio.ToShortTimeString() ~ @cadaExecucao.dataTermino.ToShortTimeString()</td>
+                        <td>@cadaExecucao.execucaoMeta.Meta.nome</td>
+                        <td>@cadaExecucao.execucaoMeta.descricao</td>
+                        <td>@cadaExecucao.situacao</td>
+                        <td>@cadaExecucao.duracao Min</td>
+                        <td class="hidden-print">@Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default" })</td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@using (Html.BeginForm("DetalharDia", "Cronograma", new { Area = "Comum" }, FormMethod.Post, null))
+{
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Qual dia quer Pesquisar?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @Html.Label("dia")
+                        <input type="date" id="dia" name="dia" value="@Model.Dia.ToString("yyyy-MM-dd")" class="form-control" />
+                        @Html.ValidationMessage("dia")
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

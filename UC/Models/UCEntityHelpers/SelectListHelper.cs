@@ -73,6 +73,62 @@ namespace UC.Models.UCEntityHelpers
             return result;
         }
 
+        public SelectList TiposDeMeta(int? tipo)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            foreach (TipoMeta val in Enum.GetValues(typeof(TipoMeta)))
+            {
+                aux.Add(new SelectListItem()
+                {
+                    Text = val.ToFriendlyString(),
+                    Value = ((int)val).ToString()
+                });
+            }
+
+            if (tipo.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", tipo.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
+        public SelectList SubTiposMeta(int? subTipoMetaUID)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            var subtipos = idbucContext.SubTipoMetas.Where(x => x.ativo).ToList();
+
+            foreach (var cadaItem in subtipos)
+            {
+                aux.Add(new SelectListItem()
+                {
+                    Text = cadaItem.nome,
+                    Value = cadaItem.subTipoMetaUID.ToString()
+                });
+            }
+
+            if (subTipoMetaUID.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", subTipoMetaUID.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
         #endregion
     }
 }

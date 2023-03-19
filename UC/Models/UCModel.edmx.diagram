@@ -7,9 +7,15 @@
       <Diagram DiagramId="8ec597bbd33347d4b5d4a006ab550c23" Name="Diagram1" ZoomLevel="82" >
         <AssociationConnector Association="Model.FK_AlunoSet_TurmaSet" />
         <AssociationConnector Association="Model.FK_TurmaSet_ModalidadeSet" />
-        <EntityTypeShape EntityType="Model.ExecucaoMeta" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="Model.Meta" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="Model.Meta" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="Model.SubTipoMeta" Width="1.5" PointX="0.75" PointY="1.625" />
+        <AssociationConnector Association="Model.FK_Meta_SubTipoMeta" />
+        <EntityTypeShape EntityType="Model.ExecucaoMeta" Width="1.5" PointX="5.25" PointY="1.25" />
         <AssociationConnector Association="Model.FK_ExecucaoMeta_Meta" />
+        <EntityTypeShape EntityType="Model.AnotacaoExecucaoMeta" Width="1.5" PointX="7.5" PointY="9.125" />
+        <EntityTypeShape EntityType="Model.RegistroSituacaoExecucaoMeta" Width="1.5" PointX="7.5" PointY="6" />
+        <AssociationConnector Association="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" />
+        <AssociationConnector Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

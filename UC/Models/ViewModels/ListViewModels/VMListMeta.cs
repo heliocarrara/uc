@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace UC.Models.ViewModels
+namespace UC.Models.ViewModels.ListViewModels
 {
-    public class VMIndex
+    public class VMListMeta
     {
         public List<VMMeta> Metas { get; set; }
 
-        public VMIndex()
+        public VMListMeta()
         {
 
         }
 
-        public VMIndex(List<Meta> metas)
+        public VMListMeta(IUnityOfHelpers u, List<Meta> metas)
         {
             this.Metas = new List<VMMeta>();
 
             foreach(var cadaMeta in metas)
             {
-                this.Metas.Add(new VMMeta(cadaMeta));
+                this.Metas.Add(new VMMeta(u, cadaMeta));
             }
         }
     }

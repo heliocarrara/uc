@@ -12,25 +12,19 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Meta
+    public partial class SubTipoMeta
     {
-        public Meta()
+        public SubTipoMeta()
         {
-            this.ExecucaoMetas = new HashSet<ExecucaoMeta>();
+            this.Metas = new HashSet<Meta>();
         }
     
-        public long metaUID { get; set; }
-        public string nome { get; set; }
-        public System.DateTime dataObjetivo { get; set; }
-        public System.DateTime dataInicio { get; set; }
-        public string motivo { get; set; }
-        public bool ativo { get; set; }
-        public int ordemPrioridade { get; set; }
+        public int subTipoMetaUID { get; set; }
         public int tipo { get; set; }
-        public Nullable<int> subTipoMetaUID { get; set; }
-        public string tema { get; set; }
+        public string nome { get; set; }
+        public bool ativo { get; set; }
+        public System.DateTime dataCriacao { get; set; }
     
-        public virtual SubTipoMeta SubTipoMeta { get; set; }
-        public virtual ICollection<ExecucaoMeta> ExecucaoMetas { get; set; }
+        public virtual ICollection<Meta> Metas { get; set; }
     }
 }

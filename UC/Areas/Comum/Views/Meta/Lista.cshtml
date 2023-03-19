@@ -1,0 +1,45 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListMeta
+
+
+<div>@Html.ActionLink("Incluir Meta", "Nova", "Meta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h1 class="text-center">Metas</h1>
+    </div>
+    <div class="panel-body table-responsive">
+        <div class="panel-body">
+            @{int i = 1;}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Tipo</th>
+                        <th>Meta</th>
+                        <th>Data Inicio</th>
+                        <th>Data termino</th>
+                        <th>SubTipo</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cadaMeta in Model.Metas)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@cadaMeta.tipo</td>
+                            <td class="hidden-print">
+                                @Html.ActionLink(cadaMeta.nome, "Detalhes", "Meta", new { metaUID = cadaMeta.metaUID, Area = "Comum" }, new { @class = "text" })
+                            </td>
+                            <td>@cadaMeta.dataInicio.ToShortDateString()</td>
+                            <td>@cadaMeta.dataTermino.ToShortDateString()</td>
+                            <td>@cadaMeta.subTipo</td>
+                            <td>Não definido</td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

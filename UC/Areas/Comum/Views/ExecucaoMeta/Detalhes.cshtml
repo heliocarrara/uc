@@ -1,0 +1,96 @@
+﻿@model UC.Models.ViewModels.VMExecucaoMeta
+
+@using UC.Models.Enumerators;
+
+<div class="panel panel-success" style="border-color:@Model.execucaoMeta.tema">
+    <div class="panel-heading" style="border-color:@Model.execucaoMeta.tema">
+        <h2 class="text-center">@Model.execucaoMeta.descricao</h2>
+    </div>
+    <ul class="panel-body list-group">
+        <li class="list-group-item">
+            <h4><strong>Meta: </strong>@Model.execucaoMeta.Meta.nome</h4>
+            <h4><strong>Descricao da Meta: </strong>@Model.execucaoMeta.Meta.motivo</h4>
+        </li>
+        <li class="list-group-item">
+            <div><h4><strong>Data de Início: </strong>@Model.dataInicio.ToShortDateString() ás @Model.dataInicio.ToShortTimeString()</h4></div>
+            <div><h4><strong>Data de Término: </strong>@Model.dataTermino.ToShortDateString() ás @Model.dataTermino.ToShortTimeString()</h4></div>
+            <div><h4><strong>Duração: </strong>@Model.duracao minutos</h4></div>
+        </li>
+        <li class="list-group-item">
+            <h4><strong>Situação: </strong>@Model.situacao</h4>
+            @if (Model.execucaoMeta.situacao == (int)SituacaoPasso.Em_Andamento)
+            {
+                <div id="progress-bar-container">
+                    <div id="progress-bar" class="text-center" style="width: 10%;"><h3 id="progress-text" style="line-height: 80px;"></h3></div>
+                </div>
+            }
+        </li>
+        <li class="list-group-item">
+            @Html.Partial("_PartialAnotacao", Model)
+        </li>
+        <li class="list-group-item">
+            @Html.Partial("_PartialInfoSituacao", Model)
+        </li>
+        <li class="list-group-item">
+            @Html.Partial("_PartialInfoRelatorioExecucao", Model.RelatorioExecucao)
+        </li>
+    </ul>
+    <div class="panel-footer hidden-print">
+        @{
+            if (Model.execucaoMeta.situacao == (int)SituacaoPasso.Em_Andamento)
+            {
+                @Html.ActionLink("Pausar Execucão", "TrocarSituacao", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID, situacaoPasso = (int)SituacaoPasso.Pausado }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Interromper Execucão", "TrocarSituacao", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID, situacaoPasso = (int)SituacaoPasso.Interrompido }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Concluir Execucão", "TrocarSituacao", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID, situacaoPasso = (int)SituacaoPasso.Concluido }, new { @class = "btn btn-success" })
+            }
+            else
+            {
+                @Html.ActionLink("Iniciar Execucão", "TrocarSituacao", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID, situacaoPasso = (int)SituacaoPasso.Em_Andamento }, new { @class = "btn btn-success" })
+            }
+        }
+
+        @Html.ActionLink("Editar Execução", "Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID }, new { @class = "btn btn-warning", @target = "_blank" })
+
+        @Html.ActionLink("Ir para Meta", "Detalhes", "Meta", new { Area = "Comum", metaUID = Model.metaUID }, new { @class = "btn btn-default" })
+
+        @Html.ActionLink("Excluir Passo", "Excluir", "ExecucaoMeta", new { execucaoMetaUID = Model.execucaoMetaUID, Area = "Cadastro" }, new { @class = "btn btn-danger" })
+    </div>
+</div>
+<script type="text/javascript">
+    var dataInicioFormatada = new Date("@Model.dataInicio.ToString("yyyy-MM-ddTHH:mm:ss.sss")");
+    var dataTerminoFormatada = new Date("@Model.dataTermino.ToString("yyyy-MM-ddTHH:mm:ss.sss")");
+
+    function atualizarBarraDeProgresso() {
+        var barraDeProgresso = document.getElementById("progress-bar");
+        var textoDeProgresso = document.getElementById("progress-text");
+
+        var dataAtual = new Date();
+        var tempoDecorrido = dataAtual - dataInicioFormatada;
+        var tempoTotal = dataTerminoFormatada - dataInicioFormatada;
+        var porcentagemCompleta = (tempoDecorrido / tempoTotal) * 100;
+
+        barraDeProgresso.style.backgroundColor = getCorAleatoria();
+
+        if (dataTerminoFormatada < dataAtual) {
+            porcentagemCompleta = 100;
+            barraDeProgresso.style.backgroundColor = "green";
+        }
+
+        barraDeProgresso.style.width = porcentagemCompleta + "%";
+        textoDeProgresso.innerHTML = porcentagemCompleta.toFixed(2) + "%";
+    }
+
+    setInterval(function () {
+        atualizarBarraDeProgresso();
+    }, 3000);
+
+    function getCorAleatoria() {
+        var red = Math.floor(Math.random() * 256);
+        var green = Math.floor(Math.random() * 256);
+        var blue = Math.floor(Math.random() * 256);
+
+        var cor = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+        return cor;
+    }
+
+</script>

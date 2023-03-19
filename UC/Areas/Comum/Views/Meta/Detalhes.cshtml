@@ -1,0 +1,72 @@
+﻿@model UC.Models.ViewModels.VMMeta
+
+@using UC.Models.Enumerators
+
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:@Model.tema">
+        <h2 class="text-center">@Model.nome</h2>
+    </div>
+    <div class="panel-body list-group">
+        <div class="list-group-item">
+            <h4><strong>Motivo: </strong>@Model.motivo</h4>
+        </div>
+        <div class="list-group-item">
+            <h4><strong>Tipo: </strong>@Model.tipo</h4>
+        </div>
+        <div class="list-group-item">
+            <h4><strong>SubTipo: </strong>@Model.subTipo</h4>
+        </div>
+        <div class="list-group-item">
+            <h4><strong>Prioridade: </strong>@Model.prioridade</h4>
+        </div>
+        <div class="list-group-item">
+            <h4><strong>Data de Início: </strong>@Model.dataInicio</h4>
+        </div>
+        <div class="list-group-item">
+            <h4><strong>Data de Término: </strong>@Model.dataTermino</h4>
+        </div>
+        <div class="list-group-item" style="border-color:@Model.tema">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="text-center">Execução da Meta - Cronograma</h2>
+                </div>
+                <div class="panel-body table-responsive">
+                    @{int i = 1;}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th width="20%">Passo</th>
+                                <th>Data de Início</th>
+                                <th>Data de Término</th>
+                                <th>Situação</th>
+                                <th class="hidden-print">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cadaExecucao in Model.Passos)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td><strong> @cadaExecucao.execucaoMeta.descricao</strong></td>
+                                    <td>@cadaExecucao.dataInicio.ToShortDateString() - @cadaExecucao.dataInicio.ToShortTimeString()</td>
+                                    <td>@cadaExecucao.dataTermino.ToShortDateString() ~ @cadaExecucao.dataTermino.ToShortTimeString()</td>
+                                    <td>@cadaExecucao.situacao</td>
+                                    <td class="hidden-print">
+                                        @Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default" })
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer" style="background-color:@Model.tema">
+        @Html.ActionLink("Incluir Passo", "Novo", "ExecucaoMeta", new { metaUID = Model.metaUID, Area = "Cadastro" }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Editar Meta", "Editar", "Meta", new { metaUID = Model.metaUID, Area = "Cadastro" }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Excluir Meta", "Excluir", "Meta", new { metaUID = Model.metaUID, Area = "Cadastro" }, new { @class = "btn btn-danger" })
+    </div>
+</div>

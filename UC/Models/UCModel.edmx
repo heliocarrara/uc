@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnotacaoExecucaoMeta">
+          <Key>
+            <PropertyRef Name="anotacaoExecucaoMetaUID" />
+          </Key>
+          <Property Name="anotacaoExecucaoMetaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execucaoMetaUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="incluirNaMeta" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExecucaoMeta">
           <Key>
             <PropertyRef Name="execucaoMetaUID" />
@@ -17,6 +28,7 @@
           <Property Name="dataTermino" Type="datetime" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
           <Property Name="tema" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="situacao" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Meta">
           <Key>
@@ -24,12 +36,48 @@
           </Key>
           <Property Name="metaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nome" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="dataObjetivo" Type="datetime" />
-          <Property Name="dataInicio" Type="datetime" />
+          <Property Name="dataObjetivo" Type="datetime" Nullable="false" />
+          <Property Name="dataInicio" Type="datetime" Nullable="false" />
           <Property Name="motivo" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
           <Property Name="ordemPrioridade" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+          <Property Name="subTipoMetaUID" Type="int" />
+          <Property Name="tema" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="RegistroSituacaoExecucaoMeta">
+          <Key>
+            <PropertyRef Name="registroSituacaoExecucaoMetaUID" />
+          </Key>
+          <Property Name="registroSituacaoExecucaoMetaUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="execucaoMetaUID" Type="bigint" Nullable="false" />
+          <Property Name="situacaoPasso" Type="int" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="descricao" Type="nvarchar(max)" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubTipoMeta">
+          <Key>
+            <PropertyRef Name="subTipoMetaUID" />
+          </Key>
+          <Property Name="subTipoMetaUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+          <Property Name="nome" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnotacaoExecucaoMeta_ExecucaoMeta">
+          <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="1" />
+          <End Role="AnotacaoExecucaoMeta" Type="Self.AnotacaoExecucaoMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Principal>
+            <Dependent Role="AnotacaoExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExecucaoMeta_Meta">
           <End Role="Meta" Type="Self.Meta" Multiplicity="1" />
           <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="*" />
@@ -42,12 +90,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Meta_SubTipoMeta">
+          <End Role="SubTipoMeta" Type="Self.SubTipoMeta" Multiplicity="0..1" />
+          <End Role="Meta" Type="Self.Meta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTipoMeta">
+              <PropertyRef Name="subTipoMetaUID" />
+            </Principal>
+            <Dependent Role="Meta">
+              <PropertyRef Name="subTipoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta">
+          <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="1" />
+          <End Role="RegistroSituacaoExecucaoMeta" Type="Self.RegistroSituacaoExecucaoMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Principal>
+            <Dependent Role="RegistroSituacaoExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="AnotacaoExecucaoMeta" EntityType="Self.AnotacaoExecucaoMeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExecucaoMeta" EntityType="Self.ExecucaoMeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meta" EntityType="Self.Meta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroSituacaoExecucaoMeta" EntityType="Self.RegistroSituacaoExecucaoMeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubTipoMeta" EntityType="Self.SubTipoMeta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AnotacaoExecucaoMeta_ExecucaoMeta" Association="Self.FK_AnotacaoExecucaoMeta_ExecucaoMeta">
+            <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
+            <End Role="AnotacaoExecucaoMeta" EntitySet="AnotacaoExecucaoMeta" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExecucaoMeta_Meta" Association="Self.FK_ExecucaoMeta_Meta">
             <End Role="Meta" EntitySet="Meta" />
             <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meta_SubTipoMeta" Association="Self.FK_Meta_SubTipoMeta">
+            <End Role="SubTipoMeta" EntitySet="SubTipoMeta" />
+            <End Role="Meta" EntitySet="Meta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" Association="Self.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta">
+            <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
+            <End Role="RegistroSituacaoExecucaoMeta" EntitySet="RegistroSituacaoExecucaoMeta" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -55,13 +142,68 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="UCDBContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ExecucaoMetas" EntityType="Model.ExecucaoMeta" />
           <EntitySet Name="Metas" EntityType="Model.Meta" />
+          <EntitySet Name="SubTipoMetas" EntityType="Model.SubTipoMeta" />
+          <AssociationSet Name="FK_Meta_SubTipoMeta" Association="Model.FK_Meta_SubTipoMeta">
+            <End Role="SubTipoMeta" EntitySet="SubTipoMetas" />
+            <End Role="Meta" EntitySet="Metas" />
+          </AssociationSet>
+          <EntitySet Name="ExecucaoMetas" EntityType="Model.ExecucaoMeta" />
           <AssociationSet Name="FK_ExecucaoMeta_Meta" Association="Model.FK_ExecucaoMeta_Meta">
             <End Role="Meta" EntitySet="Metas" />
             <End Role="ExecucaoMeta" EntitySet="ExecucaoMetas" />
           </AssociationSet>
+          <EntitySet Name="AnotacaoExecucaoMetas" EntityType="Model.AnotacaoExecucaoMeta" />
+          <EntitySet Name="RegistroSituacaoExecucaoMetas" EntityType="Model.RegistroSituacaoExecucaoMeta" />
+          <AssociationSet Name="FK_AnotacaoExecucaoMeta_ExecucaoMeta" Association="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta">
+            <End Role="ExecucaoMeta" EntitySet="ExecucaoMetas" />
+            <End Role="AnotacaoExecucaoMeta" EntitySet="AnotacaoExecucaoMetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta">
+            <End Role="ExecucaoMeta" EntitySet="ExecucaoMetas" />
+            <End Role="RegistroSituacaoExecucaoMeta" EntitySet="RegistroSituacaoExecucaoMetas" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Meta">
+          <Key>
+            <PropertyRef Name="metaUID" />
+          </Key>
+          <Property Name="metaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dataObjetivo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dataInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="motivo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="ordemPrioridade" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <Property Name="subTipoMetaUID" Type="Int32" />
+          <Property Name="tema" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SubTipoMeta" Relationship="Model.FK_Meta_SubTipoMeta" FromRole="Meta" ToRole="SubTipoMeta" />
+          <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="Meta" ToRole="ExecucaoMeta" />
+        </EntityType>
+        <EntityType Name="SubTipoMeta">
+          <Key>
+            <PropertyRef Name="subTipoMetaUID" />
+          </Key>
+          <Property Name="subTipoMetaUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Metas" Relationship="Model.FK_Meta_SubTipoMeta" FromRole="SubTipoMeta" ToRole="Meta" />
+        </EntityType>
+        <Association Name="FK_Meta_SubTipoMeta">
+          <End Type="Model.SubTipoMeta" Role="SubTipoMeta" Multiplicity="0..1" />
+          <End Type="Model.Meta" Role="Meta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTipoMeta">
+              <PropertyRef Name="subTipoMetaUID" />
+            </Principal>
+            <Dependent Role="Meta">
+              <PropertyRef Name="subTipoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ExecucaoMeta">
           <Key>
             <PropertyRef Name="execucaoMetaUID" />
@@ -74,20 +216,10 @@
           <Property Name="dataTermino" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <Property Name="tema" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="situacao" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Meta" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="ExecucaoMeta" ToRole="Meta" />
-        </EntityType>
-        <EntityType Name="Meta">
-          <Key>
-            <PropertyRef Name="metaUID" />
-          </Key>
-          <Property Name="metaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="dataObjetivo" Type="DateTime" Precision="3" />
-          <Property Name="dataInicio" Type="DateTime" Precision="3" />
-          <Property Name="motivo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ativo" Type="Boolean" Nullable="false" />
-          <Property Name="ordemPrioridade" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="Meta" ToRole="ExecucaoMeta" />
+          <NavigationProperty Name="AnotacaoExecucaoMetas" Relationship="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" FromRole="ExecucaoMeta" ToRole="AnotacaoExecucaoMeta" />
+          <NavigationProperty Name="RegistroSituacaoExecucaoMetas" Relationship="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" FromRole="ExecucaoMeta" ToRole="RegistroSituacaoExecucaoMeta" />
         </EntityType>
         <Association Name="FK_ExecucaoMeta_Meta">
           <End Type="Model.Meta" Role="Meta" Multiplicity="1" />
@@ -101,15 +233,91 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AnotacaoExecucaoMeta">
+          <Key>
+            <PropertyRef Name="anotacaoExecucaoMetaUID" />
+          </Key>
+          <Property Name="anotacaoExecucaoMetaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execucaoMetaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="incluirNaMeta" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ExecucaoMeta" Relationship="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" FromRole="AnotacaoExecucaoMeta" ToRole="ExecucaoMeta" />
+        </EntityType>
+        <EntityType Name="RegistroSituacaoExecucaoMeta">
+          <Key>
+            <PropertyRef Name="registroSituacaoExecucaoMetaUID" />
+          </Key>
+          <Property Name="registroSituacaoExecucaoMetaUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="execucaoMetaUID" Type="Int64" Nullable="false" />
+          <Property Name="situacaoPasso" Type="Int32" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ExecucaoMeta" Relationship="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" FromRole="RegistroSituacaoExecucaoMeta" ToRole="ExecucaoMeta" />
+        </EntityType>
+        <Association Name="FK_AnotacaoExecucaoMeta_ExecucaoMeta">
+          <End Type="Model.ExecucaoMeta" Role="ExecucaoMeta" Multiplicity="1" />
+          <End Type="Model.AnotacaoExecucaoMeta" Role="AnotacaoExecucaoMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Principal>
+            <Dependent Role="AnotacaoExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta">
+          <End Type="Model.ExecucaoMeta" Role="ExecucaoMeta" Multiplicity="1" />
+          <End Type="Model.RegistroSituacaoExecucaoMeta" Role="RegistroSituacaoExecucaoMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Principal>
+            <Dependent Role="RegistroSituacaoExecucaoMeta">
+              <PropertyRef Name="execucaoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="UCDBContext">
+          <EntitySetMapping Name="Metas">
+            <EntityTypeMapping TypeName="Model.Meta">
+              <MappingFragment StoreEntitySet="Meta">
+                <ScalarProperty Name="tema" ColumnName="tema" />
+                <ScalarProperty Name="subTipoMetaUID" ColumnName="subTipoMetaUID" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="ordemPrioridade" ColumnName="ordemPrioridade" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="motivo" ColumnName="motivo" />
+                <ScalarProperty Name="dataInicio" ColumnName="dataInicio" />
+                <ScalarProperty Name="dataObjetivo" ColumnName="dataObjetivo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="metaUID" ColumnName="metaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubTipoMetas">
+            <EntityTypeMapping TypeName="Model.SubTipoMeta">
+              <MappingFragment StoreEntitySet="SubTipoMeta">
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="subTipoMetaUID" ColumnName="subTipoMetaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ExecucaoMetas">
             <EntityTypeMapping TypeName="Model.ExecucaoMeta">
               <MappingFragment StoreEntitySet="ExecucaoMeta">
+                <ScalarProperty Name="situacao" ColumnName="situacao" />
                 <ScalarProperty Name="tema" ColumnName="tema" />
                 <ScalarProperty Name="ativo" ColumnName="ativo" />
                 <ScalarProperty Name="dataTermino" ColumnName="dataTermino" />
@@ -121,16 +329,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Metas">
-            <EntityTypeMapping TypeName="Model.Meta">
-              <MappingFragment StoreEntitySet="Meta">
-                <ScalarProperty Name="ordemPrioridade" ColumnName="ordemPrioridade" />
+          <EntitySetMapping Name="AnotacaoExecucaoMetas">
+            <EntityTypeMapping TypeName="Model.AnotacaoExecucaoMeta">
+              <MappingFragment StoreEntitySet="AnotacaoExecucaoMeta">
+                <ScalarProperty Name="incluirNaMeta" ColumnName="incluirNaMeta" />
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
                 <ScalarProperty Name="ativo" ColumnName="ativo" />
-                <ScalarProperty Name="motivo" ColumnName="motivo" />
-                <ScalarProperty Name="dataInicio" ColumnName="dataInicio" />
-                <ScalarProperty Name="dataObjetivo" ColumnName="dataObjetivo" />
-                <ScalarProperty Name="nome" ColumnName="nome" />
-                <ScalarProperty Name="metaUID" ColumnName="metaUID" />
+                <ScalarProperty Name="execucaoMetaUID" ColumnName="execucaoMetaUID" />
+                <ScalarProperty Name="anotacaoExecucaoMetaUID" ColumnName="anotacaoExecucaoMetaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroSituacaoExecucaoMetas">
+            <EntityTypeMapping TypeName="Model.RegistroSituacaoExecucaoMeta">
+              <MappingFragment StoreEntitySet="RegistroSituacaoExecucaoMeta">
+                <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="situacaoPasso" ColumnName="situacaoPasso" />
+                <ScalarProperty Name="execucaoMetaUID" ColumnName="execucaoMetaUID" />
+                <ScalarProperty Name="registroSituacaoExecucaoMetaUID" ColumnName="registroSituacaoExecucaoMetaUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

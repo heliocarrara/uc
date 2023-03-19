@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
+using UC.Models;
+using UC.Models.Enumerators;
 using UC.Models.ViewModels.FormViewModels;
 
 namespace UC.Areas.Cadastro.Controllers
@@ -13,9 +15,8 @@ namespace UC.Areas.Cadastro.Controllers
         private const string formulario = "FormularioExecucaoMeta";
         public ActionResult Index()
         {
-            return RedirectToAction("Detalhes", "Index", new { Area = "Comum" });
+            return RedirectToAction("Index", "Index", new { Area = "Comum" });
         }
-
         public ActionResult Novo(long metaUID)
         {
             try
@@ -32,7 +33,6 @@ namespace UC.Areas.Cadastro.Controllers
                 return Index();
             }
         }
-
         public ActionResult GravarFormulario(VMFormExecucaoMeta form)
         {
             try
@@ -48,7 +48,8 @@ namespace UC.Areas.Cadastro.Controllers
                         dataInicio = form.dataInicio,
                         dataTermino = form.dataTermino,
                         ordemPasso = 0,
-                        tema = form.tema
+                        tema = form.tema,
+                        situacao = (int)SituacaoPasso.Inicio
                     };
 
                     idbucContext.ExecucaoMetas.Add(novoPasso);
@@ -59,12 +60,12 @@ namespace UC.Areas.Cadastro.Controllers
                 {
                     var passo = idbucContext.ExecucaoMetas.Find(form.execucaoMetaUID);
 
-                    if (form.dataInicio >= passo.Meta.dataInicio && form.dataInicio <= passo.Meta.dataObjetivo.Value)
+                    if (form.dataInicio >= passo.Meta.dataInicio && form.dataInicio <= passo.Meta.dataObjetivo)
                     {
                         passo.dataInicio = form.dataInicio;
                     }
 
-                    if (form.dataTermino >= passo.Meta.dataInicio.Value && form.dataTermino <= passo.Meta.dataObjetivo.Value)
+                    if (form.dataTermino >= passo.Meta.dataInicio && form.dataTermino <= passo.Meta.dataObjetivo)
                     {
                         passo.dataTermino = form.dataTermino;
                     }
@@ -77,7 +78,7 @@ namespace UC.Areas.Cadastro.Controllers
                     AddMessage(UserMessageType.success, "Passo alterado com sucesso!");
                 }
 
-                return RedirectToAction("OrganizarPassos", "Meta", new { metaUID = form.metaUID, Area = "Cadastro"});
+                return RedirectToAction("Detalhes", "Meta", new { metaUID = form.metaUID, Area = "Comum"});
             }
             catch (Exception ex)
             {
@@ -131,12 +132,26 @@ namespace UC.Areas.Cadastro.Controllers
                 return Index();
             }
         }
-
         public ActionResult Iniciar(long execucaoMetaUID)
         {
             try
             {
-                throw new Exception("Ação não criada. Ta na hora.");
+                var registrosAtivos = idbucContext.ExecucaoMetas.Where(x => x.ativo && x.Meta.ativo && x.situacao == (int)SituacaoPasso.Em_Andamento).ToList();
+
+                if (registrosAtivos.Count > 1)
+                {
+                    throw new Exception("Existem passos em execução. Finalize para continuar.");
+                }
+
+                var execucao = idbucContext.ExecucaoMetas.Find(execucaoMetaUID);
+
+                execucao.situacao = (int)SituacaoPasso.Em_Andamento;
+
+                idbucContext.SaveChanges();
+
+                AddMessage(UserMessageType.success, "A execução do passo foi iniciada.");
+
+                return RedirectToAction("Execucao", "ExecucaoMeta", new { Area = "Comum"});
             }
             catch (Exception ex)
             {
@@ -144,12 +159,58 @@ namespace UC.Areas.Cadastro.Controllers
                 return Index();
             }
         }
-
-        public ActionResult Pausar(long execucaoMetaUID)
+        public ActionResult TrocarSituacao(long execucaoMetaUID, int situacaoPasso)
         {
             try
             {
-                throw new Exception("Ação não criada. Ta na hora.");
+                var execucao = idbucContext.ExecucaoMetas.Find(execucaoMetaUID);
+
+                var novoRegistro = new RegistroSituacaoExecucaoMeta
+                {
+                    ativo = true,
+                    registroSituacaoExecucaoMetaUID = 0,
+                    situacaoPasso = situacaoPasso,
+                    execucaoMetaUID = execucaoMetaUID,
+                    dataCriacao = DateTime.Now
+                };
+
+                idbucContext.RegistroSituacaoExecucaoMetas.Add(novoRegistro);
+
+                execucao.situacao = situacaoPasso;
+
+                idbucContext.SaveChanges();
+
+                AddMessage(UserMessageType.success, "A situação da execução do passo foi alterada.");
+
+                return RedirectToAction("Detalhes", "ExecucaoMeta", new { Area = "Comum", execucaoMetaUID = execucaoMetaUID });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+        public ActionResult AdicionarObservação(long execucaoMetaUID, string anotacao, bool incluirmeta)
+        {
+            try
+            {
+                var novoRegistro = new AnotacaoExecucaoMeta
+                {
+                    ativo = true,
+                    anotacaoExecucaoMetaUID = 0,
+                    execucaoMetaUID = execucaoMetaUID,
+                    descricao = anotacao,
+                    dataCriacao = DateTime.Now,
+                    incluirNaMeta = incluirmeta
+                };
+
+                idbucContext.AnotacaoExecucaoMetas.Add(novoRegistro);
+
+                idbucContext.SaveChanges();
+
+                AddMessage(UserMessageType.success, "Anotação incluída!");
+
+                return RedirectToAction("Detalhes", "ExecucaoMeta", new { Area = "Comum", execucaoMetaUID = execucaoMetaUID });
             }
             catch (Exception ex)
             {
