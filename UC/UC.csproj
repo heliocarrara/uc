@@ -345,7 +345,9 @@
     <Content Include="Areas\Comum\Views\ExecucaoMeta\_PartialAnotacao.cshtml" />
     <Content Include="Areas\Comum\Views\ExecucaoMeta\_PartialInfoSituacao.cshtml" />
     <Content Include="Areas\Comum\Views\ExecucaoMeta\_PartialInfoRelatorioExecucao.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\UC20230318233616 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
