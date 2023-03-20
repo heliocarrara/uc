@@ -47,7 +47,7 @@ namespace UC.Controllers
         {
             AddMessage(UserMessageType.error, "Exceção não tratada foi encontrada no sistema: [" + ExceptionMessage(filterContext.Exception) + "]");
 
-            filterContext.Result = RedirectToAction("Detalhes", "Index", new { Area = "Comum" });
+            filterContext.Result = RedirectToAction("Index", "Index", new { Area = "Comum" });
 
             filterContext.ExceptionHandled = true;
 

@@ -15,7 +15,7 @@ namespace UC.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Detalhes", "Index", new { Area = "Comum"});
+            return RedirectToAction("Index", "Index", new { Area = "Comum"});
         }
     }
 }
