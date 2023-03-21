@@ -17,8 +17,26 @@ namespace UC.Controllers
             catch(Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
+                return RedirectToAction("Error");
+            }
+        }
+
+        public ActionResult Login()
+        {
+            try
+            {
                 return View();
             }
+            catch(Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return RedirectToAction("Error");
+            }
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }

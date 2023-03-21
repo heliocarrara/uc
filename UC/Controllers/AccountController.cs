@@ -15,7 +15,36 @@ namespace UC.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Index", new { Area = "Comum"});
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Login(string cpf, string senha)
+        {
+            try
+            {
+                var usuario = idbucContext.Usuarios.FirstOrDefault(x => x.ativo && x.cpf == cpf && x.senha == senha);
+
+                if(usuario == null)
+                {
+                    throw (new Exception("Usuário não encontrado. Ctz que tem conta aqui?"));
+                }
+
+                if(!usuario.Permissaos.Any(x => x.ativo))
+                {
+                    throw new Exception("Usuário sem permissão para acesso. Cade o convite?");
+                }
+
+                SimpleSessionPersister.LoginUsuario(usuario);
+
+                AddMessage(UserMessageType.success, "Seja bem vind@ de volta!");
+
+                return RedirectToAction("Index", "Index", new { Area = SimpleSessionPersister.UserRole });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
         }
     }
 }

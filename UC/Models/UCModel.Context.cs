@@ -30,5 +30,8 @@ namespace UC.Models
         public DbSet<ExecucaoMeta> ExecucaoMetas { get; set; }
         public DbSet<AnotacaoExecucaoMeta> AnotacaoExecucaoMetas { get; set; }
         public DbSet<RegistroSituacaoExecucaoMeta> RegistroSituacaoExecucaoMetas { get; set; }
+        public DbSet<ChaveAtivacao> ChaveAtivacaos { get; set; }
+        public DbSet<Permissao> Permissaos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

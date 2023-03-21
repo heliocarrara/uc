@@ -122,6 +122,10 @@ namespace UC.Utility
         #endregion
 
         #region LOGIN METHODS
+        public static void LoginUsuario(Usuario user)
+        {
+            SimpleSessionPersister.SetValues(user.usuarioUID.ToString(), user.cpf, "Comum", false);
+        }
         /*
         public static void LoginServidor(Models.IUnityOfHelpers u, AutenticacaoService.Usuario user, bool variosPerfis)
         {

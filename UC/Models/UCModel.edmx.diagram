@@ -16,6 +16,12 @@
         <EntityTypeShape EntityType="Model.RegistroSituacaoExecucaoMeta" Width="1.5" PointX="7.5" PointY="6" />
         <AssociationConnector Association="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" />
         <AssociationConnector Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" />
+        <EntityTypeShape EntityType="Model.ChaveAtivacao" Width="1.5" PointX="9.625" PointY="1" />
+        <EntityTypeShape EntityType="Model.Permissao" Width="1.5" PointX="11.875" PointY="1" />
+        <EntityTypeShape EntityType="Model.Usuario" Width="1.5" PointX="7.375" PointY="1" />
+        <AssociationConnector Association="Model.FK_ChaveAtivacao_Usuario" />
+        <AssociationConnector Association="Model.FK_Permissao_ChaveAtivacao" />
+        <AssociationConnector Association="Model.FK_Permissao_Usuario" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

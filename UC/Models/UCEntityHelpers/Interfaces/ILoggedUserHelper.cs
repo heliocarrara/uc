@@ -9,6 +9,6 @@ namespace UC.Models.UCEntityHelpers.Interfaces
 {
     public interface ILoggedUserHelper
     {
-        string pessoaUID { get; }
+        string usuarioUID { get; }
     }
 }
