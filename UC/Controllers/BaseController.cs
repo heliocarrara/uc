@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using UC.Utility;
 
 namespace UC.Controllers
@@ -38,7 +39,6 @@ namespace UC.Controllers
                     new CustomIdentity(
                         SimpleSessionPersister.Username,
                         SimpleSessionPersister.Id), SimpleSessionPersister.UserRole);
-
                 base.OnAuthorization(filterContext);
             }
         }
@@ -47,7 +47,7 @@ namespace UC.Controllers
         {
             AddMessage(UserMessageType.error, "Exceção não tratada foi encontrada no sistema: [" + ExceptionMessage(filterContext.Exception) + "]");
 
-            filterContext.Result = RedirectToAction("Index", "Home");
+            filterContext.Result = RedirectToAction("Index", "Home", new { Area = string.Empty });
 
             filterContext.ExceptionHandled = true;
 
@@ -59,16 +59,6 @@ namespace UC.Controllers
             return ex.InnerException == null
                 ? ex.Message
                 : ex.Message + " (Exceção interna: " + ExceptionMessage(ex.InnerException) + ")";
-        }
-
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (filterContext.HttpContext.Request.UrlReferrer != null)
-            {
-                SimpleSessionPersister.ReturnLink = filterContext.HttpContext.Request.UrlReferrer.AbsoluteUri;
-            }
-
-            base.OnActionExecuting(filterContext);
         }
 
         #endregion
