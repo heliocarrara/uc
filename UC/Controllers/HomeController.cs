@@ -30,7 +30,7 @@ namespace UC.Controllers
             catch(Exception ex)
             {
                 AddMessage(UserMessageType.error, ex);
-                return RedirectToAction("Error");
+                return Error();
             }
         }
 
