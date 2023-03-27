@@ -437,6 +437,7 @@
     <Content Include="Areas\Comum\Views\ExecucaoMeta\_PartialInfoSituacao.cshtml" />
     <Content Include="Areas\Comum\Views\ExecucaoMeta\_PartialInfoRelatorioExecucao.cshtml" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\carrara - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Properties\PublishProfiles\UC20230318233616 - Web Deploy.pubxml" />

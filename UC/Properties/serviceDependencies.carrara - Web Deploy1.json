@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/ucdbserver/databases/ucdb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:ucdbserver.database.windows.net",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
