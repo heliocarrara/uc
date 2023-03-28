@@ -11,7 +11,7 @@
                     <th>Descrição</th>
                     <th class="text-center">Data</th>
                     <th class="text-center">Anotar na Meta</th>
-                    <th class="text-center">Opções</th>
+                    <th class="text-center hidden-print">Opções</th>
                 </tr>
                 <tr></tr>
                 <tr></tr>
@@ -22,16 +22,16 @@
                     var incluir = cadaAnotacao.incluirNaMeta ? "Sim" : "Não";
 
                     <tr>
-                        <td>@cadaAnotacao.descricao</td>
+                        <td>@Html.Raw(cadaAnotacao.descricao)</td>
                         <td class="text-center">@cadaAnotacao.dataCriacao</td>
                         <td class="text-center">@incluir</td>
-                        <td class="text-center">@Html.ActionLink(" ", "Excluir", new { anotacaoExecucaoMetaUID = cadaAnotacao.anotacaoExecucaoMetaUID, Area = "Cadastro" }, new { @class = "glyphicon glyphicon-trash text-danger" })</td>
+                        <td class="text-center hidden-print">@Html.ActionLink(" ", "Excluir", new { anotacaoExecucaoMetaUID = cadaAnotacao.anotacaoExecucaoMetaUID, Area = "Cadastro" }, new { @class = "glyphicon glyphicon-trash text-danger" })</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer hidden-print">
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
             Incluir Anotação
         </button>
