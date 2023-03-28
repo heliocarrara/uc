@@ -22,9 +22,9 @@
                     var incluir = cadaAnotacao.incluirNaMeta ? "Sim" : "Não";
 
                     <tr>
-                        <td>@Html.Raw(cadaAnotacao.descricao)</td>
-                        <td class="text-center">@cadaAnotacao.dataCriacao</td>
-                        <td class="text-center">@incluir</td>
+                        <td><pre class="pre-with-limit">@cadaAnotacao.descricao</pre></td>
+                        <td class="text-center" width="10%">@cadaAnotacao.dataCriacao</td>
+                        <td class="text-center" width="10%">@incluir</td>
                         <td class="text-center hidden-print">@Html.ActionLink(" ", "Excluir", new { anotacaoExecucaoMetaUID = cadaAnotacao.anotacaoExecucaoMetaUID, Area = "Cadastro" }, new { @class = "glyphicon glyphicon-trash text-danger" })</td>
                     </tr>
                 }

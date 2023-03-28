@@ -19,6 +19,11 @@
         font-weight: 200;
     }
 
+.pre-with-limit {
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
 .container .slogan-inicial {
     border-radius: 6px;
 }
