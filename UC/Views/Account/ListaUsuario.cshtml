@@ -1,0 +1,58 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListUsuario
+
+@using UC.Models.Enumerators;
+
+<div>@Html.ActionLink("Incluir Permissão", "Index", "Permissao", new { Area = "Administrador" }, new { @class = "btn btn-default" })</div>
+<div>@Html.ActionLink("Incluir Chave de Ativação", "Index", "ChaveAtivacao", new { Area = "Administrador" }, new { @class = "btn btn-default" })</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h1 class="text-center">Usuários Cadastrados</h1>
+    </div>
+    <div class="panel-body table-responsive">
+        <div class="panel-body">
+            @{int i = 1;}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>ID</th>
+                        <th>CPF</th>
+                        <th>Senha</th>
+                        <th>Permissões</th>
+                        @*<th>Meta</th>
+                            <th>Data Inicio</th>
+                            <th>Data termino</th>
+                            <th>SubTipo</th>
+                            <th>Situação</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cadaUser in Model.ListaUsuario)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@cadaUser.usuarioUID</td>
+                            <td>@cadaUser.cpf</td>
+                            <td>@cadaUser.senha</td>
+                            <td>
+                                @foreach (var cadaPermissao in cadaUser.Permissaos.Where(x => x.ativo).ToList())
+                                {
+                                    <span>@(((TipoLogin)cadaPermissao.tipoPermissao).ToFriendlyString())</span><br />
+                                }
+                            </td>
+                            @*<td class="hidden-print">
+                                    @Html.ActionLink(cadaMeta.nome, "Detalhes", "Meta", new { metaUID = cadaMeta.metaUID, Area = "Comum" }, new { @class = "text" })
+                                </td>
+                                <td>@cadaMeta.dataInicio.ToShortDateString()</td>
+                                <td>@cadaMeta.dataTermino.ToShortDateString()</td>
+                                <td>@cadaMeta.subTipo</td>
+                                <td>Não definido</td>*@
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

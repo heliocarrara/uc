@@ -1,0 +1,52 @@
+﻿@model IEnumerable<UC.Models.ChaveAtivacao>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dataCriacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoPermissao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.cpf)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataCriacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoPermissao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.cpf)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.chaveAtivacaoUID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.chaveAtivacaoUID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.chaveAtivacaoUID })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,52 @@
+﻿@model UC.Models.Permissao
+
+<div>
+    <h4>Permissao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataCriacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataCriacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoPermissao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoPermissao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChaveAtivacao.cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChaveAtivacao.cpf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.cpf)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.permissaoUID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
