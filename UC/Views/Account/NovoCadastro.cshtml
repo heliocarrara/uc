@@ -5,15 +5,12 @@
 {
     <div id="container-login">
         <div class="panel-heading">
-            <h2>
-                Acessar Conta
-                @Html.ActionLink(":", "ListaUsuario", "Account", "", new { @class = "" })
-            </h2>
+            <h2>Acessar Conta</h2>
         </div>
         <div class="panel-body">
             <div class="form-group">
                 @Html.Label("cpf", "CPF:")
-                @Html.TextBox("cpf", string.Empty, new { @class = "form-control", placeholder = "Igual no momento do cadastro" })
+                @Html.TextBox("cpf", string.Empty, new { @class = "form-control", placeholder = "Digite o usuário" })
             </div>
             <div class="form-group">
                 @Html.Label("senha", "Senha:")
@@ -22,7 +19,8 @@
         </div>
         <div class="panel-footer more-large text-center">
             <button type="submit" class="btn btn-success">Acessar</button>
-            @Html.ActionLink("Cadastre-se", "NovoCadastro", "Usuario", new { Area = "Cadastro"}, new { @class = "btn btn-info" })
+            @Html.ActionLink("Cadastre-se", "NovoCadastro", "Account", "", new { @class = "btn btn-info" })
+            @Html.ActionLink("Listar Cadastros", "ListaUsuario", "Account", "", new { @class = "btn btn-default" })
         </div>
     </div>
 }

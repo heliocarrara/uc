@@ -1,0 +1,36 @@
+@model UC.Models.Usuario
+
+@using (@Html.BeginForm("GravarFormulario", "Usuario", FormMethod.Post))
+{
+    <div id="container-login">
+        <div class="panel-heading">
+            <h2>Novo Usuário</h2>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.nome, "Nome:")
+                @Html.TextBoxFor(m => m.nome, string.Empty, new { @class = "form-control", placeholder = "Digite aqui" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.cpf, "CPF:")
+                @Html.TextBoxFor(m => m.cpf, string.Empty, new { @class = "form-control", placeholder = "Somente números" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.email, "Email:")
+                @Html.TextBoxFor(m => m.email, string.Empty, new { @class = "form-control", placeholder = "@email" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.senha, "Senha:")
+                @Html.PasswordFor(m => m.senha, new { @class = "form-control", @placeholder = "Digite a senha..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.senhaSecundaria, "Senha secundaria:")
+                @Html.PasswordFor(m => m.senhaSecundaria, new { @class = "form-control", placeholder = "Opcional" })
+            </div>
+        </div>
+        <div class="panel-footer more-large text-center">
+            <button type="submit" class="btn btn-success">Salvar</button>
+            @Html.ActionLink("Voltar", "Login", "Home", new { Area = "" }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

@@ -89,5 +89,32 @@ namespace UC.Controllers
                 return Index();
             }
         }
+        public ActionResult LogOut()
+        {
+            try
+            {
+                SimpleSessionPersister.LogOut();
+
+                return Index();
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult NovoCadastro()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
     }
 }
