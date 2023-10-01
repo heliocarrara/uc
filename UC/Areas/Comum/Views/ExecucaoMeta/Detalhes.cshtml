@@ -49,7 +49,9 @@
             }
         }
 
-        @Html.ActionLink("Editar Execução", "Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID }, new { @class = "btn btn-warning", @target = "_blank" })
+        @Html.ActionLink("Editar Execução", "Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID }, new { @class = "btn btn-warning" })
+        
+        @Html.ActionLink("Duplicar Passo", "Duplicar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID }, new { @class = "btn btn-success" })
 
         @Html.ActionLink("Ir para Meta", "Detalhes", "Meta", new { Area = "Comum", metaUID = Model.metaUID }, new { @class = "btn btn-default" })
 

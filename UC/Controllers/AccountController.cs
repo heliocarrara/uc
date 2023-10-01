@@ -70,5 +70,24 @@ namespace UC.Controllers
                 return Index();
             }
         }
+        public ActionResult Perfil()
+        {
+            try
+            {
+                var user = idbucContext.Usuarios.Find(long.Parse(SimpleSessionPersister.Id));
+
+                if (user == null)
+                {
+                    throw new Exception("Usuário não encontrado. Ctz que tem conta aqui?");
+                }
+
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
     }
 }

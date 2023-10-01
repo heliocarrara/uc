@@ -55,6 +55,7 @@
           <Property Name="tipo" Type="int" Nullable="false" />
           <Property Name="subTipoMetaUID" Type="int" />
           <Property Name="tema" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="usuarioUID" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Permissao">
           <Key>
@@ -99,6 +100,7 @@
           <Property Name="email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
           <Property Name="dataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_AnotacaoExecucaoMeta_ExecucaoMeta">
           <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="1" />
@@ -145,6 +147,18 @@
             </Principal>
             <Dependent Role="Meta">
               <PropertyRef Name="subTipoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Meta" Type="Self.Meta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioUID" />
+            </Principal>
+            <Dependent Role="Meta">
+              <PropertyRef Name="usuarioUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -209,6 +223,10 @@
             <End Role="SubTipoMeta" EntitySet="SubTipoMeta" />
             <End Role="Meta" EntitySet="Meta" />
           </AssociationSet>
+          <AssociationSet Name="FK_Meta_Usuario" Association="Self.FK_Meta_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Meta" EntitySet="Meta" />
+          </AssociationSet>
           <AssociationSet Name="FK_Permissao_ChaveAtivacao" Association="Self.FK_Permissao_ChaveAtivacao">
             <End Role="ChaveAtivacao" EntitySet="ChaveAtivacao" />
             <End Role="Permissao" EntitySet="Permissao" />
@@ -263,6 +281,10 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Permissao" EntitySet="Permissaos" />
           </AssociationSet>
+          <AssociationSet Name="FK_Meta_Usuario" Association="Model.FK_Meta_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Meta" EntitySet="Metas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Meta">
           <Key>
@@ -280,6 +302,8 @@
           <Property Name="tema" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SubTipoMeta" Relationship="Model.FK_Meta_SubTipoMeta" FromRole="Meta" ToRole="SubTipoMeta" />
           <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="Meta" ToRole="ExecucaoMeta" />
+          <Property Name="usuarioUID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Model.FK_Meta_Usuario" FromRole="Meta" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="SubTipoMeta">
           <Key>
@@ -420,6 +444,8 @@
           <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="ChaveAtivacaos" Relationship="Model.FK_ChaveAtivacao_Usuario" FromRole="Usuario" ToRole="ChaveAtivacao" />
           <NavigationProperty Name="Permissaos" Relationship="Model.FK_Permissao_Usuario" FromRole="Usuario" ToRole="Permissao" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Metas" Relationship="Model.FK_Meta_Usuario" FromRole="Usuario" ToRole="Meta" />
         </EntityType>
         <Association Name="FK_ChaveAtivacao_Usuario">
           <End Type="Model.Usuario" Role="Usuario" Multiplicity="1" />
@@ -457,6 +483,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Meta_Usuario">
+          <End Type="Model.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Model.Meta" Role="Meta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioUID" />
+            </Principal>
+            <Dependent Role="Meta">
+              <PropertyRef Name="usuarioUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -466,6 +504,7 @@
           <EntitySetMapping Name="Metas">
             <EntityTypeMapping TypeName="Model.Meta">
               <MappingFragment StoreEntitySet="Meta">
+                <ScalarProperty Name="usuarioUID" ColumnName="usuarioUID" />
                 <ScalarProperty Name="tema" ColumnName="tema" />
                 <ScalarProperty Name="subTipoMetaUID" ColumnName="subTipoMetaUID" />
                 <ScalarProperty Name="tipo" ColumnName="tipo" />
@@ -556,6 +595,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="Model.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="dataCriacao" ColumnName="dataCriacao" />
                 <ScalarProperty Name="ativo" ColumnName="ativo" />
                 <ScalarProperty Name="email" ColumnName="email" />

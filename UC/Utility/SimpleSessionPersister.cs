@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UC.Models.Enumerators;
+using System.EnterpriseServices;
+using Google.Protobuf.WellKnownTypes;
 
 namespace UC.Utility
 {
@@ -43,6 +45,7 @@ namespace UC.Utility
             }
 
             SimpleSessionPersister.Id = Id;
+            SimpleSessionPersister.usuarioUID = long.Parse(Id);
             SimpleSessionPersister.Username = Username;
             SimpleSessionPersister.UserRole = UserRole;
             SimpleSessionPersister.UserHasOtherRoles = UserHasOtherRoles;
@@ -65,6 +68,8 @@ namespace UC.Utility
         /// The user's identification.
         /// </summary>
         public static string Id { get { if (HttpContext.Current == null) { return string.Empty; } var sessionVar = HttpContext.Current.Session[idSessionVar]; if (sessionVar != null) { return sessionVar as string; } return null; } private set { HttpContext.Current.Session[idSessionVar] = value; } }
+
+        public static long usuarioUID { get { if (IsLogged) { return long.Parse(Id); } return 0; } set { Id = value.ToString(); } }
 
         /// <summary>
         /// The user's name.
@@ -124,7 +129,7 @@ namespace UC.Utility
         #region LOGIN METHODS
         public static void LoginUsuario(Usuario user)
         {
-            SimpleSessionPersister.SetValues(user.usuarioUID.ToString(), user.cpf, "Comum", false);
+            SimpleSessionPersister.SetValues(user.usuarioUID.ToString(), user.nome, "Comum", false);
         }
         /*
         public static void LoginServidor(Models.IUnityOfHelpers u, AutenticacaoService.Usuario user, bool variosPerfis)

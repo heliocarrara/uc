@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using UC.Controllers;
 using UC.Models.ViewModels;
 using UC.Models.ViewModels.ListViewModels;
+using UC.Utility;
 
 namespace UC.Areas.Comum.Controllers
 {
@@ -20,7 +22,7 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                var metas = idbucContext.Metas.Where(x => x.ativo).ToList();
+                var metas = idbucContext.Metas.Where(x => x.ativo && x.usuarioUID == SimpleSessionPersister.usuarioUID && x.dataObjetivo >= DateTime.Today).ToList();
                 var model = new VMListMeta(myUnityOfHelpers, metas);
 
                 return View(model);

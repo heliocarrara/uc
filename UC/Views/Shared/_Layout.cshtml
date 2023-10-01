@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -46,8 +47,7 @@
                                 @nome <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Acessar Configurações", "Detalhes", "Painel", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, null)</li>
-                                <li>@Html.ActionLink("Perfil", "SelecionarPerfil", "Account", new { Area = "" }, null)</li>
+                                <li>@Html.ActionLink("Perfil", "Perfil", "Account", new { Area = "" }, null)</li>
                                 <li>@Html.ActionLink("Sair", "LogOut", "Account", new { Area = "" }, null)</li>
                             </ul>
                         </li>
@@ -69,7 +69,6 @@
         </footer>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -7,6 +7,7 @@ using UC.Controllers;
 using UC.Models;
 using UC.Models.Enumerators;
 using UC.Models.ViewModels.FormViewModels;
+using UC.Utility;
 
 namespace UC.Areas.Cadastro.Controllers
 {
@@ -23,7 +24,7 @@ namespace UC.Areas.Cadastro.Controllers
             {
                 var meta = idbucContext.Metas.Find(metaUID);
 
-                var model = new VMFormExecucaoMeta(meta);
+                var model = new VMFormExecucaoMeta(myUnityOfHelpers, meta);
 
                 return View(formulario, model);
             }
@@ -37,6 +38,11 @@ namespace UC.Areas.Cadastro.Controllers
         {
             try
             {
+                if (form.metaUID == 0)
+                {
+                    throw new Exception("Meta não selecionada.");
+                }
+
                 if (form.execucaoMetaUID == 0)
                 {
                     var novoPasso = new Models.ExecucaoMeta
@@ -70,6 +76,8 @@ namespace UC.Areas.Cadastro.Controllers
                         passo.dataTermino = form.dataTermino;
                     }
 
+                    passo.metaUID = form.metaUID > 0 ? form.metaUID : passo.metaUID;
+
                     passo.descricao = form.descricao;
                     
                     passo.tema = form.tema;
@@ -82,9 +90,8 @@ namespace UC.Areas.Cadastro.Controllers
             }
             catch (Exception ex)
             {
-                form.meta = idbucContext.Metas.Find(form.metaUID);
                 AddMessage(UserMessageType.error, ex);
-                return View(formulario, form);
+                return RedirectToAction("NovaAtividade");
             }
         }
         public ActionResult Editar(long execucaoMetaUID)
@@ -98,7 +105,7 @@ namespace UC.Areas.Cadastro.Controllers
                     throw new Exception("Passo não encontrado");
                 }
 
-                var model = new VMFormExecucaoMeta(passo);
+                var model = new VMFormExecucaoMeta(myUnityOfHelpers, passo);
 
                 return View(formulario, model);
             }
@@ -211,6 +218,49 @@ namespace UC.Areas.Cadastro.Controllers
                 AddMessage(UserMessageType.success, "Anotação incluída!");
 
                 return RedirectToAction("Detalhes", "ExecucaoMeta", new { Area = "Comum", execucaoMetaUID = execucaoMetaUID });
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult NovaAtividade()
+        {
+            try
+            {
+                var model = new VMFormExecucaoMeta(myUnityOfHelpers);
+
+                return View(formulario, model);
+            }
+            catch (Exception ex)
+            {
+                AddMessage(UserMessageType.error, ex);
+                return Index();
+            }
+        }
+
+        public ActionResult Duplicar(long execucaoMetaUID)
+        {
+            try
+            {
+                var passo = idbucContext.ExecucaoMetas.Find(execucaoMetaUID);
+
+                var model = new VMFormExecucaoMeta(myUnityOfHelpers, passo);
+
+                model.execucaoMetaUID = 0;
+                var duracao = model.dataTermino.Subtract(model.dataInicio);
+
+                if(model.dataInicio < DateTime.UtcNow)
+                {
+                    model.dataInicio = DateTime.UtcNow;
+                    model.dataTermino = model.dataInicio.AddMinutes(duracao.TotalMinutes);
+                }
+
+                ModelState.Remove("execucaoMetaUID");
+
+                return View(formulario, model);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,48 @@
+﻿@model UC.Models.Usuario
+@using UC.Models.Enumerators;
+
+@{
+    var i = 1;
+}
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="text-center">Perfil</h3>
+    </div>
+    <ul class=" list-group panel-body">
+        <li class="list-group-item">Nome: @Model.nome</li>
+        <li class="list-group-item">CPF: @Model.cpf</li>
+        <li class="list-group-item">Email: @Model.email</li>
+        <li class="list-group-item">Criação: @Model.dataCriacao</li>
+    </ul>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="text-center">Metas</h3>
+    </div>
+    <ul class=" list-group panel-body">
+        @foreach (var cadaMeta in Model.Metas.Where(x => x.ativo).ToList())
+        {
+            <li class="list-group-item">@i - @cadaMeta.nome</li>
+            i++;
+        }
+    </ul>
+</div>
+
+@{ 
+    i = 1;
+}
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="text-center">Permissoes</h3>
+    </div>
+    <ul class=" list-group panel-body">
+        @foreach (var cadaItem in Model.Permissaos.Where(x => x.ativo).ToList())
+        {
+            <li class="list-group-item">@i - @((TipoLogin)cadaItem.tipoPermissao)</li>
+            i++;
+        }
+    </ul>
+</div>

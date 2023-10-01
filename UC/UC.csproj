@@ -506,6 +506,7 @@
     <Content Include="Views\Shared\_Mensagens.cshtml" />
     <Content Include="Views\Account\SelecionarPermissao.cshtml" />
     <Content Include="Views\Account\ListaUsuario.cshtml" />
+    <Content Include="Views\Account\Perfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

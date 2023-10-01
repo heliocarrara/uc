@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models;
 using UC.Models.ViewModels.FormViewModels;
+using UC.Utility;
 
 namespace UC.Areas.Cadastro.Controllers
 {
@@ -49,7 +50,8 @@ namespace UC.Areas.Cadastro.Controllers
                         ordemPrioridade = 0,
                         tema = form.tema,
                         tipo = form.tipoMeta.Value,
-                        subTipoMetaUID = form.subTipoMetaUID
+                        subTipoMetaUID = form.subTipoMetaUID,
+                        usuarioUID = SimpleSessionPersister.usuarioUID
                     };
 
                     idbucContext.Metas.Add(novaMeta);

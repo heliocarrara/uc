@@ -22,6 +22,7 @@
         <AssociationConnector Association="Model.FK_ChaveAtivacao_Usuario" />
         <AssociationConnector Association="Model.FK_Permissao_ChaveAtivacao" />
         <AssociationConnector Association="Model.FK_Permissao_Usuario" />
+        <AssociationConnector Association="Model.FK_Meta_Usuario" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

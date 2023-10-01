@@ -13,5 +13,6 @@ namespace UC.Models.UCEntityHelpers.Interfaces
         SelectList DiasDaSemana(int? diaDaSemana);
         SelectList TiposDeMeta(int? tipo);
         SelectList SubTiposMeta(int? subTipoMetaUID);
+        SelectList MetasPorUsuario(long? metaUID);
     }
 }

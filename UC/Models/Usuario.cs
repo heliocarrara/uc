@@ -18,6 +18,7 @@ namespace UC.Models
         {
             this.ChaveAtivacaos = new HashSet<ChaveAtivacao>();
             this.Permissaos = new HashSet<Permissao>();
+            this.Metas = new HashSet<Meta>();
         }
     
         public long usuarioUID { get; set; }
@@ -27,8 +28,10 @@ namespace UC.Models
         public string email { get; set; }
         public bool ativo { get; set; }
         public System.DateTime dataCriacao { get; set; }
+        public string nome { get; set; }
     
         public virtual ICollection<ChaveAtivacao> ChaveAtivacaos { get; set; }
         public virtual ICollection<Permissao> Permissaos { get; set; }
+        public virtual ICollection<Meta> Metas { get; set; }
     }
 }

@@ -4,32 +4,16 @@
     <div class="panel-heading">
         <h3 class="text-center">Anotações</h3>
     </div>
-    <div class="panel-body table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th class="text-center">Data</th>
-                    <th class="text-center">Anotar na Meta</th>
-                    <th class="text-center hidden-print">Opções</th>
-                </tr>
-                <tr></tr>
-                <tr></tr>
-            </thead>
-            <tbody>
-                @foreach (var cadaAnotacao in Model.Anotacoes)
-                {
-                    var incluir = cadaAnotacao.incluirNaMeta ? "Sim" : "Não";
+    <div class="panel-body">
+        @foreach (var cadaAnotacao in Model.Anotacoes)
+        {
+            var incluir = cadaAnotacao.incluirNaMeta ? "Sim" : "Não";
 
-                    <tr>
-                        <td><pre class="pre-with-limit">@cadaAnotacao.descricao</pre></td>
-                        <td class="text-center" width="10%">@cadaAnotacao.dataCriacao</td>
-                        <td class="text-center" width="10%">@incluir</td>
-                        <td class="text-center hidden-print">@Html.ActionLink(" ", "Excluir", new { anotacaoExecucaoMetaUID = cadaAnotacao.anotacaoExecucaoMetaUID, Area = "Cadastro" }, new { @class = "glyphicon glyphicon-trash text-danger" })</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            <div class="list-group">
+                <div class="list-group-item"><pre class="pre-with-limit">@cadaAnotacao.descricao</pre>@cadaAnotacao.dataCriacao @Html.ActionLink(" ", "Excluir", new { anotacaoExecucaoMetaUID = cadaAnotacao.anotacaoExecucaoMetaUID, Area = "Cadastro" }, new { @class = "glyphicon glyphicon-trash text-danger" })</div>
+            </div>
+
+        }
     </div>
     <div class="panel-footer hidden-print">
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models.ViewModels.ListViewModels;
+using UC.Utility;
 
 namespace UC.Areas.Comum.Controllers
 {
@@ -22,7 +23,7 @@ namespace UC.Areas.Comum.Controllers
 
                 var proxDia = dataInicio.AddDays(1);
 
-                var listaExecucao = idbucContext.ExecucaoMetas.Where(x => x.ativo && x.dataInicio < proxDia && x.dataTermino >= dataInicio).ToList();
+                var listaExecucao = idbucContext.ExecucaoMetas.Where(x => x.ativo && x.Meta.usuarioUID == SimpleSessionPersister.usuarioUID && x.dataInicio < proxDia && x.dataTermino >= dataInicio).ToList();
 
                 listaExecucao = listaExecucao.OrderBy(x => x.dataInicio).ToList();
 

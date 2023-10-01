@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models.ViewModels;
+using UC.Utility;
 
 namespace UC.Areas.Comum.Controllers
 {
@@ -12,6 +13,11 @@ namespace UC.Areas.Comum.Controllers
     {
         public ActionResult Index()
         {
+            if (!SimpleSessionPersister.IsLogged)
+            {
+                return RedirectToAction("Login", "Home", new { Area = "" });
+            }
+
             return View();
         }
     }

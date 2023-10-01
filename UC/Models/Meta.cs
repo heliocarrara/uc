@@ -29,8 +29,10 @@ namespace UC.Models
         public int tipo { get; set; }
         public Nullable<int> subTipoMetaUID { get; set; }
         public string tema { get; set; }
+        public long usuarioUID { get; set; }
     
         public virtual SubTipoMeta SubTipoMeta { get; set; }
         public virtual ICollection<ExecucaoMeta> ExecucaoMetas { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

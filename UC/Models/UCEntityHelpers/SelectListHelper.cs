@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UC.Models.Enumerators;
+using UC.Utility;
 
 namespace UC.Models.UCEntityHelpers
 {
@@ -120,6 +121,35 @@ namespace UC.Models.UCEntityHelpers
             if (subTipoMetaUID.HasValue)
             {
                 result = new SelectList(aux, "Value", "Text", subTipoMetaUID.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
+        public SelectList MetasPorUsuario(long? metaUID)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            var metas = idbucContext.Metas.Where(x => x.ativo && x.dataObjetivo >= DateTime.Today && x.usuarioUID == SimpleSessionPersister.usuarioUID).ToList();
+            
+            foreach (var cadaItem in metas)
+            {
+                aux.Add(new SelectListItem()
+                {
+                    Text = cadaItem.nome,
+                    Value = cadaItem.metaUID.ToString()
+                });
+            }
+
+            if (metaUID.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", metaUID.Value);
             }
             else
             {

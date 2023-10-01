@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using UC.Utility;
 
 namespace UC.Models.ViewModels.FormViewModels
 {
@@ -12,21 +16,32 @@ namespace UC.Models.ViewModels.FormViewModels
         public DateTime dataTermino { get; set; }
         public string tema { get; set; }
 
+        public SelectList ListaMeta { get; set; }
+
         public VMFormExecucaoMeta()
         {
         }
 
-        public VMFormExecucaoMeta(Meta meta)
+        public VMFormExecucaoMeta(IUnityOfHelpers u)
         {
-            this.meta = meta;
-            this.metaUID = meta.metaUID;
-            this.dataInicio = meta.dataInicio;
-            this.dataTermino = meta.dataObjetivo;
-            this.execucaoMetaUID = 0;
+            this.ListaMeta = u.SelectLists.MetasPorUsuario(null);
+
+            this.dataInicio = DateTime.UtcNow;
+            this.dataTermino = DateTime.UtcNow.AddHours(1);
         }
 
-        public VMFormExecucaoMeta(ExecucaoMeta passo)
+        public VMFormExecucaoMeta(IUnityOfHelpers u, Meta meta)
         {
+            this.ListaMeta = u.SelectLists.MetasPorUsuario(meta.metaUID);
+            this.meta = meta;
+            this.metaUID = meta.metaUID;
+            this.execucaoMetaUID = 0;
+            this.dataInicio = DateTime.UtcNow;
+            this.dataTermino = DateTime.UtcNow.AddHours(1);
+        }
+        public VMFormExecucaoMeta(IUnityOfHelpers u, ExecucaoMeta passo)
+        {
+            this.ListaMeta = u.SelectLists.MetasPorUsuario(passo.metaUID);
             this.meta = passo.Meta;
             this.metaUID = passo.metaUID;
             this.descricao = passo.descricao;
