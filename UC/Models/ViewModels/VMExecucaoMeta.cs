@@ -14,7 +14,7 @@ namespace UC.Models.ViewModels
         public DateTime dataInicio { get; set; }
         public DateTime dataTermino { get; set; }
         public int duracao { get; set; }
-        public string situacao { get; set; }
+        public int situacao { get; set; }
         public ExecucaoMeta execucaoMeta { get; set; }
         public List<AnotacaoExecucaoMeta> Anotacoes { get; set; }
         public List<RegistroSituacaoExecucaoMeta> Historico { get; set; }
@@ -30,7 +30,7 @@ namespace UC.Models.ViewModels
             this.dataInicio = passo.dataInicio;
             this.dataTermino = passo.dataTermino;
             this.duracao = (int)passo.dataTermino.Subtract(passo.dataInicio).TotalMinutes;
-            this.situacao = ((SituacaoPasso)passo.situacao).ToFriendlyString();
+            this.situacao = passo.situacao;
 
             this.execucaoMeta = passo;
 

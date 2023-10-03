@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using UC.Controllers;
 using UC.Models.Enumerators;
 using UC.Models.ViewModels;
+using UC.Utility;
 
 namespace UC.Areas.Comum.Controllers
 {
@@ -19,7 +20,7 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                var registro = idbucContext.ExecucaoMetas.FirstOrDefault(x => x.ativo && x.Meta.ativo && x.situacao == (int)SituacaoPasso.Em_Andamento);
+                var registro = idbucContext.ExecucaoMetas.FirstOrDefault(x => x.ativo && x.Meta.ativo && x.situacao == (int)SituacaoPasso.Em_Andamento && x.Meta.usuarioUID == SimpleSessionPersister.usuarioUID);
 
                 if (registro == null)
                 {

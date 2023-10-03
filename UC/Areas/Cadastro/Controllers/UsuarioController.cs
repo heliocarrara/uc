@@ -47,7 +47,7 @@ namespace UC.Areas.Cadastro.Controllers
                     throw new Exception("CPF já cadastrado");
                 }
 
-                form.dataCriacao = DateTime.UtcNow;
+                form.dataCriacao = DateTime.Now;
                 form.usuarioUID = form.usuarioUID < 0 ? 0 : form.usuarioUID;
                 form.ativo = true;
 
@@ -62,7 +62,7 @@ namespace UC.Areas.Cadastro.Controllers
                     email = form.email,
                     usuarioUID = form.usuarioUID,
                     tipoPermissao = (int)TipoLogin.Comum,
-                    dataCriacao = DateTime.UtcNow
+                    dataCriacao = DateTime.Now
                 };
 
                 idbucContext.ChaveAtivacaos.Add(chave);
@@ -76,7 +76,7 @@ namespace UC.Areas.Cadastro.Controllers
                     usuarioUID = form.usuarioUID,
                     tipoPermissao = (int)TipoLogin.Comum,
                     chaveAtivacaoUID = chave.chaveAtivacaoUID,
-                    dataCriacao = DateTime.UtcNow
+                    dataCriacao = DateTime.Now
                 };
 
                 idbucContext.Permissaos.Add(permissao);

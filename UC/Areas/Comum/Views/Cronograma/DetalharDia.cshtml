@@ -1,13 +1,14 @@
 ﻿@model UC.Models.ViewModels.ListViewModels.VMListExecucaoMeta
 
 @using UC.Models.Enumerators;
+@{
+    var listaEmAndamento = Model.AtividadesDoDia.Where(x => x.situacao != (int)SituacaoPasso.Concluido).ToList();
+}
 
 <div class="list-group hidden-print">
     @Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Nova Atividade", "NovaAtividade", "ExecucaoMeta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
-        Buscar Outro Dia
-    </button>
+    @Html.ActionLink("Notas", "NovaAtividade", "ExecucaoMeta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
 </div>
 
 <div class="panel panel-primary">
@@ -27,11 +28,25 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var cadaExecucao in Model.AtividadesDoDia)
+                @foreach (var cadaExecucao in listaEmAndamento)
                 {
-                    if (i > 1 && i <= Model.AtividadesDoDia.Count)
+                    var color = "";
+                    switch ((SituacaoPasso)cadaExecucao.situacao)
                     {
-                        var diferenca = cadaExecucao.dataInicio.Subtract(Model.AtividadesDoDia[i - 2].dataTermino);
+                        case SituacaoPasso.Em_Andamento:
+                            color = "green";
+                            break;
+                        case SituacaoPasso.Inicio:
+                            color = "orange";
+                            break;
+                        default:
+                            color = "red";
+                            break;
+                    }
+
+                    if (cadaExecucao.dataInicio >= DateTime.Now && i > 1 && i <= Model.AtividadesDoDia.Count)
+                    {
+                        var diferenca = cadaExecucao.dataInicio.Subtract(listaEmAndamento[i - 2].dataTermino);
                         if (diferenca.TotalMinutes > 5)
                         {
                             <tr class="alert-success" onclick="window.location.href='@Url.Action("NovaAtividade", "ExecucaoMeta", new { Area = "Cadastro" })'">
@@ -48,10 +63,12 @@
                     <tr>
                         <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" })'">
                             @cadaExecucao.dataInicio.ToShortTimeString() - @cadaExecucao.execucaoMeta.descricao
-                            <br />@cadaExecucao.situacao
+                            <br /><span style="color:@(color);">@(((SituacaoPasso)cadaExecucao.situacao).ToFriendlyString())</span>
                         </td>
                         <td>@cadaExecucao.duracao Min</td>
-                        <td width="15%">@cadaExecucao.dataTermino.ToShortTimeString()</td>
+                        <td width="15%" onclick="window.location.href='@Url.Action("Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = cadaExecucao.execucaoMetaUID })'">
+                            @cadaExecucao.dataTermino.ToShortTimeString()
+                        </td>
                         <td>@cadaExecucao.execucaoMeta.Meta.nome</td>
                         <td class="hidden-print">@Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default" })</td>
                     </tr>
@@ -64,6 +81,52 @@
         <button type="submit" class="btn btn-default" onclick="buscarDia(-1)">Anterior</button>
         <button type="submit" class="btn btn-default" onclick="buscarDia(1)">Próximo</button>
     </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="text-center">Atividades Concluídas</h3>
+    </div>
+    <div class="panel-body table-responsive">
+        @{i = 1;}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Passo</th>
+                    <th>Meta</th>
+                    <th>Duração</th>
+                    <th>Término</th>
+                    <th class="hidden-print">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaExecucao in Model.AtividadesDoDia.Where(x => x.situacao == (int)SituacaoPasso.Concluido).Reverse().ToList())
+                {
+                    <tr>
+                        <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" })'">
+                            <strong> @cadaExecucao.dataInicio.ToShortTimeString()</strong> - @cadaExecucao.execucaoMeta.descricao
+                        </td>
+                        <td>@cadaExecucao.execucaoMeta.Meta.nome</td>
+                        <td>@cadaExecucao.duracao Min</td>
+                        <td width="15%">
+                            @cadaExecucao.dataTermino.ToShortTimeString()
+                        </td>
+                        <td class="hidden-print">
+                            @Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" }, new { @class = "" })
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="list-group hidden-print">
+    @Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+        Buscar Outro Dia
+    </button>
 </div>
 
 @using (Html.BeginForm("DetalharDia", "Cronograma", new { Area = "Comum" }, FormMethod.Post, null))

@@ -43,6 +43,11 @@ namespace UC.Areas.Cadastro.Controllers
                     throw new Exception("Meta não selecionada.");
                 }
 
+                if (form.dataInicio > form.dataTermino)
+                {
+                    throw new Exception("Data de Início maior que a de término.");
+                }
+
                 if (form.execucaoMetaUID == 0)
                 {
                     var novoPasso = new Models.ExecucaoMeta
@@ -66,16 +71,19 @@ namespace UC.Areas.Cadastro.Controllers
                 {
                     var passo = idbucContext.ExecucaoMetas.Find(form.execucaoMetaUID);
 
-                    if (form.dataInicio >= passo.Meta.dataInicio && form.dataInicio <= passo.Meta.dataObjetivo)
+
+                    if (form.dataInicio < passo.Meta.dataInicio)
                     {
-                        passo.dataInicio = form.dataInicio;
+                        throw new Exception("Data de Início está anterior à meta.");
                     }
 
-                    if (form.dataTermino >= passo.Meta.dataInicio && form.dataTermino <= passo.Meta.dataObjetivo)
+                    if (form.dataTermino > passo.Meta.dataObjetivo)
                     {
-                        passo.dataTermino = form.dataTermino;
+                        throw new Exception("Data de Término ultrapassou à meta.");
                     }
 
+                    passo.dataInicio = form.dataInicio;
+                    passo.dataTermino = form.dataTermino;
                     passo.metaUID = form.metaUID > 0 ? form.metaUID : passo.metaUID;
 
                     passo.descricao = form.descricao;
@@ -84,6 +92,11 @@ namespace UC.Areas.Cadastro.Controllers
 
                     idbucContext.SaveChanges();
                     AddMessage(UserMessageType.success, "Passo alterado com sucesso!");
+
+                    if(passo.dataInicio.Date == DateTime.Today)
+                    {
+                        return RedirectToAction("DetalharDia", "Cronograma", new { Area = "Comum" });
+                    }
                 }
 
                 return RedirectToAction("Detalhes", "Meta", new { metaUID = form.metaUID, Area = "Comum"});
@@ -100,9 +113,14 @@ namespace UC.Areas.Cadastro.Controllers
             {
                 var passo = idbucContext.ExecucaoMetas.Find(execucaoMetaUID);
 
-                if (passo == null)
+                if (passo == null || !passo.ativo)
                 {
                     throw new Exception("Passo não encontrado");
+                }
+
+                if (passo.situacao == (int)SituacaoPasso.Concluido)
+                {
+                    throw new Exception("Passo concluído já");
                 }
 
                 var model = new VMFormExecucaoMeta(myUnityOfHelpers, passo);
@@ -187,6 +205,15 @@ namespace UC.Areas.Cadastro.Controllers
 
                 idbucContext.SaveChanges();
 
+                switch ((SituacaoPasso)situacaoPasso)
+                {
+                    case SituacaoPasso.Concluido:
+                        AddMessage(UserMessageType.success, "O Passo foi concluído!");
+                        return RedirectToAction("DetalharDia", "Cronograma", new { Area = "Comum" });
+                    default:
+                        break;
+                }
+
                 AddMessage(UserMessageType.success, "A situação da execução do passo foi alterada.");
 
                 return RedirectToAction("Detalhes", "ExecucaoMeta", new { Area = "Comum", execucaoMetaUID = execucaoMetaUID });
@@ -252,9 +279,9 @@ namespace UC.Areas.Cadastro.Controllers
                 model.execucaoMetaUID = 0;
                 var duracao = model.dataTermino.Subtract(model.dataInicio);
 
-                if(model.dataInicio < DateTime.UtcNow)
+                if(model.dataInicio < DateTime.Now)
                 {
-                    model.dataInicio = DateTime.UtcNow;
+                    model.dataInicio = DateTime.Now;
                     model.dataTermino = model.dataInicio.AddMinutes(duracao.TotalMinutes);
                 }
 

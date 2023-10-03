@@ -26,10 +26,6 @@
                 <label>Nome do Passo: </label>
                 @Html.TextBoxFor(m => m.descricao, new { @class = "form-control" })
             </div>
-            <div class="list-group-item">
-                <label>Tema:</label>
-                <input type="color" id="corTema" onchange="carregarCor();">
-            </div>
             @{
                 var dataInicioFormatada = Model.dataInicio.ToString("yyyy-MM-dd HH:mm");
                 var dataTerminoFormatada = Model.dataTermino.ToString("yyyy-MM-dd HH:mm");
@@ -54,10 +50,14 @@
                 </label>
                 <input type="datetime-local" id="@Html.IdFor(m=>m.dataTermino)" name="@Html.NameFor(m=>m.dataTermino)" value="@dataTerminoFormatada" class="form-control" />
             </div>
+            <div class="list-group-item">
+                <label>Tema (opcional):</label>
+                <input type="color" id="corTema" onchange="carregarCor();">
+            </div>
         </div>
     </div>
     <br />
-    <input type="submit" class="btn btn-success" value="Salvar" />
+    <input type="submit" class="btn btn-success" value="Salvar" onclick="return validarFormulario();"/>
 }
 
 <script type="text/javascript">
@@ -72,5 +72,22 @@
     $(document).ready(function() {
         var valor = @Model.metaUID == 0 ? $('#metaUID option:first').val() : @Model.metaUID;
         selecionarMeta(valor);
+        $('#corTema').val("#0e15e1");
+        carregarCor();
     });
+
+    function validarFormulario() {
+        var dataInicio = new Date(document.getElementById("@Html.IdFor(m=>m.dataInicio)").value);
+        var dataTermino = new Date(document.getElementById("@Html.IdFor(m=>m.dataTermino)").value);
+
+        if (
+            dataInicio.getFullYear() === dataTermino.getFullYear() &&
+            dataInicio.getMonth() === dataTermino.getMonth() &&
+            dataInicio.getDate() === dataTermino.getDate()
+        ) {
+            return true;
+        } 
+        return false;
+    }
+
 </script>
