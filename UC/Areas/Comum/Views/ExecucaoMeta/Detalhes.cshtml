@@ -17,7 +17,7 @@
             <div><h4><strong>Duração: </strong>@Model.duracao minutos</h4></div>
         </li>
         <li class="list-group-item">
-            <h4><strong>Situação: </strong>@Model.situacao</h4>
+            <h4><strong>Situação: </strong>@(((SituacaoPasso)Model.situacao).ToFriendlyString())</h4>
             @if (Model.execucaoMeta.situacao == (int)SituacaoPasso.Em_Andamento)
             {
                 <div id="progress-bar-container">
