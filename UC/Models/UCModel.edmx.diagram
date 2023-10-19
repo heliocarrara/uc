@@ -10,12 +10,8 @@
         <EntityTypeShape EntityType="Model.Meta" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="Model.SubTipoMeta" Width="1.5" PointX="0.75" PointY="1.625" />
         <AssociationConnector Association="Model.FK_Meta_SubTipoMeta" />
-        <EntityTypeShape EntityType="Model.ExecucaoMeta" Width="1.5" PointX="5.25" PointY="1.25" />
-        <AssociationConnector Association="Model.FK_ExecucaoMeta_Meta" />
         <EntityTypeShape EntityType="Model.AnotacaoExecucaoMeta" Width="1.5" PointX="7.5" PointY="9.125" />
         <EntityTypeShape EntityType="Model.RegistroSituacaoExecucaoMeta" Width="1.5" PointX="7.5" PointY="6" />
-        <AssociationConnector Association="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" />
-        <AssociationConnector Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" />
         <EntityTypeShape EntityType="Model.ChaveAtivacao" Width="1.5" PointX="9.625" PointY="1" />
         <EntityTypeShape EntityType="Model.Permissao" Width="1.5" PointX="11.875" PointY="1" />
         <EntityTypeShape EntityType="Model.Usuario" Width="1.5" PointX="7.375" PointY="1" />
@@ -23,6 +19,12 @@
         <AssociationConnector Association="Model.FK_Permissao_ChaveAtivacao" />
         <AssociationConnector Association="Model.FK_Permissao_Usuario" />
         <AssociationConnector Association="Model.FK_Meta_Usuario" />
+        <EntityTypeShape EntityType="Model.AtividadeFixa" Width="1.5" PointX="3" PointY="6.25" />
+        <EntityTypeShape EntityType="Model.ExecucaoMeta" Width="1.5" PointX="5.25" PointY="5" />
+        <AssociationConnector Association="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" />
+        <AssociationConnector Association="Model.FK_ExecucaoMeta_AtividadeFixa" />
+        <AssociationConnector Association="Model.FK_ExecucaoMeta_Meta" />
+        <AssociationConnector Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

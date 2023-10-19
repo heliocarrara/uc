@@ -27,11 +27,12 @@ namespace UC.Models
     
         public DbSet<Meta> Metas { get; set; }
         public DbSet<SubTipoMeta> SubTipoMetas { get; set; }
-        public DbSet<ExecucaoMeta> ExecucaoMetas { get; set; }
         public DbSet<AnotacaoExecucaoMeta> AnotacaoExecucaoMetas { get; set; }
         public DbSet<RegistroSituacaoExecucaoMeta> RegistroSituacaoExecucaoMetas { get; set; }
         public DbSet<ChaveAtivacao> ChaveAtivacaos { get; set; }
         public DbSet<Permissao> Permissaos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<AtividadeFixa> AtividadeFixas { get; set; }
+        public DbSet<ExecucaoMeta> ExecucaoMetas { get; set; }
     }
 }

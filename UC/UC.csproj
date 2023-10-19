@@ -344,6 +344,9 @@
     <Compile Include="Models\AnotacaoExecucaoMeta.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AtividadeFixa.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChaveAtivacao.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>

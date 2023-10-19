@@ -12,27 +12,24 @@ namespace UC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Meta
+    public partial class AtividadeFixa
     {
-        public Meta()
+        public AtividadeFixa()
         {
             this.ExecucaoMetas = new HashSet<ExecucaoMeta>();
         }
     
+        public long atividadeFixaUID { get; set; }
+        public bool ativa { get; set; }
+        public System.DateTime dataCriacao { get; set; }
+        public int situacao { get; set; }
         public long metaUID { get; set; }
+        public bool ateDiaUtil { get; set; }
+        public System.DateTime horarioInicio { get; set; }
+        public System.DateTime horarioFim { get; set; }
+        public int ciclo { get; set; }
         public string nome { get; set; }
-        public System.DateTime dataObjetivo { get; set; }
-        public System.DateTime dataInicio { get; set; }
-        public string motivo { get; set; }
-        public bool ativo { get; set; }
-        public int ordemPrioridade { get; set; }
-        public int tipo { get; set; }
-        public Nullable<int> subTipoMetaUID { get; set; }
-        public string tema { get; set; }
-        public long usuarioUID { get; set; }
     
-        public virtual SubTipoMeta SubTipoMeta { get; set; }
-        public virtual Usuario Usuario { get; set; }
         public virtual ICollection<ExecucaoMeta> ExecucaoMetas { get; set; }
     }
 }
