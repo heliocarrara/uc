@@ -1,14 +1,14 @@
-# Carrara Verse
+# CVerse
 
 ## 🚀 O que é?
 
-Carrara Verse é um sistema inovador projetado para ajudar os usuários a gerenciar e rastrear suas metas pessoais. Ele descomplica o processo de planejamento ao permitir que os usuários subdividam metas em atividades menores, integrando-as em um cronograma diário. O foco é proporcionar clareza e eficiência, permitindo que os usuários monitorem o progresso das atividades, ajustem o status em tempo real e mantenham anotações relevantes, tudo enquanto monitoram o tempo gasto em cada tarefa.
+CVerse é um sistema inovador projetado para ajudar os usuários a gerenciar e rastrear suas metas pessoais. Ele descomplica o processo de planejamento ao permitir que os usuários subdividam metas em atividades menores, integrando-as em um cronograma diário. O foco é proporcionar clareza e eficiência, permitindo que os usuários monitorem o progresso das atividades, ajustem o status em tempo real e mantenham anotações relevantes, tudo enquanto monitoram o tempo gasto em cada tarefa.
 
 ### Serviço principal:
 
-O Carrara Verse atua como um gerenciador de metas pessoais, onde os usuários podem definir metas, desmembrá-las em atividades menores e integrá-las a um cronograma diário. O sistema permite o acompanhamento em tempo real do progresso das atividades, inclui funcionalidades para adicionar anotações e monitorar o tempo de execução.
+O CVerse atua como um gerenciador de metas pessoais, onde os usuários podem definir metas, desmembrá-las em atividades menores e integrá-las a um cronograma diário. O sistema permite o acompanhamento em tempo real do progresso das atividades, inclui funcionalidades para adicionar anotações e monitorar o tempo de execução.
 
-## 📋 Funcionalidades do Sistema UC:
+## 📋 Funcionalidades do Sistema:
 
 - **Gerenciamento de Metas:** Os usuários podem criar, editar e monitorar metas pessoais.
   
@@ -24,10 +24,10 @@ O Carrara Verse atua como um gerenciador de metas pessoais, onde os usuários po
 
 ## ⚙️ Ferramentas:
 
-O sistema Web UC é desenvolvido usando tecnologias robustas e modernas, incluindo ASP.NET MVC com Razor e o SLQServer para gerenciamento de dados.
+O sistema Web é desenvolvido usando tecnologias robustas e modernas, incluindo ASP.NET MVC com Razor e o SLQServer para gerenciamento de dados.
 
 ## 🌐 Acesso ao Sistema:
 
-Para explorar todas as funcionalidades do Carrara Verse e começar a otimizar suas metas pessoais, [clique aqui para acessar o sistema em produção](https://cverse.azurewebsites.net/).
+Para explorar todas as funcionalidades do CVerse e começar a otimizar suas metas pessoais, [clique aqui para acessar o sistema em produção](https://cverse.azurewebsites.net/).
 
 > Nota: Todos os direitos reservados.
