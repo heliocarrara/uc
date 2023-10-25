@@ -25,6 +25,7 @@
         <AssociationConnector Association="Model.FK_ExecucaoMeta_AtividadeFixa" />
         <AssociationConnector Association="Model.FK_ExecucaoMeta_Meta" />
         <AssociationConnector Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" />
+        <AssociationConnector Association="Model.FK_AtividadeFixa_Meta" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

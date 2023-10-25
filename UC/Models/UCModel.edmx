@@ -130,6 +130,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AtividadeFixa_Meta">
+          <End Role="Meta" Type="Self.Meta" Multiplicity="1" />
+          <End Role="AtividadeFixa" Type="Self.AtividadeFixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meta">
+              <PropertyRef Name="metaUID" />
+            </Principal>
+            <Dependent Role="AtividadeFixa">
+              <PropertyRef Name="metaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ChaveAtivacao_Usuario">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="ChaveAtivacao" Type="Self.ChaveAtivacao" Multiplicity="*" />
@@ -240,6 +252,10 @@
             <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
             <End Role="AnotacaoExecucaoMeta" EntitySet="AnotacaoExecucaoMeta" />
           </AssociationSet>
+          <AssociationSet Name="FK_AtividadeFixa_Meta" Association="Self.FK_AtividadeFixa_Meta">
+            <End Role="Meta" EntitySet="Meta" />
+            <End Role="AtividadeFixa" EntitySet="AtividadeFixa" />
+          </AssociationSet>
           <AssociationSet Name="FK_ChaveAtivacao_Usuario" Association="Self.FK_ChaveAtivacao_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="ChaveAtivacao" EntitySet="ChaveAtivacao" />
@@ -323,6 +339,10 @@
             <End Role="ExecucaoMeta" EntitySet="ExecucaoMetas" />
             <End Role="RegistroSituacaoExecucaoMeta" EntitySet="RegistroSituacaoExecucaoMetas" />
           </AssociationSet>
+          <AssociationSet Name="FK_AtividadeFixa_Meta" Association="Model.FK_AtividadeFixa_Meta">
+            <End Role="Meta" EntitySet="Metas" />
+            <End Role="AtividadeFixa" EntitySet="AtividadeFixas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Meta">
           <Key>
@@ -342,6 +362,7 @@
           <Property Name="usuarioUID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Model.FK_Meta_Usuario" FromRole="Meta" ToRole="Usuario" />
           <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="Meta" ToRole="ExecucaoMeta" />
+          <NavigationProperty Name="AtividadeFixas" Relationship="Model.FK_AtividadeFixa_Meta" FromRole="Meta" ToRole="AtividadeFixa" />
         </EntityType>
         <EntityType Name="SubTipoMeta">
           <Key>
@@ -495,6 +516,7 @@
           <Property Name="ciclo" Type="Int32" Nullable="false" />
           <Property Name="nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_AtividadeFixa" FromRole="AtividadeFixa" ToRole="ExecucaoMeta" />
+          <NavigationProperty Name="Meta" Relationship="Model.FK_AtividadeFixa_Meta" FromRole="AtividadeFixa" ToRole="Meta" />
         </EntityType>
         <EntityType Name="ExecucaoMeta">
           <Key>
@@ -560,6 +582,18 @@
             </Principal>
             <Dependent Role="RegistroSituacaoExecucaoMeta">
               <PropertyRef Name="execucaoMetaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtividadeFixa_Meta">
+          <End Type="Model.Meta" Role="Meta" Multiplicity="1" />
+          <End Type="Model.AtividadeFixa" Role="AtividadeFixa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meta">
+              <PropertyRef Name="metaUID" />
+            </Principal>
+            <Dependent Role="AtividadeFixa">
+              <PropertyRef Name="metaUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

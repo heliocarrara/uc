@@ -31,5 +31,6 @@ namespace UC.Models
         public string nome { get; set; }
     
         public virtual ICollection<ExecucaoMeta> ExecucaoMetas { get; set; }
+        public virtual Meta Meta { get; set; }
     }
 }

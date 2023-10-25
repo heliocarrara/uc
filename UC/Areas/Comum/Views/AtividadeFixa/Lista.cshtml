@@ -1,0 +1,58 @@
+@model UC.Models.ViewModels.FormViewModels.VMFormBuscaAtividadeFixa
+
+@try
+{
+    ViewBag.Title = "Atividades Fixas";
+
+    using (Html.BeginForm("FiltrarResultados", "AtividadeFixa", FormMethod.Post))
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3><strong>@ViewBag.Title</strong></h3>
+            </div>
+            <div class="panel-body list-group form-control ">
+                <div class="list-group-item">
+                    <label>Selecione a meta</label>
+                    @Html.DropDownListFor(m => m.ListaMeta, Model.ListaMeta, new { @class = "form-group" })
+                </div>
+                <div class="list-group-item">
+                    <label>Selecione o dia da semana</label>
+                    @Html.DropDownListFor(m => m.ListaMeta, Model.ListaMeta, new { @class = "form-group" })
+                </div>
+                <div>
+                    <label>Selecione o período:</label>
+                    @{
+                        var dataInicioFormatada = Model.dataInicio.ToString("yyyy-MM-dd HH:mm");
+                        var dataTerminoFormatada = Model.dataTermino.ToString("yyyy-MM-dd HH:mm");
+                    }
+                    <div class="list-group-item">
+                        <label>Data de Início:</label>
+                        <input type="datetime-local" id="@Html.IdFor(m=>m.dataInicio)" name="@Html.NameFor(m=>m.dataInicio)" value="@dataInicioFormatada" class="form-control" />
+                    </div>
+                    <div class="list-group-item">
+                        <label>Data de Término:</label>
+                        <input type="datetime-local" id="@Html.IdFor(m=>m.dataTermino)" name="@Html.NameFor(m=>m.dataTermino)" value="@dataTerminoFormatada" class="form-control" />
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <span>@Html.CheckBoxFor(m => m.BuscarDisponiveis) Buscar Disponiveis</span>
+                    <span>@Html.CheckBoxFor(m => m.AteDiaUtil) Ate Dia Util?</span>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+        </div>
+    }
+
+    if (Model.ListaAtividadeFixa.Any())
+    {
+        <table>
+
+        </table>
+    }   
+}
+catch (Exception ex)
+{
+
+}

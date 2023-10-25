@@ -328,6 +328,7 @@
     <Compile Include="Areas\Cadastro\Controllers\ExecucaoMetaController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\MetaController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Comum\Controllers\AtividadeFixaController.cs" />
     <Compile Include="Areas\Comum\Controllers\CronogramaController.cs" />
     <Compile Include="Areas\Comum\Controllers\ExecucaoMetaController.cs" />
     <Compile Include="Areas\Comum\Controllers\IndexController.cs" />
@@ -395,6 +396,7 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormBuscaAtividadeFixa.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormMeta.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListCronogramaDia.cs" />
@@ -474,6 +476,8 @@
     <Content Include="Areas\Administrador\Views\ChaveAtivacao\Edit.cshtml" />
     <Content Include="Areas\Administrador\Views\ChaveAtivacao\Index.cshtml" />
     <Content Include="Areas\Cadastro\Views\Usuario\NovoCadastro.cshtml" />
+    <Content Include="Areas\Comum\Views\AtividadeFixa\Lista.cshtml" />
+    <Content Include="local.config" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\cverse - Web Deploy.pubxml" />
