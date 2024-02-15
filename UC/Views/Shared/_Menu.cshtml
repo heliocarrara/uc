@@ -1,54 +1,43 @@
-﻿<nav id="nav">
-    <div class="InfoItens">
-       
-            <!-- TODOS OS USUÁRIOS LOGADOS -->
-            @if (UC.Utility.SimpleSessionPersister.IsLogged)
-            {
-                
-                    <strong>Usuário: </strong>@UC.Utility.SimpleSessionPersister.Username
-                
-                    <span class="glyphicon glyphicon-home" aria-hidden="true"> @Html.ActionLink("Home", "Index", "Index", new { Area = UC.Utility.SimpleSessionPersister.UserRole }, null)</span>
-                
-                if (UC.Utility.SimpleSessionPersister.UserHasOtherRoles)
-                {
-                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"> @Html.ActionLink(" Alterar Perfil de Acesso", "AlterarPerfil", "Account", new { Area = string.Empty }, null)</span>
-                }
-            }
-            else
-            {
-                
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span><a href="https://ufmt.br">Portal da UFMT</a>
-                
+﻿<div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
 
-                
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> @Html.ActionLink("Visualização de Propostas Públicas", "Lista", "Proposta", new { @Area = "" }, new { title = "Link para a visualização pública de propostas" })
-                
-                @*
-                    <li>
-                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span><a href="https://sistemas.ufmt.br/ufmt.portalsistemas">Portal de Sistemas Integrados UFMT</a>
-                    </li>
-                *@
-            }
-            
-                <span>
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    @Html.ActionLink("Dúvidas? Entre em contato", "Contato", "Home", new { Area = string.Empty }, new { title = "Link para área de contatos" })
-                </span>
-            
-       
+        <a class="navbar-brand" href="@Url.Action("Index", "Home", new { Area = "" })" style="display: flex; align-items: center;">
+            <img src="~/Content/img/logo.png" alt="Logo" style="height: 50px; margin-right: 10px;" />
+            <span style="font-size:1.5em;">UC</span>
+        </a>
     </div>
-
-    <div class="NavOptions">
-        <ul>
-            @* TODOS OS USUARIOS LOGADOS *@
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Metas", "Lista", "Meta", new { Area = "Comum" }, null)</li>
+            <li>@Html.ActionLink("Diário", "DetalharDia", "Cronograma", new { Area = "Comum" }, null)</li>
+            <li>@Html.ActionLink("Em andamento", "Execucao", "ExecucaoMeta", new { Area = "Comum" }, null)</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
             @if (UC.Utility.SimpleSessionPersister.IsLogged)
             {
-                <li><span class="left"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>@Html.ActionLink(" Sair", "LogOut", "Account", new { area = string.Empty }, null)</span></li>
+                var nome = "Olá, " + UC.Utility.SimpleSessionPersister.Username;
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @nome <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Perfil", "Perfil", "Account", new { Area = "" }, null)</li>
+                        <li>@Html.ActionLink("Sair", "LogOut", "Account", new { Area = "" }, null)</li>
+                    </ul>
+                </li>
             }
             else
             {
-                <li><span class="left"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>@Html.ActionLink(" Login", "Login", "Account", new { area = string.Empty }, null)</span></li>
+                <li>@Html.ActionLink("Login", "Login", "Home", new { Area = "" }, null)</li>
             }
         </ul>
     </div>
-</nav>
+</div>
+

@@ -1,0 +1,71 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="text-center">Banner</h2>
+    </div>
+    <div class="panel-body">
+        <form id="vmformbanner">
+            <label for="imagem_fundo">Imagem de Fundo:</label>
+            <input type="file" id="imagem_fundo" name="imagem_fundo" accept="image/*" required>
+
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" maxlength="50" required>
+
+            <label for="subtitulo">Subtítulo:</label>
+            <input type="text" id="subtitulo" name="subtitulo" maxlength="100">
+
+            <label for="texto_botao">Texto do Botão:</label>
+            <input type="text" id="texto_botao" name="texto_botao" maxlength="20" required>
+
+            <label for="link_botao">Link do Botão:</label>
+            <input type="url" id="link_botao" name="link_botao" required>
+
+            <label for="cor_destaque">Cor de Destaque:</label>
+            <input type="color" id="cor_destaque" name="cor_destaque" value="#000000" required>
+
+            <button type="submit">Gerar Banner</button>
+        </form>
+
+    </div>
+</div>
+<div id="banner" class="banner">
+    <img src="${imagemFundo}" alt="${titulo}" class="banner-imagem">
+    <div class="banner-conteudo">
+        <h1>${titulo}</h1>
+        <h2>${subtitulo}</h2>
+        <a href="${linkBotao}" class="botao btn btn-primary">${textoBotao}</a>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById("vmformbanner");
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        const imagemFundo = formData.get("imagem_fundo");
+        const titulo = formData.get("titulo");
+        const subtitulo = formData.get("subtitulo");
+        const textoBotao = formData.get("texto_botao");
+        const linkBotao = formData.get("link_botao");
+        const corDestaque = formData.get("cor_destaque");
+
+        // Crie o banner com base nos dados do formulário...
+
+        const bannerElement = document.getElementById("banner");
+        bannerElement.style.backgroundColor = corDestaque;
+
+        const bannerImagem = document.querySelector(".banner-imagem");
+        bannerImagem.src = imagemFundo;
+
+        const bannerConteudo = document.querySelector(".banner-conteudo");
+        bannerConteudo.innerHTML = `
+      <h1>${titulo}</h1>
+      <h2>${subtitulo}</h2>
+      <a href="${linkBotao}" class="botao btn btn-primary">${textoBotao}</a>
+    `;
+
+        // Exiba o banner gerado...
+    });
+</script>

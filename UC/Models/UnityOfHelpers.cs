@@ -49,11 +49,15 @@ namespace UC.Models
 
         public ILoggedUserHelper UsuarioLogado { get { if (usuarioLogado == null) { usuarioLogado = new LoggedUserHelper(_url, _db, this); } return UsuarioLogado; } }
         public ISelectListHelper SelectLists { get { if (selectLists == null) { selectLists = new SelectListHelper(_url, _db, this); } return selectLists; } }
+        public IMetaHelper Metas { get { if (metas == null) { metas = new MetaHelper(_url, _db, this); } return metas; } }
+        public ICicloHabitoHelper CiclosHabitos { get { if (ciclosHabitos == null) { ciclosHabitos = new CicloHabitoHelper(_url, _db, this); } return ciclosHabitos; } }
         #endregion
         #region PRIVATE HELPERS' INSTANCES
 
         private LoggedUserHelper usuarioLogado { get; set; }
         private SelectListHelper selectLists { get; set; }
+        private MetaHelper metas { get; set; }
+        private CicloHabitoHelper ciclosHabitos { get; set; }
         #endregion
     }
 }

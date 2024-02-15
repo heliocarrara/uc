@@ -1,0 +1,62 @@
+﻿@model UC.Models.ViewModels.VMCronograma
+
+@using UC.Models.Enumerators;
+@{
+    var color = "";
+    switch ((SituacaoPasso)Model.situacao)
+    {
+        case SituacaoPasso.Em_Andamento:
+            color = "green";
+            break;
+        case SituacaoPasso.Inicio:
+            color = "orange";
+            break;
+        default:
+            color = "red";
+            break;
+    }
+}
+
+@if (Model.execucaoMetaUID.HasValue)
+{
+    <tr>
+        <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = Model.execucaoMetaUID, Area = "Comum" })'">
+            @Model.dataInicio.ToShortTimeString() - @Model.ExecucaoMeta.descricao
+            <br /><span style="color:@(color);">@(((SituacaoPasso)Model.situacao).ToFriendlyString())</span>
+        </td>
+        <td>@Model.duracao Min</td>
+        <td width="15%" onclick="window.location.href='@Url.Action("Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID })'">
+            @Model.dataTermino.ToShortTimeString()
+        </td>
+        <td>@Model.ExecucaoMeta.Meta.nome</td>
+        <td class="hidden-print">@Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = Model.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default btn-sm" })</td>
+    </tr>
+}
+else
+{
+    <tr>
+        <td>
+            @Model.dataInicio.ToShortTimeString() - @Model.Nome
+            <br /><span style="color:@(color);">@(((SituacaoPasso)Model.situacao).ToFriendlyString())</span>
+        </td>
+        <td>@Model.duracao Min</td>
+        <td>
+            @Model.dataTermino.ToShortTimeString()
+        </td>
+        <td>@Model.NomeMeta</td>
+        <td class="hidden-print">
+            @if (Model.dataInicio >= DateTime.Now)
+            {
+                @Html.ActionLink("Detalhes", "GerarExecucaoMeta", "ExecucaoMeta", new { horarioHabitoUID = Model.horarioHabitoUID.Value, dia = Model.dataInicio, Area = "Cadastro" }, new { @class = "btn btn-success btn-sm" })
+            }
+            else
+            {
+                <button type="button" class="btn btn-default btn-sm" disabled>Indisponível</button>
+            }
+        </td>
+    </tr>
+}
+
+
+
+

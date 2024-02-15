@@ -42,6 +42,31 @@
           <Property Name="email" Type="nvarchar(max)" />
           <Property Name="usuarioUID" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="CicloHabito">
+          <Key>
+            <PropertyRef Name="cicloHabitoUID" />
+          </Key>
+          <Property Name="cicloHabitoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="habitoUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="finalizado" Type="bit" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="TipoCiclo" Type="int" Nullable="false" />
+          <Property Name="DiaMes" Type="int" />
+          <Property Name="MesAno" Type="int" />
+        </EntityType>
+        <EntityType Name="DiaSemanaHabito">
+          <Key>
+            <PropertyRef Name="diaSemanaHabitoUID" />
+          </Key>
+          <Property Name="diaSemanaHabitoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="habitoUID" Type="bigint" Nullable="false" />
+          <Property Name="Ativo" Type="bit" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="DiaSemana" Type="int" Nullable="false" />
+          <Property Name="Ordem" Type="int" Nullable="false" />
+          <Property Name="Finalizado" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExecucaoMeta">
           <Key>
             <PropertyRef Name="execucaoMetaUID" />
@@ -53,9 +78,49 @@
           <Property Name="dataInicio" Type="datetime" Nullable="false" />
           <Property Name="dataTermino" Type="datetime" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
-          <Property Name="tema" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="tema" Type="nvarchar(max)" />
           <Property Name="situacao" Type="int" Nullable="false" />
           <Property Name="atividadeFixaUID" Type="bigint" />
+          <Property Name="horarioHabitoUID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="GatilhoHabito">
+          <Key>
+            <PropertyRef Name="gatilhoHabitoUID" />
+          </Key>
+          <Property Name="gatilhoHabitoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="habitoUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="finalizado" Type="bit" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="DataAlteracao" Type="datetime" Nullable="false" />
+          <Property Name="OrdemExecucao" Type="int" Nullable="false" />
+          <Property Name="TempoEspera" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Habito">
+          <Key>
+            <PropertyRef Name="habitoUID" />
+          </Key>
+          <Property Name="habitoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="metaUID" Type="bigint" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+          <Property Name="finalizado" Type="bit" Nullable="false" />
+          <Property Name="TipoGatilho" Type="int" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="DataAlteracao" Type="datetime" Nullable="false" />
+          <Property Name="Descricao" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HorarioHabito">
+          <Key>
+            <PropertyRef Name="horarioHabitoUID" />
+          </Key>
+          <Property Name="horarioHabitoUID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diaSemanaHabitoUID" Type="bigint" />
+          <Property Name="cicloHabitoUID" Type="bigint" />
+          <Property Name="Ativo" Type="bit" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" Nullable="false" />
+          <Property Name="Finalizado" Type="bit" Nullable="false" />
+          <Property Name="HorarioInicio" Type="time" Precision="7" Nullable="false" />
+          <Property Name="HorarioTermino" Type="time" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Meta">
           <Key>
@@ -154,6 +219,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CicloHabito_Habito">
+          <End Role="Habito" Type="Self.Habito" Multiplicity="1" />
+          <End Role="CicloHabito" Type="Self.CicloHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Habito">
+              <PropertyRef Name="habitoUID" />
+            </Principal>
+            <Dependent Role="CicloHabito">
+              <PropertyRef Name="habitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiaSemanaHabito_Habito">
+          <End Role="Habito" Type="Self.Habito" Multiplicity="1" />
+          <End Role="DiaSemanaHabito" Type="Self.DiaSemanaHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Habito">
+              <PropertyRef Name="habitoUID" />
+            </Principal>
+            <Dependent Role="DiaSemanaHabito">
+              <PropertyRef Name="habitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExecucaoMeta_AtividadeFixa">
           <End Role="AtividadeFixa" Type="Self.AtividadeFixa" Multiplicity="0..1" />
           <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="*" />
@@ -166,6 +255,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExecucaoMeta_HorarioHabito">
+          <End Role="HorarioHabito" Type="Self.HorarioHabito" Multiplicity="0..1" />
+          <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HorarioHabito">
+              <PropertyRef Name="horarioHabitoUID" />
+            </Principal>
+            <Dependent Role="ExecucaoMeta">
+              <PropertyRef Name="horarioHabitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExecucaoMeta_Meta">
           <End Role="Meta" Type="Self.Meta" Multiplicity="1" />
           <End Role="ExecucaoMeta" Type="Self.ExecucaoMeta" Multiplicity="*" />
@@ -175,6 +276,54 @@
             </Principal>
             <Dependent Role="ExecucaoMeta">
               <PropertyRef Name="metaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GatilhoHabito_Habito">
+          <End Role="Habito" Type="Self.Habito" Multiplicity="1" />
+          <End Role="GatilhoHabito" Type="Self.GatilhoHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Habito">
+              <PropertyRef Name="habitoUID" />
+            </Principal>
+            <Dependent Role="GatilhoHabito">
+              <PropertyRef Name="habitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Habito_Meta">
+          <End Role="Meta" Type="Self.Meta" Multiplicity="1" />
+          <End Role="Habito" Type="Self.Habito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meta">
+              <PropertyRef Name="metaUID" />
+            </Principal>
+            <Dependent Role="Habito">
+              <PropertyRef Name="metaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HorarioHabito_CicloHabito">
+          <End Role="CicloHabito" Type="Self.CicloHabito" Multiplicity="0..1" />
+          <End Role="HorarioHabito" Type="Self.HorarioHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CicloHabito">
+              <PropertyRef Name="cicloHabitoUID" />
+            </Principal>
+            <Dependent Role="HorarioHabito">
+              <PropertyRef Name="cicloHabitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HorarioHabito_DiaSemanaHabito">
+          <End Role="DiaSemanaHabito" Type="Self.DiaSemanaHabito" Multiplicity="0..1" />
+          <End Role="HorarioHabito" Type="Self.HorarioHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiaSemanaHabito">
+              <PropertyRef Name="diaSemanaHabitoUID" />
+            </Principal>
+            <Dependent Role="HorarioHabito">
+              <PropertyRef Name="diaSemanaHabitoUID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -242,7 +391,12 @@
           <EntitySet Name="AnotacaoExecucaoMeta" EntityType="Self.AnotacaoExecucaoMeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AtividadeFixa" EntityType="Self.AtividadeFixa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChaveAtivacao" EntityType="Self.ChaveAtivacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CicloHabito" EntityType="Self.CicloHabito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiaSemanaHabito" EntityType="Self.DiaSemanaHabito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExecucaoMeta" EntityType="Self.ExecucaoMeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GatilhoHabito" EntityType="Self.GatilhoHabito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Habito" EntityType="Self.Habito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HorarioHabito" EntityType="Self.HorarioHabito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meta" EntityType="Self.Meta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permissao" EntityType="Self.Permissao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistroSituacaoExecucaoMeta" EntityType="Self.RegistroSituacaoExecucaoMeta" Schema="dbo" store:Type="Tables" />
@@ -260,13 +414,41 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="ChaveAtivacao" EntitySet="ChaveAtivacao" />
           </AssociationSet>
+          <AssociationSet Name="FK_CicloHabito_Habito" Association="Self.FK_CicloHabito_Habito">
+            <End Role="Habito" EntitySet="Habito" />
+            <End Role="CicloHabito" EntitySet="CicloHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiaSemanaHabito_Habito" Association="Self.FK_DiaSemanaHabito_Habito">
+            <End Role="Habito" EntitySet="Habito" />
+            <End Role="DiaSemanaHabito" EntitySet="DiaSemanaHabito" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExecucaoMeta_AtividadeFixa" Association="Self.FK_ExecucaoMeta_AtividadeFixa">
             <End Role="AtividadeFixa" EntitySet="AtividadeFixa" />
+            <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExecucaoMeta_HorarioHabito" Association="Self.FK_ExecucaoMeta_HorarioHabito">
+            <End Role="HorarioHabito" EntitySet="HorarioHabito" />
             <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
           </AssociationSet>
           <AssociationSet Name="FK_ExecucaoMeta_Meta" Association="Self.FK_ExecucaoMeta_Meta">
             <End Role="Meta" EntitySet="Meta" />
             <End Role="ExecucaoMeta" EntitySet="ExecucaoMeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GatilhoHabito_Habito" Association="Self.FK_GatilhoHabito_Habito">
+            <End Role="Habito" EntitySet="Habito" />
+            <End Role="GatilhoHabito" EntitySet="GatilhoHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Habito_Meta" Association="Self.FK_Habito_Meta">
+            <End Role="Meta" EntitySet="Meta" />
+            <End Role="Habito" EntitySet="Habito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HorarioHabito_CicloHabito" Association="Self.FK_HorarioHabito_CicloHabito">
+            <End Role="CicloHabito" EntitySet="CicloHabito" />
+            <End Role="HorarioHabito" EntitySet="HorarioHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HorarioHabito_DiaSemanaHabito" Association="Self.FK_HorarioHabito_DiaSemanaHabito">
+            <End Role="DiaSemanaHabito" EntitySet="DiaSemanaHabito" />
+            <End Role="HorarioHabito" EntitySet="HorarioHabito" />
           </AssociationSet>
           <AssociationSet Name="FK_Meta_SubTipoMeta" Association="Self.FK_Meta_SubTipoMeta">
             <End Role="SubTipoMeta" EntitySet="SubTipoMeta" />
@@ -302,20 +484,20 @@
           </AssociationSet>
           <EntitySet Name="AnotacaoExecucaoMetas" EntityType="Model.AnotacaoExecucaoMeta" />
           <EntitySet Name="RegistroSituacaoExecucaoMetas" EntityType="Model.RegistroSituacaoExecucaoMeta" />
-          <EntitySet Name="ChaveAtivacaos" EntityType="Model.ChaveAtivacao" />
-          <EntitySet Name="Permissaos" EntityType="Model.Permissao" />
+          <EntitySet Name="ChavesAtivacao" EntityType="Model.ChaveAtivacao" />
+          <EntitySet Name="Permissoes" EntityType="Model.Permissao" />
           <EntitySet Name="Usuarios" EntityType="Model.Usuario" />
           <AssociationSet Name="FK_ChaveAtivacao_Usuario" Association="Model.FK_ChaveAtivacao_Usuario">
             <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="ChaveAtivacao" EntitySet="ChaveAtivacaos" />
+            <End Role="ChaveAtivacao" EntitySet="ChavesAtivacao" />
           </AssociationSet>
           <AssociationSet Name="FK_Permissao_ChaveAtivacao" Association="Model.FK_Permissao_ChaveAtivacao">
-            <End Role="ChaveAtivacao" EntitySet="ChaveAtivacaos" />
-            <End Role="Permissao" EntitySet="Permissaos" />
+            <End Role="ChaveAtivacao" EntitySet="ChavesAtivacao" />
+            <End Role="Permissao" EntitySet="Permissoes" />
           </AssociationSet>
           <AssociationSet Name="FK_Permissao_Usuario" Association="Model.FK_Permissao_Usuario">
             <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Permissao" EntitySet="Permissaos" />
+            <End Role="Permissao" EntitySet="Permissoes" />
           </AssociationSet>
           <AssociationSet Name="FK_Meta_Usuario" Association="Model.FK_Meta_Usuario">
             <End Role="Usuario" EntitySet="Usuarios" />
@@ -343,6 +525,39 @@
             <End Role="Meta" EntitySet="Metas" />
             <End Role="AtividadeFixa" EntitySet="AtividadeFixas" />
           </AssociationSet>
+          <EntitySet Name="CiclosHabito" EntityType="Model.CicloHabito" />
+          <EntitySet Name="DiasSemanaHabito" EntityType="Model.DiaSemanaHabito" />
+          <EntitySet Name="GatilhosHabito" EntityType="Model.GatilhoHabito" />
+          <EntitySet Name="Habitos" EntityType="Model.Habito" />
+          <EntitySet Name="HorariosHabito" EntityType="Model.HorarioHabito" />
+          <AssociationSet Name="FK_CicloHabito_Habito" Association="Model.FK_CicloHabito_Habito">
+            <End Role="Habito" EntitySet="Habitos" />
+            <End Role="CicloHabito" EntitySet="CiclosHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HorarioHabito_CicloHabito" Association="Model.FK_HorarioHabito_CicloHabito">
+            <End Role="CicloHabito" EntitySet="CiclosHabito" />
+            <End Role="HorarioHabito" EntitySet="HorariosHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiaSemanaHabito_Habito" Association="Model.FK_DiaSemanaHabito_Habito">
+            <End Role="Habito" EntitySet="Habitos" />
+            <End Role="DiaSemanaHabito" EntitySet="DiasSemanaHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HorarioHabito_DiaSemanaHabito" Association="Model.FK_HorarioHabito_DiaSemanaHabito">
+            <End Role="DiaSemanaHabito" EntitySet="DiasSemanaHabito" />
+            <End Role="HorarioHabito" EntitySet="HorariosHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GatilhoHabito_Habito" Association="Model.FK_GatilhoHabito_Habito">
+            <End Role="Habito" EntitySet="Habitos" />
+            <End Role="GatilhoHabito" EntitySet="GatilhosHabito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Habito_Meta" Association="Model.FK_Habito_Meta">
+            <End Role="Meta" EntitySet="Metas" />
+            <End Role="Habito" EntitySet="Habitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExecucaoMeta_HorarioHabito" Association="Model.FK_ExecucaoMeta_HorarioHabito">
+            <End Role="HorarioHabito" EntitySet="HorariosHabito" />
+            <End Role="ExecucaoMeta" EntitySet="ExecucaoMetas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Meta">
           <Key>
@@ -363,6 +578,7 @@
           <NavigationProperty Name="Usuario" Relationship="Model.FK_Meta_Usuario" FromRole="Meta" ToRole="Usuario" />
           <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="Meta" ToRole="ExecucaoMeta" />
           <NavigationProperty Name="AtividadeFixas" Relationship="Model.FK_AtividadeFixa_Meta" FromRole="Meta" ToRole="AtividadeFixa" />
+          <NavigationProperty Name="Habitos" Relationship="Model.FK_Habito_Meta" FromRole="Meta" ToRole="Habito" />
         </EntityType>
         <EntityType Name="SubTipoMeta">
           <Key>
@@ -422,7 +638,7 @@
           <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="usuarioUID" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Model.FK_ChaveAtivacao_Usuario" FromRole="ChaveAtivacao" ToRole="Usuario" />
-          <NavigationProperty Name="Permissaos" Relationship="Model.FK_Permissao_ChaveAtivacao" FromRole="ChaveAtivacao" ToRole="Permissao" />
+          <NavigationProperty Name="Permissoes" Relationship="Model.FK_Permissao_ChaveAtivacao" FromRole="ChaveAtivacao" ToRole="Permissao" />
         </EntityType>
         <EntityType Name="Permissao">
           <Key>
@@ -448,8 +664,8 @@
           <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <Property Name="dataCriacao" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="ChaveAtivacaos" Relationship="Model.FK_ChaveAtivacao_Usuario" FromRole="Usuario" ToRole="ChaveAtivacao" />
-          <NavigationProperty Name="Permissaos" Relationship="Model.FK_Permissao_Usuario" FromRole="Usuario" ToRole="Permissao" />
+          <NavigationProperty Name="ChavesAtivacao" Relationship="Model.FK_ChaveAtivacao_Usuario" FromRole="Usuario" ToRole="ChaveAtivacao" />
+          <NavigationProperty Name="Permissoes" Relationship="Model.FK_Permissao_Usuario" FromRole="Usuario" ToRole="Permissao" />
           <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Metas" Relationship="Model.FK_Meta_Usuario" FromRole="Usuario" ToRole="Meta" />
         </EntityType>
@@ -529,13 +745,15 @@
           <Property Name="dataInicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="dataTermino" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
-          <Property Name="tema" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tema" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="situacao" Type="Int32" Nullable="false" />
           <Property Name="atividadeFixaUID" Type="Int64" />
           <NavigationProperty Name="AnotacaoExecucaoMetas" Relationship="Model.FK_AnotacaoExecucaoMeta_ExecucaoMeta" FromRole="ExecucaoMeta" ToRole="AnotacaoExecucaoMeta" />
           <NavigationProperty Name="AtividadeFixa" Relationship="Model.FK_ExecucaoMeta_AtividadeFixa" FromRole="ExecucaoMeta" ToRole="AtividadeFixa" />
           <NavigationProperty Name="Meta" Relationship="Model.FK_ExecucaoMeta_Meta" FromRole="ExecucaoMeta" ToRole="Meta" />
           <NavigationProperty Name="RegistroSituacaoExecucaoMetas" Relationship="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" FromRole="ExecucaoMeta" ToRole="RegistroSituacaoExecucaoMeta" />
+          <Property Name="horarioHabitoUID" Type="Int64" />
+          <NavigationProperty Name="HorarioHabito" Relationship="Model.FK_ExecucaoMeta_HorarioHabito" FromRole="ExecucaoMeta" ToRole="HorarioHabito" />
         </EntityType>
         <Association Name="FK_AnotacaoExecucaoMeta_ExecucaoMeta">
           <End Type="Model.ExecucaoMeta" Role="ExecucaoMeta" Multiplicity="1" />
@@ -597,6 +815,166 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CicloHabito">
+          <Key>
+            <PropertyRef Name="cicloHabitoUID" />
+          </Key>
+          <Property Name="cicloHabitoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="habitoUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="finalizado" Type="Boolean" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TipoCiclo" Type="Int32" Nullable="false" />
+          <Property Name="DiaMes" Type="Int32" />
+          <Property Name="MesAno" Type="Int32" />
+          <NavigationProperty Name="Habito" Relationship="Model.FK_CicloHabito_Habito" FromRole="CicloHabito" ToRole="Habito" />
+          <NavigationProperty Name="HorariosHabito" Relationship="Model.FK_HorarioHabito_CicloHabito" FromRole="CicloHabito" ToRole="HorarioHabito" />
+        </EntityType>
+        <EntityType Name="DiaSemanaHabito">
+          <Key>
+            <PropertyRef Name="diaSemanaHabitoUID" />
+          </Key>
+          <Property Name="diaSemanaHabitoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="habitoUID" Type="Int64" Nullable="false" />
+          <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DiaSemana" Type="Int32" Nullable="false" />
+          <Property Name="Ordem" Type="Int32" Nullable="false" />
+          <Property Name="Finalizado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Habito" Relationship="Model.FK_DiaSemanaHabito_Habito" FromRole="DiaSemanaHabito" ToRole="Habito" />
+          <NavigationProperty Name="HorariosHabito" Relationship="Model.FK_HorarioHabito_DiaSemanaHabito" FromRole="DiaSemanaHabito" ToRole="HorarioHabito" />
+        </EntityType>
+        <EntityType Name="GatilhoHabito">
+          <Key>
+            <PropertyRef Name="gatilhoHabitoUID" />
+          </Key>
+          <Property Name="gatilhoHabitoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="habitoUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="finalizado" Type="Boolean" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataAlteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrdemExecucao" Type="Int32" Nullable="false" />
+          <Property Name="TempoEspera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Habito" Relationship="Model.FK_GatilhoHabito_Habito" FromRole="GatilhoHabito" ToRole="Habito" />
+        </EntityType>
+        <EntityType Name="Habito">
+          <Key>
+            <PropertyRef Name="habitoUID" />
+          </Key>
+          <Property Name="habitoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="metaUID" Type="Int64" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <Property Name="finalizado" Type="Boolean" Nullable="false" />
+          <Property Name="TipoGatilho" Type="Int32" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataAlteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CiclosHabito" Relationship="Model.FK_CicloHabito_Habito" FromRole="Habito" ToRole="CicloHabito" />
+          <NavigationProperty Name="DiasSemanaHabito" Relationship="Model.FK_DiaSemanaHabito_Habito" FromRole="Habito" ToRole="DiaSemanaHabito" />
+          <NavigationProperty Name="GatilhosHabito" Relationship="Model.FK_GatilhoHabito_Habito" FromRole="Habito" ToRole="GatilhoHabito" />
+          <NavigationProperty Name="Meta" Relationship="Model.FK_Habito_Meta" FromRole="Habito" ToRole="Meta" />
+        </EntityType>
+        <EntityType Name="HorarioHabito">
+          <Key>
+            <PropertyRef Name="horarioHabitoUID" />
+          </Key>
+          <Property Name="horarioHabitoUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diaSemanaHabitoUID" Type="Int64" />
+          <Property Name="cicloHabitoUID" Type="Int64" />
+          <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <Property Name="DataCriacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Finalizado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CicloHabito" Relationship="Model.FK_HorarioHabito_CicloHabito" FromRole="HorarioHabito" ToRole="CicloHabito" />
+          <NavigationProperty Name="DiaSemanaHabito" Relationship="Model.FK_HorarioHabito_DiaSemanaHabito" FromRole="HorarioHabito" ToRole="DiaSemanaHabito" />
+          <Property Name="HorarioInicio" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="HorarioTermino" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="ExecucaoMetas" Relationship="Model.FK_ExecucaoMeta_HorarioHabito" FromRole="HorarioHabito" ToRole="ExecucaoMeta" />
+        </EntityType>
+        <Association Name="FK_CicloHabito_Habito">
+          <End Type="Model.Habito" Role="Habito" Multiplicity="1" />
+          <End Type="Model.CicloHabito" Role="CicloHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Habito">
+              <PropertyRef Name="habitoUID" />
+            </Principal>
+            <Dependent Role="CicloHabito">
+              <PropertyRef Name="habitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HorarioHabito_CicloHabito">
+          <End Type="Model.CicloHabito" Role="CicloHabito" Multiplicity="0..1" />
+          <End Type="Model.HorarioHabito" Role="HorarioHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CicloHabito">
+              <PropertyRef Name="cicloHabitoUID" />
+            </Principal>
+            <Dependent Role="HorarioHabito">
+              <PropertyRef Name="cicloHabitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiaSemanaHabito_Habito">
+          <End Type="Model.Habito" Role="Habito" Multiplicity="1" />
+          <End Type="Model.DiaSemanaHabito" Role="DiaSemanaHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Habito">
+              <PropertyRef Name="habitoUID" />
+            </Principal>
+            <Dependent Role="DiaSemanaHabito">
+              <PropertyRef Name="habitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HorarioHabito_DiaSemanaHabito">
+          <End Type="Model.DiaSemanaHabito" Role="DiaSemanaHabito" Multiplicity="0..1" />
+          <End Type="Model.HorarioHabito" Role="HorarioHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiaSemanaHabito">
+              <PropertyRef Name="diaSemanaHabitoUID" />
+            </Principal>
+            <Dependent Role="HorarioHabito">
+              <PropertyRef Name="diaSemanaHabitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GatilhoHabito_Habito">
+          <End Type="Model.Habito" Role="Habito" Multiplicity="1" />
+          <End Type="Model.GatilhoHabito" Role="GatilhoHabito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Habito">
+              <PropertyRef Name="habitoUID" />
+            </Principal>
+            <Dependent Role="GatilhoHabito">
+              <PropertyRef Name="habitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Habito_Meta">
+          <End Type="Model.Meta" Role="Meta" Multiplicity="1" />
+          <End Type="Model.Habito" Role="Habito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meta">
+              <PropertyRef Name="metaUID" />
+            </Principal>
+            <Dependent Role="Habito">
+              <PropertyRef Name="metaUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExecucaoMeta_HorarioHabito">
+          <End Type="Model.HorarioHabito" Role="HorarioHabito" Multiplicity="0..1" />
+          <End Type="Model.ExecucaoMeta" Role="ExecucaoMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HorarioHabito">
+              <PropertyRef Name="horarioHabitoUID" />
+            </Principal>
+            <Dependent Role="ExecucaoMeta">
+              <PropertyRef Name="horarioHabitoUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -655,7 +1033,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChaveAtivacaos">
+          <EntitySetMapping Name="ChavesAtivacao">
             <EntityTypeMapping TypeName="Model.ChaveAtivacao">
               <MappingFragment StoreEntitySet="ChaveAtivacao">
                 <ScalarProperty Name="usuarioUID" ColumnName="usuarioUID" />
@@ -667,7 +1045,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Permissaos">
+          <EntitySetMapping Name="Permissoes">
             <EntityTypeMapping TypeName="Model.Permissao">
               <MappingFragment StoreEntitySet="Permissao">
                 <ScalarProperty Name="usuarioUID" ColumnName="usuarioUID" />
@@ -712,6 +1090,7 @@
           <EntitySetMapping Name="ExecucaoMetas">
             <EntityTypeMapping TypeName="Model.ExecucaoMeta">
               <MappingFragment StoreEntitySet="ExecucaoMeta">
+                <ScalarProperty Name="horarioHabitoUID" ColumnName="horarioHabitoUID" />
                 <ScalarProperty Name="atividadeFixaUID" ColumnName="atividadeFixaUID" />
                 <ScalarProperty Name="situacao" ColumnName="situacao" />
                 <ScalarProperty Name="tema" ColumnName="tema" />
@@ -722,6 +1101,75 @@
                 <ScalarProperty Name="ordemPasso" ColumnName="ordemPasso" />
                 <ScalarProperty Name="metaUID" ColumnName="metaUID" />
                 <ScalarProperty Name="execucaoMetaUID" ColumnName="execucaoMetaUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CiclosHabito">
+            <EntityTypeMapping TypeName="Model.CicloHabito">
+              <MappingFragment StoreEntitySet="CicloHabito">
+                <ScalarProperty Name="MesAno" ColumnName="MesAno" />
+                <ScalarProperty Name="DiaMes" ColumnName="DiaMes" />
+                <ScalarProperty Name="TipoCiclo" ColumnName="TipoCiclo" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="finalizado" ColumnName="finalizado" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="habitoUID" ColumnName="habitoUID" />
+                <ScalarProperty Name="cicloHabitoUID" ColumnName="cicloHabitoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiasSemanaHabito">
+            <EntityTypeMapping TypeName="Model.DiaSemanaHabito">
+              <MappingFragment StoreEntitySet="DiaSemanaHabito">
+                <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+                <ScalarProperty Name="Ordem" ColumnName="Ordem" />
+                <ScalarProperty Name="DiaSemana" ColumnName="DiaSemana" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="habitoUID" ColumnName="habitoUID" />
+                <ScalarProperty Name="diaSemanaHabitoUID" ColumnName="diaSemanaHabitoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GatilhosHabito">
+            <EntityTypeMapping TypeName="Model.GatilhoHabito">
+              <MappingFragment StoreEntitySet="GatilhoHabito">
+                <ScalarProperty Name="TempoEspera" ColumnName="TempoEspera" />
+                <ScalarProperty Name="OrdemExecucao" ColumnName="OrdemExecucao" />
+                <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="finalizado" ColumnName="finalizado" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="habitoUID" ColumnName="habitoUID" />
+                <ScalarProperty Name="gatilhoHabitoUID" ColumnName="gatilhoHabitoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Habitos">
+            <EntityTypeMapping TypeName="Model.Habito">
+              <MappingFragment StoreEntitySet="Habito">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="TipoGatilho" ColumnName="TipoGatilho" />
+                <ScalarProperty Name="finalizado" ColumnName="finalizado" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="metaUID" ColumnName="metaUID" />
+                <ScalarProperty Name="habitoUID" ColumnName="habitoUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HorariosHabito">
+            <EntityTypeMapping TypeName="Model.HorarioHabito">
+              <MappingFragment StoreEntitySet="HorarioHabito">
+                <ScalarProperty Name="HorarioTermino" ColumnName="HorarioTermino" />
+                <ScalarProperty Name="HorarioInicio" ColumnName="HorarioInicio" />
+                <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="cicloHabitoUID" ColumnName="cicloHabitoUID" />
+                <ScalarProperty Name="diaSemanaHabitoUID" ColumnName="diaSemanaHabitoUID" />
+                <ScalarProperty Name="horarioHabitoUID" ColumnName="horarioHabitoUID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -39,7 +39,7 @@
         <h3 class="text-center">Permissoes</h3>
     </div>
     <ul class=" list-group panel-body">
-        @foreach (var cadaItem in Model.Permissaos.Where(x => x.ativo).ToList())
+        @foreach (var cadaItem in Model.Permissoes.Where(x => x.ativo).ToList())
         {
             <li class="list-group-item">@i - @((TipoLogin)cadaItem.tipoPermissao)</li>
             i++;

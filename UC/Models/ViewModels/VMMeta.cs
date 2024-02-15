@@ -14,10 +14,11 @@ namespace UC.Models.ViewModels
         public DateTime dataTermino { get; set; }
         public int prioridade { get; set; }
         public string motivo { get; set; }
-        public List<VMExecucaoMeta> Passos { get; set; }
         public string tema { get; set; }
         public string tipo { get; set; }
         public string subTipo { get; set; }
+        public List<VMExecucaoMeta> Passos { get; set; }
+        public List<Habito> Habitos { get; set; }
         public VMMeta()
         {
         }
@@ -38,9 +39,16 @@ namespace UC.Models.ViewModels
                 this.Passos.Add(new VMExecucaoMeta(cadaPasso));
             }
 
-            this.Passos = this.Passos.OrderBy(x => x.dataInicio).ToList();
+            this.Passos = this.Passos.OrderByDescending(x => x.execucaoMeta.dataInicio).ToList();
+            this.Habitos = new List<Habito>();
 
-            this.Passos = this.Passos.OrderBy(x => x.execucaoMeta.ordemPasso).ToList();
+            foreach(var cadaHabito in meta.Habitos.Where(x => x.ativo).ToList())
+            {
+                this.Habitos.Add(cadaHabito);
+            }
+
+            this.Habitos = this.Habitos.OrderBy(x => !x.finalizado).ThenBy(x => x.DataCriacao).ToList();
+
             this.tema = !string.IsNullOrWhiteSpace(meta.tema) ? meta.tema : "#000000";
             this.tipo = ((TipoMeta)meta.tipo).ToFriendlyString();
 

@@ -1,0 +1,33 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormHabito
+
+@using (Html.BeginForm("GravarFormulario", "Habito", FormMethod.Post))
+{
+    var titulo = Model.Habito.habitoUID == 0 ? "Qual o próximo hábito?" : "Ajustando Hábito";
+
+    @Html.HiddenFor(m => m.Habito.habitoUID, Model.Habito.habitoUID)
+
+    <br />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h1 class="text-center">@titulo</h1>
+        </div>
+        <div class="panel-body list-group">
+            <div class="list-group-item">
+                <label>1 - Selecione a Meta:</label>
+                @Html.DropDownListFor(m => m.Habito.metaUID, Model.ListaMetasDisponiveis, new { @class = "form-control" })
+            </div>
+            <div class="list-group-item">
+                <label>2 - Nome do Hábito: </label>
+                @Html.TextBoxFor(m => m.Habito.Descricao, new { @class = "form-control" })
+                <small>Obs: vai ficar assim no diário...</small>
+            </div>
+            <div class="list-group-item">
+                <label>3 - Tipo de Gatilho:</label>
+                @Html.DropDownListFor(m => m.Habito.TipoGatilho, Model.ListaTipoGatilho, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-success" value="Salvar" />
+}
+

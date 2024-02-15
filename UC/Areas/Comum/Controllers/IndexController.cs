@@ -20,5 +20,11 @@ namespace UC.Areas.Comum.Controllers
 
             return View();
         }
+
+        public ActionResult Banner()
+        {
+            AddMessage(UserMessageType.warning, "Dísponível nas próximas atualizações...");
+            return Index();
+        }
     }
 }

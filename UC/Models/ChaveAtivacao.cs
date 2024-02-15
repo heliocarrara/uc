@@ -16,7 +16,7 @@ namespace UC.Models
     {
         public ChaveAtivacao()
         {
-            this.Permissaos = new HashSet<Permissao>();
+            this.Permissoes = new HashSet<Permissao>();
         }
     
         public long chaveAtivacaoUID { get; set; }
@@ -27,6 +27,6 @@ namespace UC.Models
         public long usuarioUID { get; set; }
     
         public virtual Usuario Usuario { get; set; }
-        public virtual ICollection<Permissao> Permissaos { get; set; }
+        public virtual ICollection<Permissao> Permissoes { get; set; }
     }
 }

@@ -4,6 +4,9 @@ namespace UC.Models.Enumerators
 {
     public enum DiaSemanal
     {
+        [Description("Domingo")]
+        Domingo = 0,
+
         [Description("Segunda-feira")]
         Segunda = 1,
 
@@ -20,9 +23,6 @@ namespace UC.Models.Enumerators
         Sexta = 5,
 
         [Description("Sábado")]
-        Sabado = 6,
-        
-        [Description("Domingo")]
-        Domingo = 7
+        Sabado = 6
     }
 }

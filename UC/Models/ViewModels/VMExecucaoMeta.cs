@@ -38,7 +38,6 @@ namespace UC.Models.ViewModels
             this.Historico = this.execucaoMeta.RegistroSituacaoExecucaoMetas.Where(x => x.ativo).ToList();
 
             this.RelatorioExecucao = new VMListRelatorioExecucaoMeta(this.execucaoMeta);
-
         }
     }
 }

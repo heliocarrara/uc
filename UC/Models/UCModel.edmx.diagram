@@ -26,6 +26,18 @@
         <AssociationConnector Association="Model.FK_ExecucaoMeta_Meta" />
         <AssociationConnector Association="Model.FK_RegistroSituacaoExecucaoMeta_ExecucaoMeta" />
         <AssociationConnector Association="Model.FK_AtividadeFixa_Meta" />
+        <EntityTypeShape EntityType="Model.CicloHabito" Width="1.5" PointX="7.5" PointY="12.5" />
+        <EntityTypeShape EntityType="Model.DiaSemanaHabito" Width="1.5" PointX="7.5" PointY="16.25" />
+        <EntityTypeShape EntityType="Model.GatilhoHabito" Width="1.5" PointX="7.5" PointY="19.75" />
+        <EntityTypeShape EntityType="Model.Habito" Width="1.5" PointX="3.75" PointY="15.875" />
+        <EntityTypeShape EntityType="Model.HorarioHabito" Width="1.5" PointX="9.75" PointY="14.375" />
+        <AssociationConnector Association="Model.FK_CicloHabito_Habito" />
+        <AssociationConnector Association="Model.FK_HorarioHabito_CicloHabito" />
+        <AssociationConnector Association="Model.FK_DiaSemanaHabito_Habito" />
+        <AssociationConnector Association="Model.FK_HorarioHabito_DiaSemanaHabito" />
+        <AssociationConnector Association="Model.FK_GatilhoHabito_Habito" />
+        <AssociationConnector Association="Model.FK_Habito_Meta" />
+        <AssociationConnector Association="Model.FK_ExecucaoMeta_HorarioHabito" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

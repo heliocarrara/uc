@@ -159,6 +159,71 @@ namespace UC.Models.UCEntityHelpers
             return result;
         }
 
+        public SelectList TipoGatilhoHabito(int? tipo)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            //foreach (TipoGatilho val in Enum.GetValues(typeof(TipoGatilho)))
+            //{
+            //    aux.Add(new SelectListItem()
+            //    {
+            //        Text = val.ToFriendlyString(),
+            //        Value = ((int)val).ToString()
+            //    });
+            //}
+
+            aux.Add(new SelectListItem()
+            {
+                Text = TipoGatilho.Ciclo.ToFriendlyString(),
+                Value = ((int)TipoGatilho.Ciclo).ToString()
+            });
+
+            if (tipo.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", tipo.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
+
+        public SelectList TipoCicloHabito(int? tipo)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            //foreach (TipoCiclo val in Enum.GetValues(typeof(TipoCiclo)))
+            //{
+            //    aux.Add(new SelectListItem()
+            //    {
+            //        Text = val.ToFriendlyString(),
+            //        Value = ((int)val).ToString()
+            //    });
+            //}
+
+            aux.Add(new SelectListItem()
+            {
+                Text = TipoCiclo.Diario.ToFriendlyString(),
+                Value = ((int)TipoCiclo.Diario).ToString()
+            });
+
+            if (tipo.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", tipo.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
         #endregion
     }
 }

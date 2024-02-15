@@ -22,5 +22,8 @@ namespace UC.Models
 
         ILoggedUserHelper UsuarioLogado { get; }
         ISelectListHelper SelectLists { get; }
+        IMetaHelper Metas { get; }
+
+        ICicloHabitoHelper CiclosHabitos { get; }
     }
 }

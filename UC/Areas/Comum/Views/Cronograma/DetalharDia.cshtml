@@ -1,4 +1,4 @@
-﻿@model UC.Models.ViewModels.ListViewModels.VMListExecucaoMeta
+﻿@model UC.Models.ViewModels.ListViewModels.VMListCronogramaDia
 
 @using UC.Models.Enumerators;
 @{
@@ -8,12 +8,13 @@
 <div class="list-group hidden-print">
     @Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Nova Atividade", "NovaAtividade", "ExecucaoMeta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Notas", "NovaAtividade", "ExecucaoMeta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Habitos", "Lista", "Habito", new { Area = "Comum" }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Notas", "Listar", "Notas", new { Area = "Comum", Dia = Model.Dia }, new { @class = "btn btn-info disable" })
 </div>
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="text-center">Organização do dia @Model.Dia.ToShortDateString()</h3>
+        <h3 class="text-center">Organização do dia @Model.Dia.ToShortDateString() - @(((DiaSemanal)Model.Dia.DayOfWeek).ToFriendlyString())</h3>
     </div>
     <div class="panel-body table-responsive">
         @{int i = 1;}
@@ -30,19 +31,6 @@
             <tbody>
                 @foreach (var cadaExecucao in listaEmAndamento)
                 {
-                    var color = "";
-                    switch ((SituacaoPasso)cadaExecucao.situacao)
-                    {
-                        case SituacaoPasso.Em_Andamento:
-                            color = "green";
-                            break;
-                        case SituacaoPasso.Inicio:
-                            color = "orange";
-                            break;
-                        default:
-                            color = "red";
-                            break;
-                    }
 
                     if (cadaExecucao.dataInicio >= DateTime.Now && i > 1 && i <= Model.AtividadesDoDia.Count)
                     {
@@ -60,18 +48,9 @@
                             </tr>
                         }
                     }
-                    <tr>
-                        <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" })'">
-                            @cadaExecucao.dataInicio.ToShortTimeString() - @cadaExecucao.execucaoMeta.descricao
-                            <br /><span style="color:@(color);">@(((SituacaoPasso)cadaExecucao.situacao).ToFriendlyString())</span>
-                        </td>
-                        <td>@cadaExecucao.duracao Min</td>
-                        <td width="15%" onclick="window.location.href='@Url.Action("Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = cadaExecucao.execucaoMetaUID })'">
-                            @cadaExecucao.dataTermino.ToShortTimeString()
-                        </td>
-                        <td>@cadaExecucao.execucaoMeta.Meta.nome</td>
-                        <td class="hidden-print">@Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default" })</td>
-                    </tr>
+
+                    @Html.Partial("_PartialInfoCronograma", cadaExecucao)
+
                     i++;
                 }
             </tbody>
@@ -100,13 +79,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var cadaExecucao in Model.AtividadesDoDia.Where(x => x.situacao == (int)SituacaoPasso.Concluido).Reverse().ToList())
+                @foreach (var cadaExecucao in Model.AtividadesDoDia.Where(x => x.situacao == (int)SituacaoPasso.Concluido && x.execucaoMetaUID.HasValue).Reverse().ToList())
                 {
                     <tr>
                         <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" })'">
-                            <strong> @cadaExecucao.dataInicio.ToShortTimeString()</strong> - @cadaExecucao.execucaoMeta.descricao
+                            <strong> @cadaExecucao.dataInicio.ToShortTimeString()</strong> - @cadaExecucao.ExecucaoMeta.descricao
                         </td>
-                        <td>@cadaExecucao.execucaoMeta.Meta.nome</td>
+                        <td>@cadaExecucao.ExecucaoMeta.Meta.nome</td>
                         <td>@cadaExecucao.duracao Min</td>
                         <td width="15%">
                             @cadaExecucao.dataTermino.ToShortTimeString()

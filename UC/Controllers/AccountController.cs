@@ -31,7 +31,7 @@ namespace UC.Controllers
                     throw new Exception("Usuário não encontrado. Ctz que tem conta aqui?");
                 }
 
-                if(!usuario.Permissaos.Any(x => x.ativo))
+                if(!usuario.Permissoes.Any(x => x.ativo))
                 {
                     throw new Exception("Usuário sem permissão para acesso. Cade o convite?");
                 }

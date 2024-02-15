@@ -18,7 +18,7 @@ namespace UC.Areas.Administrador.Controllers
         // GET: Administrador/Permissao
         public ActionResult Index()
         {
-            var permissaos = db.Permissaos.Include(p => p.ChaveAtivacao).Include(p => p.Usuario);
+            var permissaos = db.Permissoes.Include(p => p.ChaveAtivacao).Include(p => p.Usuario);
             return View(permissaos.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace UC.Areas.Administrador.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permissao permissao = db.Permissaos.Find(id);
+            Permissao permissao = db.Permissoes.Find(id);
             if (permissao == null)
             {
                 return HttpNotFound();
@@ -40,7 +40,7 @@ namespace UC.Areas.Administrador.Controllers
         // GET: Administrador/Permissao/Create
         public ActionResult Create()
         {
-            ViewBag.chaveAtivacaoUID = new SelectList(db.ChaveAtivacaos, "chaveAtivacaoUID", "cpf");
+            ViewBag.chaveAtivacaoUID = new SelectList(db.ChavesAtivacao, "chaveAtivacaoUID", "cpf");
             ViewBag.usuarioUID = new SelectList(db.Usuarios, "usuarioUID", "cpf");
             return View();
         }
@@ -54,12 +54,12 @@ namespace UC.Areas.Administrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Permissaos.Add(permissao);
+                db.Permissoes.Add(permissao);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.chaveAtivacaoUID = new SelectList(db.ChaveAtivacaos, "chaveAtivacaoUID", "cpf", permissao.chaveAtivacaoUID);
+            ViewBag.chaveAtivacaoUID = new SelectList(db.ChavesAtivacao, "chaveAtivacaoUID", "cpf", permissao.chaveAtivacaoUID);
             ViewBag.usuarioUID = new SelectList(db.Usuarios, "usuarioUID", "cpf", permissao.usuarioUID);
             return View(permissao);
         }
@@ -71,12 +71,12 @@ namespace UC.Areas.Administrador.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permissao permissao = db.Permissaos.Find(id);
+            Permissao permissao = db.Permissoes.Find(id);
             if (permissao == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.chaveAtivacaoUID = new SelectList(db.ChaveAtivacaos, "chaveAtivacaoUID", "cpf", permissao.chaveAtivacaoUID);
+            ViewBag.chaveAtivacaoUID = new SelectList(db.ChavesAtivacao, "chaveAtivacaoUID", "cpf", permissao.chaveAtivacaoUID);
             ViewBag.usuarioUID = new SelectList(db.Usuarios, "usuarioUID", "cpf", permissao.usuarioUID);
             return View(permissao);
         }
@@ -94,7 +94,7 @@ namespace UC.Areas.Administrador.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.chaveAtivacaoUID = new SelectList(db.ChaveAtivacaos, "chaveAtivacaoUID", "cpf", permissao.chaveAtivacaoUID);
+            ViewBag.chaveAtivacaoUID = new SelectList(db.ChavesAtivacao, "chaveAtivacaoUID", "cpf", permissao.chaveAtivacaoUID);
             ViewBag.usuarioUID = new SelectList(db.Usuarios, "usuarioUID", "cpf", permissao.usuarioUID);
             return View(permissao);
         }
@@ -106,7 +106,7 @@ namespace UC.Areas.Administrador.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permissao permissao = db.Permissaos.Find(id);
+            Permissao permissao = db.Permissoes.Find(id);
             if (permissao == null)
             {
                 return HttpNotFound();
@@ -119,8 +119,8 @@ namespace UC.Areas.Administrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Permissao permissao = db.Permissaos.Find(id);
-            db.Permissaos.Remove(permissao);
+            Permissao permissao = db.Permissoes.Find(id);
+            db.Permissoes.Remove(permissao);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

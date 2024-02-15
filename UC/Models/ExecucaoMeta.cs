@@ -30,10 +30,12 @@ namespace UC.Models
         public string tema { get; set; }
         public int situacao { get; set; }
         public Nullable<long> atividadeFixaUID { get; set; }
+        public Nullable<long> horarioHabitoUID { get; set; }
     
         public virtual ICollection<AnotacaoExecucaoMeta> AnotacaoExecucaoMetas { get; set; }
         public virtual AtividadeFixa AtividadeFixa { get; set; }
         public virtual Meta Meta { get; set; }
         public virtual ICollection<RegistroSituacaoExecucaoMeta> RegistroSituacaoExecucaoMetas { get; set; }
+        public virtual HorarioHabito HorarioHabito { get; set; }
     }
 }

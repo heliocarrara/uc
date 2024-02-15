@@ -16,8 +16,8 @@ namespace UC.Models
     {
         public Usuario()
         {
-            this.ChaveAtivacaos = new HashSet<ChaveAtivacao>();
-            this.Permissaos = new HashSet<Permissao>();
+            this.ChavesAtivacao = new HashSet<ChaveAtivacao>();
+            this.Permissoes = new HashSet<Permissao>();
             this.Metas = new HashSet<Meta>();
         }
     
@@ -30,8 +30,8 @@ namespace UC.Models
         public System.DateTime dataCriacao { get; set; }
         public string nome { get; set; }
     
-        public virtual ICollection<ChaveAtivacao> ChaveAtivacaos { get; set; }
-        public virtual ICollection<Permissao> Permissaos { get; set; }
+        public virtual ICollection<ChaveAtivacao> ChavesAtivacao { get; set; }
+        public virtual ICollection<Permissao> Permissoes { get; set; }
         public virtual ICollection<Meta> Metas { get; set; }
     }
 }

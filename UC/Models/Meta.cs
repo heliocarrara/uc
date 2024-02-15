@@ -18,6 +18,7 @@ namespace UC.Models
         {
             this.ExecucaoMetas = new HashSet<ExecucaoMeta>();
             this.AtividadeFixas = new HashSet<AtividadeFixa>();
+            this.Habitos = new HashSet<Habito>();
         }
     
         public long metaUID { get; set; }
@@ -36,5 +37,6 @@ namespace UC.Models
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<ExecucaoMeta> ExecucaoMetas { get; set; }
         public virtual ICollection<AtividadeFixa> AtividadeFixas { get; set; }
+        public virtual ICollection<Habito> Habitos { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace UC.Areas.Administrador.Controllers
         // GET: Administrador/ChaveAtivacao
         public ActionResult Index()
         {
-            var chaveAtivacaos = db.ChaveAtivacaos.Include(c => c.Usuario);
+            var chaveAtivacaos = db.ChavesAtivacao.Include(c => c.Usuario);
             return View(chaveAtivacaos.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace UC.Areas.Administrador.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChaveAtivacao chaveAtivacao = db.ChaveAtivacaos.Find(id);
+            ChaveAtivacao chaveAtivacao = db.ChavesAtivacao.Find(id);
             if (chaveAtivacao == null)
             {
                 return HttpNotFound();
@@ -52,7 +52,7 @@ namespace UC.Areas.Administrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ChaveAtivacaos.Add(chaveAtivacao);
+                db.ChavesAtivacao.Add(chaveAtivacao);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -68,7 +68,7 @@ namespace UC.Areas.Administrador.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChaveAtivacao chaveAtivacao = db.ChaveAtivacaos.Find(id);
+            ChaveAtivacao chaveAtivacao = db.ChavesAtivacao.Find(id);
             if (chaveAtivacao == null)
             {
                 return HttpNotFound();
@@ -101,7 +101,7 @@ namespace UC.Areas.Administrador.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChaveAtivacao chaveAtivacao = db.ChaveAtivacaos.Find(id);
+            ChaveAtivacao chaveAtivacao = db.ChavesAtivacao.Find(id);
             if (chaveAtivacao == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace UC.Areas.Administrador.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            ChaveAtivacao chaveAtivacao = db.ChaveAtivacaos.Find(id);
-            db.ChaveAtivacaos.Remove(chaveAtivacao);
+            ChaveAtivacao chaveAtivacao = db.ChavesAtivacao.Find(id);
+            db.ChavesAtivacao.Remove(chaveAtivacao);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -65,7 +65,7 @@ namespace UC.Areas.Cadastro.Controllers
                     dataCriacao = DateTime.Now
                 };
 
-                idbucContext.ChaveAtivacaos.Add(chave);
+                idbucContext.ChavesAtivacao.Add(chave);
 
                 idbucContext.SaveChanges();
 
@@ -79,7 +79,7 @@ namespace UC.Areas.Cadastro.Controllers
                     dataCriacao = DateTime.Now
                 };
 
-                idbucContext.Permissaos.Add(permissao);
+                idbucContext.Permissoes.Add(permissao);
 
                 idbucContext.SaveChanges();
 

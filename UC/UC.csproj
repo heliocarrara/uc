@@ -325,16 +325,21 @@
     <Compile Include="Areas\Administrador\AdministradorAreaRegistration.cs" />
     <Compile Include="Areas\Administrador\Controllers\ChaveAtivacaoController.cs" />
     <Compile Include="Areas\Administrador\Controllers\PermissaoController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\CicloHabitoController.cs" />
+    <Compile Include="Areas\Cadastro\Controllers\HabitoController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\ExecucaoMetaController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\MetaController.cs" />
     <Compile Include="Areas\Cadastro\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Comum\Controllers\AtividadeFixaController.cs" />
     <Compile Include="Areas\Comum\Controllers\CronogramaController.cs" />
     <Compile Include="Areas\Comum\Controllers\ExecucaoMetaController.cs" />
+    <Compile Include="Areas\Comum\Controllers\CicloHabitoController.cs" />
     <Compile Include="Areas\Comum\Controllers\IndexController.cs" />
     <Compile Include="Areas\Cadastro\CadastroAreaRegistration.cs" />
     <Compile Include="Areas\Comum\ComumAreaRegistration.cs" />
+    <Compile Include="Areas\Comum\Controllers\HabitoController.cs" />
     <Compile Include="Areas\Comum\Controllers\MetaController.cs" />
+    <Compile Include="Areas\Comum\Controllers\AnotacaoExecucaoMetaController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -351,12 +356,30 @@
     <Compile Include="Models\ChaveAtivacao.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CicloHabito.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiaSemanaHabito.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enumerators\OrdemExecucao.cs" />
+    <Compile Include="Models\Enumerators\TipoCiclo.cs" />
+    <Compile Include="Models\Enumerators\TipoGatilho.cs" />
     <Compile Include="Models\Enumerators\EnumExtensions.cs" />
     <Compile Include="Models\Enumerators\DiaSemanal.cs" />
     <Compile Include="Models\Enumerators\SituacaoPasso.cs" />
     <Compile Include="Models\Enumerators\TipoLogin.cs" />
     <Compile Include="Models\Enumerators\TipoMeta.cs" />
     <Compile Include="Models\ExecucaoMeta.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GatilhoHabito.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Habito.cs">
+      <DependentUpon>UCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HorarioHabito.cs">
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IUnityOfHelpers.cs" />
@@ -373,9 +396,13 @@
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UCEntityHelpers\BaseHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\CicloHabitoHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\Interfaces\ICicloHabito.cs" />
     <Compile Include="Models\UCEntityHelpers\Interfaces\ILoggedUserHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\Interfaces\IMetaHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\Interfaces\ISelectListHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\LoggedUserHelper.cs" />
+    <Compile Include="Models\UCEntityHelpers\MetaHelper.cs" />
     <Compile Include="Models\UCEntityHelpers\SelectListHelper.cs" />
     <Compile Include="Models\UCModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -397,14 +424,20 @@
       <DependentUpon>UCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\FormViewModels\VMFormBuscaAtividadeFixa.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormCicloHabito.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormExecucaoMeta.cs" />
+    <Compile Include="Models\ViewModels\FormViewModels\VMFormHabito.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormMeta.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListCronogramaDia.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListHabito.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListHistoricoExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListRelatorioExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListUsuario.cs" />
+    <Compile Include="Models\ViewModels\VMCronograma.cs" />
     <Compile Include="Models\ViewModels\VMExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListMeta.cs" />
+    <Compile Include="Models\ViewModels\VMHabito.cs" />
     <Compile Include="Models\ViewModels\VMMeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\CustomIdentity.cs" />
@@ -478,6 +511,12 @@
     <Content Include="Areas\Cadastro\Views\Usuario\NovoCadastro.cshtml" />
     <Content Include="Areas\Comum\Views\AtividadeFixa\Lista.cshtml" />
     <Content Include="local.config" />
+    <Content Include="Areas\Comum\Views\Habito\Lista.cshtml" />
+    <Content Include="Areas\Comum\Views\Habito\Detalhes.cshtml" />
+    <Content Include="Areas\Cadastro\Views\Habito\FormularioHabito.cshtml" />
+    <Content Include="Areas\Comum\Views\Index\Banner.cshtml" />
+    <Content Include="Areas\Cadastro\Views\CicloHabito\FormularioCicloHabito.cshtml" />
+    <Content Include="Areas\Comum\Views\Cronograma\_PartialInfoCronograma.cshtml" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\cverse - Web Deploy.pubxml" />

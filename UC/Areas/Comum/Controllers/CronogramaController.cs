@@ -19,15 +19,28 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                var dataInicio = dia.HasValue ? dia.Value : DateTime.Today;
+                var inicioDia = dia.HasValue ? dia.Value.Date : DateTime.Today;
+                var fimDia = inicioDia.AddHours(23).AddMinutes(59);
 
-                var proxDia = dataInicio.AddDays(1);
-
-                var listaExecucao = idbucContext.ExecucaoMetas.Where(x => x.ativo && x.Meta.usuarioUID == SimpleSessionPersister.usuarioUID && x.dataInicio < proxDia && x.dataTermino >= dataInicio).ToList();
+                var listaExecucao = idbucContext.ExecucaoMetas.Where(x => 
+                    x.ativo 
+                    && x.Meta.usuarioUID == SimpleSessionPersister.usuarioUID 
+                    && x.dataInicio < fimDia 
+                    && x.dataTermino >= inicioDia).ToList();
 
                 listaExecucao = listaExecucao.OrderBy(x => x.dataInicio).ToList();
 
-                var model = new VMListExecucaoMeta(listaExecucao, dataInicio);
+                var execucoesPorId = listaExecucao.Select(x => x.execucaoMetaUID).ToList();
+
+                var habitosDeHoje = idbucContext.HorariosHabito.Where(x =>
+                    x.Ativo && !x.Finalizado 
+                    && fimDia >= x.DataCriacao
+                    && !x.ExecucaoMetas.Any(y => execucoesPorId.Contains(y.execucaoMetaUID))
+                    && (x.cicloHabitoUID.HasValue && x.CicloHabito.ativo && x.CicloHabito.Habito.ativo && x.CicloHabito.Habito.Meta.ativo 
+                        || x.diaSemanaHabitoUID.HasValue && x.DiaSemanaHabito.Ativo && x.DiaSemanaHabito.Habito.ativo && x.DiaSemanaHabito.Habito.Meta.ativo)
+                    && (!x.diaSemanaHabitoUID.HasValue || x.diaSemanaHabitoUID.HasValue && x.DiaSemanaHabito.DiaSemana == (int)inicioDia.DayOfWeek)).ToList();
+
+                var model = new VMListCronogramaDia(listaExecucao, habitosDeHoje, inicioDia);
 
                 return View(model);
             }

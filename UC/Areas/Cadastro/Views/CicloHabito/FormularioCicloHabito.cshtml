@@ -1,0 +1,81 @@
+﻿@model UC.Models.ViewModels.FormViewModels.VMFormCicloHabito
+
+@using (Html.BeginForm("GravarFormulario", "CicloHabito", FormMethod.Post))
+{
+    var titulo = Model.horarioHabitoUID == 0 ? "Novo horário" : "Edição de horário";
+
+    @Html.HiddenFor(m => m.habitoUID, Model.habitoUID)
+    @Html.HiddenFor(m => m.cicloHabitoUID, Model.cicloHabitoUID)
+    @Html.HiddenFor(m => m.horarioHabitoUID, Model.horarioHabitoUID)
+    <br />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h1 class="text-center">@titulo</h1>
+        </div>
+        <div class="panel-body list-group">
+            <div class="list-group-item">
+                <label>Tipo de Ciclo:</label>
+                @Html.DropDownListFor(m => m.TipoCiclo, Model.ListaTipoCiclo, new { @class = "form-control" })
+            </div>
+            <div class="list-group-item">
+                <label>Dia da Semana:</label>
+                @Html.DropDownListFor(m => m.DiaSemanal, Model.ListaDiaSemanal, "Todos os dias", new { @class = "form-control" })
+            </div>
+            <div class="list-group-item">
+                <label>Horário de Início: HH:MM (Somente números)</label>
+                <input type="text" class="form-control timepicker" id="@Html.IdFor(m => m.HorarioInicio)" name="@Html.NameFor(m => m.HorarioInicio)" value="@Model.HorarioInicio.Hours:@Model.HorarioInicio.Minutes" />
+            </div>
+            <div class="list-group-item">
+                <label>Horário de Término: HH:MM (Somente números)</label>
+                <input type="text" class="form-control timepicker" id="@Html.IdFor(m => m.HorarioTermino)" name="@Html.NameFor(m => m.HorarioTermino)" value="@Model.HorarioTermino.Hours:@Model.HorarioTermino.Minutes" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-success" value="Salvar" onclick="return validarFormulario();" />
+}
+
+<script type="text/javascript">
+    function validarFormulario() {
+        if (!validarHorarioPreenchido('#@Html.IdFor(m => m.HorarioInicio)')) {
+            alert('Selecione o horário de início');
+            return false;
+        }
+        if (!validarHorarioPreenchido('#@Html.IdFor(m => m.HorarioTermino)')) {
+            alert('Selecione o horário de término');
+            return false;
+        }
+
+        return true;
+    }
+
+    function validarHorarioPreenchido(campo) {
+        return $(campo).val().trim() !== '';
+    }
+
+    function formatarHorario(campo) {
+        const valor = $(campo).val();
+        const valorFormatado = valor.substring(0, 4).replace(/[^0-9:]/g, '');
+
+        if (valorFormatado.length === 2) {
+            $(campo).val(valorFormatado + ':');
+        }
+
+        if (valorFormatado.length === 5) {
+            $(campo).val(valorFormatado);
+        }
+
+        const regexHorario = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+        if (!regexHorario.test(valorFormatado)) {
+            $(campo).addClass('is-invalid');
+        } else {
+            $(campo).removeClass('is-invalid');
+        }
+    }
+
+    $('.timepicker').on('keyup', function () {
+        formatarHorario(this);
+    });
+
+</script>
+

@@ -39,15 +39,16 @@ namespace UC.Controllers
                     new CustomIdentity(
                         SimpleSessionPersister.Username,
                         SimpleSessionPersister.Id), SimpleSessionPersister.UserRole);
-                base.OnAuthorization(filterContext);
             }
+
+            base.OnAuthorization(filterContext);
         }
 
         protected override void OnException(ExceptionContext filterContext)
         {
             AddMessage(UserMessageType.error, "Exceção não tratada foi encontrada no sistema: [" + ExceptionMessage(filterContext.Exception) + "]");
 
-            filterContext.Result = RedirectToAction("Index", "Home", new { Area = string.Empty });
+            filterContext.Result = RedirectToAction("Index", "Index", new { Area = SimpleSessionPersister.UserRole });
 
             filterContext.ExceptionHandled = true;
 

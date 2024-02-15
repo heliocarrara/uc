@@ -1,0 +1,180 @@
+﻿@model UC.Models.ViewModels.VMHabito
+
+@using UC.Models.Enumerators
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h2 class="text-center">Detalhes do Hábito</h2>
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            <div class="list-group-item row">
+                <div class="col-lg-6"><h4><strong>Descrição: </strong>@Model.Habito.Descricao</h4></div>
+                <div class="col-lg-5"><h4><strong>Tipo de Gatilho: </strong>@(((TipoGatilho)Model.Habito.TipoGatilho).ToFriendlyString())</h4></div>
+            </div>
+            <div class="list-group-item row">
+                <div class="col-lg-6"><h4><strong>Data de Criação: </strong>@Model.Habito.DataCriacao.ToShortDateString()</h4></div>
+                <div class="col-lg-5"><h4><strong>Última alteração: </strong>@Model.Habito.DataAlteracao.ToShortDateString() - @Model.Habito.DataAlteracao.ToShortTimeString()</h4></div>
+            </div>
+            <div class="list-group-item row">
+                <div class="col-lg-6"><h4><strong>Situação: </strong>@(Model.Habito.finalizado ? "Finalizado" : "Em Andamento" )</h4></div>
+                <div class="col-lg-5"><h4><strong>Meta: </strong>@Model.Habito.Meta.nome</h4></div>
+            </div>
+            <div class="list-group-item row">
+                <div class="col-lg-6"><h4><strong>Motivação: </strong>@Model.Habito.Meta.motivo</h4></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Editar Hábito", "Editar", "Habito", new { habitoUID = Model.Habito.habitoUID, Area = "Cadastro" }, new { @class = "btn btn-warning btn-sm" })
+        @Html.ActionLink("Excluir Hábito", "Excluir", "Habito", new { habitoUID = Model.Habito.habitoUID, Area = "Cadastro" }, new { @class = "btn btn-danger btn-sm" })
+    </div>
+</div>
+@switch ((TipoGatilho)Model.Habito.TipoGatilho)
+{
+    case TipoGatilho.Habito:
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="text-center">Gatilhos por Habitos</h2>
+            </div>
+            <div class="panel-body table-responsive">
+                @{int i = 1;}
+                <table class="table table-bordered table-expandable">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th width="20%">Hábito</th>
+                            <th>Meta</th>
+                            <th>Quando executar?</th>
+                            <th>Data de Criação</th>
+                            <th>Tempo de espera</th>
+                            <th>Situação</th>
+                            <th class="hidden-print">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cadaGatilhoHabito in Model.Habito.GatilhosHabito.Where(x => x.ativo).ToList())
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td><strong> @cadaGatilhoHabito.Habito.Descricao</strong></td>
+                                <td><strong> @cadaGatilhoHabito.Habito.Meta.nome</strong></td>
+                                <td><strong> @(((OrdemExecucao)cadaGatilhoHabito.OrdemExecucao).ToFriendlyString())</strong></td>
+                                <td data-toggle="tooltip" title="Meta termina em: @(cadaGatilhoHabito.Habito.Meta.dataObjetivo.ToShortDateString())">@cadaGatilhoHabito.DataCriacao.ToShortDateString() - @cadaGatilhoHabito.DataCriacao.ToShortTimeString()</td>
+                                <td>@cadaGatilhoHabito.TempoEspera Min</td>
+                                <td>
+                                    @(cadaGatilhoHabito.finalizado ? "Finalizado" : "Em Execução")
+                                </td>
+                                <td class="hidden-print">
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-cog"></span> Opções
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu text-left">
+                                            <li>@Html.ActionLink("Detalhes", "Detalhes", "Habito", new { habitoUID = cadaGatilhoHabito.habitoUID, Area = "Comum" }, new { @class = "" })</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                @Html.ActionLink("Vincular Hábito", "NovoGatilho", "GatilhoHabito", new { metaUID = Model.Habito.habitoUID, Area = "Cadastro" }, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    }
+    break;
+    case TipoGatilho.Ciclo:
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="text-center">Ciclos</h2>
+            </div>
+            <div class="panel-body table-responsive">
+                @{int i = 1;}
+                <table class="table table-bordered table-expandable">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Ciclo</th>
+                            <th>Quando</th>
+                            <th>Início</th>
+                            <th>Término</th>
+                            <th>Situação</th>
+                            <th class="hidden-print text-center">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cadaCiclo in Model.Habito.CiclosHabito.Where(x => x.ativo).ToList())
+                        {
+                            foreach (var cadaHorario in cadaCiclo.HorariosHabito.Where(x => x.Ativo).ToList())
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@(((TipoCiclo)cadaCiclo.TipoCiclo).ToFriendlyString())</td>
+                                    <td>@(cadaHorario.diaSemanaHabitoUID.HasValue ? ((DiaSemanal)cadaHorario.DiaSemanaHabito.DiaSemana).ToFriendlyString() : "Todos os Dias")</td>
+                                    <td>@cadaHorario.HorarioInicio.Hours.ToString("00"):@cadaHorario.HorarioInicio.Minutes.ToString("00")</td>
+                                    <td>@cadaHorario.HorarioTermino.Hours.ToString("00"):@cadaHorario.HorarioTermino.Minutes.ToString("00")</td>
+                                    <td>@(cadaHorario.Finalizado ? "Finalizado" : "Ativo")</td>
+                                    <td class="hidden-print text-center">
+                                        <div class="btn-group btn-group-sm">
+                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="glyphicon glyphicon-cog"></span> Opções
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu text-left">
+                                                <li>@Html.ActionLink("Detalhes", "Detalhes", "CicloHabito", new { habitoUID = cadaCiclo.cicloHabitoUID, Area = "Comum" }, new { @class = "" })</li>
+                                                <li>@Html.ActionLink("Editar", "Editar", "CicloHabito", new { horarioHabitoUID = cadaHorario.horarioHabitoUID, Area = "Cadastro" }, new { @class = "" })</li>
+                                                <li>@Html.ActionLink("Excluir", "ExcluirHorario", "CicloHabito", new { horarioHabitoUID = cadaHorario.horarioHabitoUID, Area = "Cadastro" }, new { @class = "" })</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                @Html.ActionLink("Novo", "Novo", "CicloHabito", new { habitoUID = Model.Habito.habitoUID, Area = "Cadastro" }, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    }
+    break;
+    case TipoGatilho.Mente:
+    {
+        
+    }
+    break;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.table-expandable').each(function () {
+            var $table = $(this);
+            var $rows = $table.find('tbody tr');
+
+            if ($rows.length > 9) {
+                $rows.slice(10).hide();
+                $table.after('<button class="btn btn-primary expand-btn">Expandir Todos</button>');
+
+                $table.next('.expand-btn').click(function () {
+                    $rows.slice(10).toggle();
+                    var buttonText = $rows.slice(10).is(':visible') ? 'Fechar Expansão' : 'Expandir Todos';
+                    $(this).text(buttonText);
+                });
+            }
+        });
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    });
+</script>
+

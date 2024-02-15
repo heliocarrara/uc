@@ -5,24 +5,31 @@ using System.Web;
 
 namespace UC.Models.ViewModels.ListViewModels
 {
-    public class VMListExecucaoMeta
+    public class VMListCronogramaDia
     {
-        public List<VMExecucaoMeta> AtividadesDoDia { get; set; }
+        public List<VMCronograma> AtividadesDoDia { get; set; }
         public DateTime Dia { get; set; }
 
-        public VMListExecucaoMeta()
+        public VMListCronogramaDia()
         {
         }
 
-        public VMListExecucaoMeta(List<ExecucaoMeta> atividadesDoDia, DateTime dia)
+        public VMListCronogramaDia(List<ExecucaoMeta> atividadesDoDia, List<HorarioHabito> horariosHabito, DateTime dia)
         {
-            AtividadesDoDia = new List<VMExecucaoMeta>();
+            AtividadesDoDia = new List<VMCronograma>();
             Dia = dia;
 
             foreach(var cadaAtividade in atividadesDoDia)
             {
-                AtividadesDoDia.Add(new VMExecucaoMeta(cadaAtividade));
+                AtividadesDoDia.Add(new VMCronograma(cadaAtividade));
             }
+
+            foreach(var cadaHorario in horariosHabito)
+            {
+                AtividadesDoDia.Add(new VMCronograma(cadaHorario, dia));
+            }
+
+            this.AtividadesDoDia = this.AtividadesDoDia.OrderBy(x => x.dataInicio).ToList();
         }
     }
 }

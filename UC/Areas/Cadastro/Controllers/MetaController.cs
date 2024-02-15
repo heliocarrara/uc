@@ -10,6 +10,7 @@ using UC.Utility;
 
 namespace UC.Areas.Cadastro.Controllers
 {
+    [Authorize]
     public class MetaController: BaseController
     {
         private const string formulario = "FormularioMeta";

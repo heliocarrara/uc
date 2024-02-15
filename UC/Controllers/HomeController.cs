@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace UC.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController: Controller
     {
         public ActionResult Index()
         {
@@ -16,7 +16,6 @@ namespace UC.Controllers
             }
             catch(Exception ex)
             {
-                AddMessage(UserMessageType.error, ex);
                 return RedirectToAction("Error");
             }
         }
@@ -29,7 +28,6 @@ namespace UC.Controllers
             }
             catch(Exception ex)
             {
-                AddMessage(UserMessageType.error, ex);
                 return Error();
             }
         }

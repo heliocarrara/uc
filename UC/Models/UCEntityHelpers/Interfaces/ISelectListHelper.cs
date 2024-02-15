@@ -14,5 +14,7 @@ namespace UC.Models.UCEntityHelpers.Interfaces
         SelectList TiposDeMeta(int? tipo);
         SelectList SubTiposMeta(int? subTipoMetaUID);
         SelectList MetasPorUsuario(long? metaUID);
+        SelectList TipoGatilhoHabito(int? tipo);
+        SelectList TipoCicloHabito(int? tipo);
     }
 }

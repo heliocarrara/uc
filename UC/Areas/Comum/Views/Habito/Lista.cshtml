@@ -1,0 +1,69 @@
+﻿@model UC.Models.ViewModels.ListViewModels.VMListHabito
+
+@using UC.Models.Enumerators
+
+<div>@Html.ActionLink("Incluir Hábito", "NovoHabitoUsuario", "Habito", new { Area = "Cadastro" }, new { @class = "btn btn-success" })</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="text-center">Habitos Relacionados</h2>
+    </div>
+    <div class="panel-body table-responsive">
+        @{int i = 1;}
+        <table class="table table-bordered table-expandable">
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th width="20%">Descrição</th>
+                    <th>Tipo de Gatilho</th>
+                    <th>Data Criação</th>
+                    <th>Última Alteração</th>
+                    <th>Situação</th>
+                    <th class="hidden-print">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cadaHabito in Model.Habitos)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td><strong> @cadaHabito.Descricao</strong></td>
+                        <td><strong> @(((TipoGatilho)cadaHabito.TipoGatilho).ToFriendlyString())</strong></td>
+                        <td>@cadaHabito.DataCriacao.ToShortDateString() - @cadaHabito.DataCriacao.ToShortTimeString()</td>
+                        <td>@cadaHabito.DataAlteracao.ToShortDateString() ~ @cadaHabito.DataAlteracao.ToShortTimeString()</td>
+                        <td>
+                            @(cadaHabito.finalizado ? "Finalizado" : "Em Execução")
+                        </td>
+                        <td class="hidden-print">
+                            @Html.ActionLink("Detalhes", "Detalhes", "Habito", new { habitoUID = cadaHabito.habitoUID, Area = "Comum" }, new { @class = "btn btn-default" })
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Incluir Hábito", "NovoHabitoUsuario", "Habito", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.table-expandable').each(function () {
+            var $table = $(this);
+            var $rows = $table.find('tbody tr');
+
+            if ($rows.length > 9) {
+                $rows.slice(10).hide();
+                $table.after('<button class="btn btn-primary expand-btn">Expandir Todos</button>');
+
+                $table.next('.expand-btn').click(function () {
+                    $rows.slice(10).toggle();
+                    var buttonText = $rows.slice(10).is(':visible') ? 'Fechar Expansão' : 'Expandir Todos';
+                    $(this).text(buttonText);
+                });
+            }
+        });
+    });
+</script>
