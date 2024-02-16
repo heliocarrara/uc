@@ -277,7 +277,7 @@ namespace UC.Areas.Cadastro.Controllers
             }
                 return Index();
         }
-        public ActionResult AdicionarObservação(long execucaoMetaUID, string anotacao, bool incluirmeta)
+        public ActionResult AdicionarObservação(long execucaoMetaUID, string anotacao, bool destacar, DateTime? dia)
         {
             try
             {
@@ -297,7 +297,7 @@ namespace UC.Areas.Cadastro.Controllers
                     execucaoMetaUID = execucaoMetaUID,
                     descricao = anotacao,
                     dataCriacao = DateTime.Now,
-                    incluirNaMeta = incluirmeta
+                    incluirNaMeta = destacar
                 };
 
                 idbucContext.AnotacaoExecucaoMetas.Add(novoRegistro);
@@ -305,6 +305,11 @@ namespace UC.Areas.Cadastro.Controllers
                 idbucContext.SaveChanges();
 
                 AddMessage(UserMessageType.success, "Anotação incluída!");
+
+                if (dia.HasValue)
+                {
+                    return RedirectToAction("ListarPorDia", "AnotacaoExecucaoMeta", new { Area = "Comum", dia = dia});
+                }
             }
             catch (Exception ex)
             {

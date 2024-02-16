@@ -16,5 +16,6 @@ namespace UC.Models.UCEntityHelpers.Interfaces
         SelectList MetasPorUsuario(long? metaUID);
         SelectList TipoGatilhoHabito(int? tipo);
         SelectList TipoCicloHabito(int? tipo);
+        SelectList ExecucaoDia(List<ExecucaoMeta> execucaoMetas, long? execucaoMetaUID);
     }
 }

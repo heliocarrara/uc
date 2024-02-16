@@ -47,11 +47,13 @@ namespace UC.Models.ViewModels
             {
                 this.Nome = horarioHabito.CicloHabito.Habito.Descricao;
                 this.NomeMeta = horarioHabito.CicloHabito.Habito.Meta.nome;
+                this.metaUID = horarioHabito.CicloHabito.Habito.metaUID;
             }
             else
             {
                 this.Nome = horarioHabito.DiaSemanaHabito.Habito.Descricao;
                 this.NomeMeta = horarioHabito.DiaSemanaHabito.Habito.Meta.nome;
+                this.metaUID = horarioHabito.CicloHabito.Habito.metaUID;
             }
         }
     }

@@ -28,11 +28,11 @@
         <td width="15%" onclick="window.location.href='@Url.Action("Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID })'">
             @Model.dataTermino.ToShortTimeString()
         </td>
-        <td>@Model.ExecucaoMeta.Meta.nome</td>
+        <td onclick="window.location.href='@Url.Action("Detalhes", "Meta", new { Area = "Comum", metaUID = Model.metaUID.Value })'">@Model.ExecucaoMeta.Meta.nome</td>
         <td class="hidden-print">@Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = Model.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default btn-sm" })</td>
     </tr>
 }
-else
+else if(Model.dataInicio >= DateTime.Now)
 {
     <tr>
         <td>
@@ -43,7 +43,7 @@ else
         <td>
             @Model.dataTermino.ToShortTimeString()
         </td>
-        <td>@Model.NomeMeta</td>
+        <td onclick="window.location.href='@Url.Action("Detalhes", "Meta", new { Area = "Comum", metaUID = Model.metaUID.Value})'">@Model.NomeMeta</td>
         <td class="hidden-print">
             @if (Model.dataInicio >= DateTime.Now)
             {

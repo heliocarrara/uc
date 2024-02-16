@@ -428,6 +428,7 @@
     <Compile Include="Models\ViewModels\FormViewModels\VMFormExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormHabito.cs" />
     <Compile Include="Models\ViewModels\FormViewModels\VMFormMeta.cs" />
+    <Compile Include="Models\ViewModels\ListViewModels\VMListAnotacao.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListExecucaoMeta.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListCronogramaDia.cs" />
     <Compile Include="Models\ViewModels\ListViewModels\VMListHabito.cs" />
@@ -517,6 +518,7 @@
     <Content Include="Areas\Comum\Views\Index\Banner.cshtml" />
     <Content Include="Areas\Cadastro\Views\CicloHabito\FormularioCicloHabito.cshtml" />
     <Content Include="Areas\Comum\Views\Cronograma\_PartialInfoCronograma.cshtml" />
+    <Content Include="Areas\Comum\Views\Shared\ListarAnotacoes.cshtml" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\carrara - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\cverse - Web Deploy.pubxml" />
@@ -565,7 +567,6 @@
     <Folder Include="Areas\Administrador\Views\Shared\" />
     <Folder Include="Areas\Cadastro\Data\" />
     <Folder Include="Areas\Cadastro\Views\Shared\" />
-    <Folder Include="Areas\Comum\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

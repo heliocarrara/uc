@@ -122,17 +122,7 @@
                                     <td>@cadaHorario.HorarioTermino.Hours.ToString("00"):@cadaHorario.HorarioTermino.Minutes.ToString("00")</td>
                                     <td>@(cadaHorario.Finalizado ? "Finalizado" : "Ativo")</td>
                                     <td class="hidden-print text-center">
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="glyphicon glyphicon-cog"></span> Opções
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu text-left">
-                                                <li>@Html.ActionLink("Detalhes", "Detalhes", "CicloHabito", new { habitoUID = cadaCiclo.cicloHabitoUID, Area = "Comum" }, new { @class = "" })</li>
-                                                <li>@Html.ActionLink("Editar", "Editar", "CicloHabito", new { horarioHabitoUID = cadaHorario.horarioHabitoUID, Area = "Cadastro" }, new { @class = "" })</li>
-                                                <li>@Html.ActionLink("Excluir", "ExcluirHorario", "CicloHabito", new { horarioHabitoUID = cadaHorario.horarioHabitoUID, Area = "Cadastro" }, new { @class = "" })</li>
-                                            </ul>
-                                        </div>
+                                        @Html.ActionLink("Editar", "Editar", "CicloHabito", new { horarioHabitoUID = cadaHorario.horarioHabitoUID, Area = "Cadastro" }, new { @class = "btn btn-warning btn-sm"})
                                     </td>
                                 </tr>
                                 i++;
@@ -142,7 +132,7 @@
                 </table>
             </div>
             <div class="panel-footer">
-                @Html.ActionLink("Novo", "Novo", "CicloHabito", new { habitoUID = Model.Habito.habitoUID, Area = "Cadastro" }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Novo", "Novo", "CicloHabito", new { habitoUID = Model.Habito.habitoUID, Area = "Cadastro" }, new { @class = "btn btn-success btn-sm" })
             </div>
         </div>
     }

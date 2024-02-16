@@ -16,7 +16,7 @@ namespace UC.Models.ViewModels
         public int duracao { get; set; }
         public int situacao { get; set; }
         public ExecucaoMeta execucaoMeta { get; set; }
-        public List<AnotacaoExecucaoMeta> Anotacoes { get; set; }
+        public VMListAnotacao Anotacoes { get; set; }
         public List<RegistroSituacaoExecucaoMeta> Historico { get; set; }
         public VMListRelatorioExecucaoMeta RelatorioExecucao { get; set; }
         public VMExecucaoMeta()
@@ -34,9 +34,10 @@ namespace UC.Models.ViewModels
 
             this.execucaoMeta = passo;
 
-            this.Anotacoes = this.execucaoMeta.AnotacaoExecucaoMetas.Where(x => x.ativo).ToList();
-            this.Historico = this.execucaoMeta.RegistroSituacaoExecucaoMetas.Where(x => x.ativo).ToList();
+            var anotacoes = this.execucaoMeta.AnotacaoExecucaoMetas.Where(x => x.ativo).ToList();
 
+            this.Anotacoes = new VMListAnotacao(this.execucaoMeta);
+            this.Historico = this.execucaoMeta.RegistroSituacaoExecucaoMetas.Where(x => x.ativo).ToList();
             this.RelatorioExecucao = new VMListRelatorioExecucaoMeta(this.execucaoMeta);
         }
     }

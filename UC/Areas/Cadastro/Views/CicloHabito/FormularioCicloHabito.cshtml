@@ -22,17 +22,21 @@
                 @Html.DropDownListFor(m => m.DiaSemanal, Model.ListaDiaSemanal, "Todos os dias", new { @class = "form-control" })
             </div>
             <div class="list-group-item">
-                <label>Horário de Início: HH:MM (Somente números)</label>
-                <input type="text" class="form-control timepicker" id="@Html.IdFor(m => m.HorarioInicio)" name="@Html.NameFor(m => m.HorarioInicio)" value="@Model.HorarioInicio.Hours:@Model.HorarioInicio.Minutes" />
+                <label>Horário de Início: HH:MM</label>
+                <input type="time" id="@Html.IdFor(m => m.HorarioInicio)" name="@Html.NameFor(m => m.HorarioInicio)" value="@Model.HorarioInicio.ToString("hh\\:mm")" class="form-control" />
             </div>
             <div class="list-group-item">
-                <label>Horário de Término: HH:MM (Somente números)</label>
-                <input type="text" class="form-control timepicker" id="@Html.IdFor(m => m.HorarioTermino)" name="@Html.NameFor(m => m.HorarioTermino)" value="@Model.HorarioTermino.Hours:@Model.HorarioTermino.Minutes" />
+                <label>Horário de Término: HH:MM</label>
+                <input type="time" id="@Html.IdFor(m => m.HorarioTermino)" name="@Html.NameFor(m=>m.HorarioTermino)" value="@Model.HorarioTermino.ToString("hh\\:mm")" class="form-control" />
             </div>
         </div>
+        <div class="panel-footer">
+            <input type="submit" class="btn btn-success btn-sm" value="Salvar" onclick="return validarFormulario();" />
+            <span style="float:right;">
+                @Html.ActionLink("Excluir", "ExcluirHorario", "CicloHabito", new { horarioHabitoUID = Model.horarioHabitoUID, Area = "Cadastro" }, new { @class = "btn btn-danger btn-sm" })
+            </span>
+        </div>
     </div>
-    <br />
-    <input type="submit" class="btn btn-success" value="Salvar" onclick="return validarFormulario();" />
 }
 
 <script type="text/javascript">
@@ -46,36 +50,29 @@
             return false;
         }
 
-        return true;
+        return horarioCondizem();
     }
 
     function validarHorarioPreenchido(campo) {
         return $(campo).val().trim() !== '';
     }
 
-    function formatarHorario(campo) {
-        const valor = $(campo).val();
-        const valorFormatado = valor.substring(0, 4).replace(/[^0-9:]/g, '');
+    function horarioCondizem() {
+        var horaInicio = new Date();
+        horaInicio.setHours(parseInt($(campoInicio).val().substring(0, 2), 10));
+        horaInicio.setMinutes(parseInt($(campoInicio).val().substring(3, 5), 10));
 
-        if (valorFormatado.length === 2) {
-            $(campo).val(valorFormatado + ':');
+        var horaTermino = new Date();
+        horaTermino.setHours(parseInt($(campoTermino).val().substring(0, 2), 10));
+        horaTermino.setMinutes(parseInt($(campoTermino).val().substring(3, 5), 10));
+
+        if (horaInicio >= horaTermino) {
+            alert('Horário de início deve ser anterior ao de término');
+            return false;
         }
 
-        if (valorFormatado.length === 5) {
-            $(campo).val(valorFormatado);
-        }
-
-        const regexHorario = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
-        if (!regexHorario.test(valorFormatado)) {
-            $(campo).addClass('is-invalid');
-        } else {
-            $(campo).removeClass('is-invalid');
-        }
+        return true;
     }
-
-    $('.timepicker').on('keyup', function () {
-        formatarHorario(this);
-    });
 
 </script>
 

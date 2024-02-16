@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UC.Models.Enumerators;
+using UC.Models.ViewModels.ListViewModels;
 
 namespace UC.Models.ViewModels
 {
@@ -19,6 +20,7 @@ namespace UC.Models.ViewModels
         public string subTipo { get; set; }
         public List<VMExecucaoMeta> Passos { get; set; }
         public List<Habito> Habitos { get; set; }
+        public VMListAnotacao Anotacoes { get; set; }
         public VMMeta()
         {
         }
@@ -48,6 +50,8 @@ namespace UC.Models.ViewModels
             }
 
             this.Habitos = this.Habitos.OrderBy(x => !x.finalizado).ThenBy(x => x.DataCriacao).ToList();
+
+            this.Anotacoes = new VMListAnotacao(meta);
 
             this.tema = !string.IsNullOrWhiteSpace(meta.tema) ? meta.tema : "#000000";
             this.tipo = ((TipoMeta)meta.tipo).ToFriendlyString();

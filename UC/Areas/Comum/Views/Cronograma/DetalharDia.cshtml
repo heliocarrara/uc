@@ -9,7 +9,7 @@
     @Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })
     @Html.ActionLink("Nova Atividade", "NovaAtividade", "ExecucaoMeta", new { Area = "Cadastro" }, new { @class = "btn btn-success" })
     @Html.ActionLink("Habitos", "Lista", "Habito", new { Area = "Comum" }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Notas", "Listar", "Notas", new { Area = "Comum", Dia = Model.Dia }, new { @class = "btn btn-info disable" })
+    @Html.ActionLink("Notas", "ListarAnotacoes", "AnotacaoExecucaoMeta", new { Area = "Comum", Dia = Model.Dia }, new { @class = "btn btn-info" })
 </div>
 
 <div class="panel panel-primary">
@@ -79,7 +79,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var cadaExecucao in Model.AtividadesDoDia.Where(x => x.situacao == (int)SituacaoPasso.Concluido && x.execucaoMetaUID.HasValue).Reverse().ToList())
+                @foreach (var cadaExecucao in Model.AtividadesDoDia.Where(x => x.situacao == (int)SituacaoPasso.Concluido && x.execucaoMetaUID.HasValue).ToList())
                 {
                     <tr>
                         <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = cadaExecucao.execucaoMetaUID, Area = "Comum" })'">

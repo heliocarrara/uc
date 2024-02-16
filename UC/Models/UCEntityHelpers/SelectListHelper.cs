@@ -224,6 +224,38 @@ namespace UC.Models.UCEntityHelpers
 
             return result;
         }
+        public SelectList ExecucaoDia(List<ExecucaoMeta> execucaoMetas, long? execucaoMetaUID)
+        {
+            SelectList result;
+
+            var aux = new List<SelectListItem>();
+
+            foreach (var val in execucaoMetas)
+            {
+                aux.Add(new SelectListItem()
+                {
+                    Text = $"{val.descricao} da meta {val.Meta.nome}",
+                    Value = val.execucaoMetaUID.ToString()
+                });
+            }
+
+            aux.Add(new SelectListItem()
+            {
+                Text = TipoCiclo.Diario.ToFriendlyString(),
+                Value = ((int)TipoCiclo.Diario).ToString()
+            });
+
+            if (execucaoMetaUID.HasValue)
+            {
+                result = new SelectList(aux, "Value", "Text", execucaoMetaUID.Value);
+            }
+            else
+            {
+                result = new SelectList(aux, "Value", "Text");
+            }
+
+            return result;
+        }
         #endregion
     }
 }
