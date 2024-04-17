@@ -26,7 +26,12 @@ namespace UC.Models.ViewModels.ListViewModels
 
             foreach(var cadaHorario in horariosHabito)
             {
-                AtividadesDoDia.Add(new VMCronograma(cadaHorario, dia));
+                var novoHorario = new VMCronograma(cadaHorario, dia);
+
+                if(novoHorario.dataInicio >= DateTime.Now)
+                {
+                    AtividadesDoDia.Add(novoHorario);
+                }
             }
 
             this.AtividadesDoDia = this.AtividadesDoDia.OrderBy(x => x.dataInicio).ToList();

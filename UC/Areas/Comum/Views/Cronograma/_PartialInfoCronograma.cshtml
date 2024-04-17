@@ -1,62 +1,121 @@
-﻿@model UC.Models.ViewModels.VMCronograma
+﻿@model UC.Models.ViewModels.ListViewModels.VMListCronogramaDia
 
 @using UC.Models.Enumerators;
+
 @{
-    var color = "";
-    switch ((SituacaoPasso)Model.situacao)
+    var proxHorario = 0;
+}
+
+@for (var i = 0; i < Model.AtividadesDoDia.Count; i++)
+{
+    var atividade = Model.AtividadesDoDia[i];
+    var disponivel = AtividadeDisponivel(atividade);
+
+    if (proxHorario == 0 && disponivel && atividade.dataInicio.Date == DateTime.Today)
     {
-        case SituacaoPasso.Em_Andamento:
-            color = "green";
-            break;
-        case SituacaoPasso.Inicio:
-            color = "orange";
-            break;
-        default:
-            color = "red";
-            break;
+        proxHorario++;
+
+        var diferencaProxima = GetDiferencaTempo(Model.AtividadesDoDia[i], 0);
+
+        if (diferencaProxima.TotalMinutes > 5)
+        {
+            <tr>
+                <td class="alert-success" colspan="5">
+                    Período Livre: @GetTempoEmString(diferencaProxima)
+                </td>
+            </tr>
+        }
+    }
+
+    if (disponivel)
+    {
+        var tema = GetTema((SituacaoPasso)atividade.situacao);
+        var diferenca = GetDiferencaTempo(atividade, i);
+        var acao = GetAcao(atividade);
+        var linkDetalhes = atividade.execucaoMetaUID.HasValue ? Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = atividade.execucaoMetaUID, Area = "Comum" }) : Url.Action("GerarExecucaoMeta", "ExecucaoMeta", new { horarioHabitoUID = atividade.horarioHabitoUID.Value, dia = atividade.dataInicio, Area = "Cadastro" });
+        var linkEditarPasso = atividade.execucaoMetaUID.HasValue ? Url.Action("Editar", "ExecucaoMeta", new { execucaoMetaUID = atividade.execucaoMetaUID, Area = "Cadastro" }) : "#";
+
+        <tr>
+            <td onclick="window.location.href='@linkDetalhes'">
+                @atividade.dataInicio.ToShortTimeString() - @atividade.Nome
+                <br /><span style="color:@tema;">@(((SituacaoPasso)atividade.situacao).ToFriendlyString())</span>
+            </td>
+            <td>@atividade.duracao Min</td>
+            <td onclick="window.location.href='@linkEditarPasso'">
+                @atividade.dataTermino.ToShortTimeString()
+            </td>
+            <td onclick="window.location.href='@Url.Action("Detalhes", "Meta", new { Area = "Comum", metaUID = atividade.metaUID.Value })'">@atividade.NomeMeta</td>
+            <td class="hidden-print">@acao</td>
+        </tr>
+    }
+
+    if (i < Model.AtividadesDoDia.Count - 1 && atividade.dataInicio.Date >= DateTime.Today)
+    {
+        var proximaAtividade = Model.AtividadesDoDia[i + 1];
+        var diferencaProxima = GetDiferencaTempo(proximaAtividade, i + 1);
+
+        if (diferencaProxima.TotalMinutes > 5)
+        {
+            <tr>
+                <td class="alert-success" colspan="5">
+                    Período Livre: @GetTempoEmString(diferencaProxima)
+                </td>
+            </tr>
+        }
     }
 }
 
-@if (Model.execucaoMetaUID.HasValue)
-{
-    <tr>
-        <td onclick="window.location.href='@Url.Action("Detalhes", "ExecucaoMeta", new { execucaoMetaUID = Model.execucaoMetaUID, Area = "Comum" })'">
-            @Model.dataInicio.ToShortTimeString() - @Model.ExecucaoMeta.descricao
-            <br /><span style="color:@(color);">@(((SituacaoPasso)Model.situacao).ToFriendlyString())</span>
-        </td>
-        <td>@Model.duracao Min</td>
-        <td width="15%" onclick="window.location.href='@Url.Action("Editar", "ExecucaoMeta", new { Area = "Cadastro", execucaoMetaUID = Model.execucaoMetaUID })'">
-            @Model.dataTermino.ToShortTimeString()
-        </td>
-        <td onclick="window.location.href='@Url.Action("Detalhes", "Meta", new { Area = "Comum", metaUID = Model.metaUID.Value })'">@Model.ExecucaoMeta.Meta.nome</td>
-        <td class="hidden-print">@Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = Model.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default btn-sm" })</td>
-    </tr>
+@functions {
+    string GetTema(SituacaoPasso situacao)
+    {
+        switch (situacao)
+        {
+            case SituacaoPasso.Em_Andamento:
+            case SituacaoPasso.Concluido:
+                return "green";
+            case SituacaoPasso.Inicio:
+                return "orange";
+            default:
+                return "red";
+        }
+    }
+
+    TimeSpan GetDiferencaTempo(UC.Models.ViewModels.VMCronograma atividade, int indice)
+    {
+        if (indice == 0)
+        {
+            return atividade.dataInicio - DateTime.Now;
+        }
+
+        return atividade.dataInicio - Model.AtividadesDoDia[indice - 1].dataTermino;
+    }
+
+    string GetTempoEmString(TimeSpan diferenca)
+    {
+        var tempo = diferenca.TotalMinutes < 60 ? $"{diferenca.TotalMinutes} Minutos" : $"{diferenca.Hours} Hora";
+        tempo += (int)diferenca.TotalHours > 1 ? "s" : "";
+        tempo += diferenca.TotalMinutes > 60 ? $" e {diferenca.Minutes} Min" : "";
+
+        return tempo;
+    }
+
+    IHtmlString GetAcao(UC.Models.ViewModels.VMCronograma atividade)
+    {
+        if (atividade.execucaoMetaUID.HasValue)
+        {
+            return Html.ActionLink("Detalhes", "Detalhes", "ExecucaoMeta", new { execucaoMetaUID = atividade.execucaoMetaUID, Area = "Comum" }, new { @class = "btn btn-default btn-sm" });
+        }
+
+        if (atividade.dataInicio >= DateTime.Now)
+        {
+            return Html.ActionLink("Gerar Execução", "GerarExecucaoMeta", "ExecucaoMeta", new { horarioHabitoUID = atividade.horarioHabitoUID.Value, dia = atividade.dataInicio, Area = "Cadastro" }, new { @class = "btn btn-success btn-sm" });
+        }
+
+        return new HtmlString("<button type=\"button\" class=\"btn btn-default btn-sm\" disabled>Indisponível</button>");
+    }
+
+    bool AtividadeDisponivel(UC.Models.ViewModels.VMCronograma atividade)
+    {
+        return atividade.execucaoMetaUID.HasValue || atividade.dataInicio >= DateTime.Now;
+    }
 }
-else if(Model.dataInicio >= DateTime.Now)
-{
-    <tr>
-        <td>
-            @Model.dataInicio.ToShortTimeString() - @Model.Nome
-            <br /><span style="color:@(color);">@(((SituacaoPasso)Model.situacao).ToFriendlyString())</span>
-        </td>
-        <td>@Model.duracao Min</td>
-        <td>
-            @Model.dataTermino.ToShortTimeString()
-        </td>
-        <td onclick="window.location.href='@Url.Action("Detalhes", "Meta", new { Area = "Comum", metaUID = Model.metaUID.Value})'">@Model.NomeMeta</td>
-        <td class="hidden-print">
-            @if (Model.dataInicio >= DateTime.Now)
-            {
-                @Html.ActionLink("Detalhes", "GerarExecucaoMeta", "ExecucaoMeta", new { horarioHabitoUID = Model.horarioHabitoUID.Value, dia = Model.dataInicio, Area = "Cadastro" }, new { @class = "btn btn-success btn-sm" })
-            }
-            else
-            {
-                <button type="button" class="btn btn-default btn-sm" disabled>Indisponível</button>
-            }
-        </td>
-    </tr>
-}
-
-
-
-

@@ -19,7 +19,7 @@ namespace UC.Areas.Comum.Controllers
         {
             try
             {
-                var inicioDia = dia.HasValue ? dia.Value.Date : DateTime.Today;
+                var inicioDia = dia.HasValue ? dia.Value.Date : DateTime.Now;
                 var fimDia = inicioDia.AddHours(23).AddMinutes(59);
 
                 var listaExecucao = idbucContext.ExecucaoMetas.Where(x => 
@@ -36,8 +36,8 @@ namespace UC.Areas.Comum.Controllers
                     x.Ativo && !x.Finalizado 
                     && fimDia >= x.DataCriacao
                     && !x.ExecucaoMetas.Any(y => execucoesPorId.Contains(y.execucaoMetaUID))
-                    && (x.cicloHabitoUID.HasValue && x.CicloHabito.ativo && x.CicloHabito.Habito.ativo && x.CicloHabito.Habito.Meta.ativo 
-                        || x.diaSemanaHabitoUID.HasValue && x.DiaSemanaHabito.Ativo && x.DiaSemanaHabito.Habito.ativo && x.DiaSemanaHabito.Habito.Meta.ativo)
+                    && (x.cicloHabitoUID.HasValue && x.CicloHabito.ativo && x.CicloHabito.Habito.ativo && x.CicloHabito.Habito.Meta.ativo && x.CicloHabito.Habito.Meta.usuarioUID == SimpleSessionPersister.usuarioUID
+                        || x.diaSemanaHabitoUID.HasValue && x.DiaSemanaHabito.Ativo && x.DiaSemanaHabito.Habito.ativo && x.DiaSemanaHabito.Habito.Meta.ativo && x.DiaSemanaHabito.Habito.Meta.usuarioUID == SimpleSessionPersister.usuarioUID)
                     && (!x.diaSemanaHabitoUID.HasValue || x.diaSemanaHabitoUID.HasValue && x.DiaSemanaHabito.DiaSemana == (int)inicioDia.DayOfWeek)).ToList();
 
                 var model = new VMListCronogramaDia(listaExecucao, habitosDeHoje, inicioDia);

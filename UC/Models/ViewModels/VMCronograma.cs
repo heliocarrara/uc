@@ -33,6 +33,8 @@ namespace UC.Models.ViewModels
             this.duracao = (int)passo.dataTermino.Subtract(passo.dataInicio).TotalMinutes;
             this.situacao = passo.situacao;
             this.ExecucaoMeta = passo;
+            this.Nome = passo.descricao;
+            this.NomeMeta = passo.Meta.nome;
         }
         public VMCronograma(HorarioHabito horarioHabito, DateTime dia)
         {
