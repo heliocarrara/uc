@@ -51,6 +51,7 @@ namespace UC.Models
         public ISelectListHelper SelectLists { get { if (selectLists == null) { selectLists = new SelectListHelper(_url, _db, this); } return selectLists; } }
         public IMetaHelper Metas { get { if (metas == null) { metas = new MetaHelper(_url, _db, this); } return metas; } }
         public ICicloHabitoHelper CiclosHabitos { get { if (ciclosHabitos == null) { ciclosHabitos = new CicloHabitoHelper(_url, _db, this); } return ciclosHabitos; } }
+        public IGeminiHelper GeminiAI { get { if (geminiAI == null) { geminiAI = new GeminiHelper(_url, _db, this); } return geminiAI; } }
         #endregion
         #region PRIVATE HELPERS' INSTANCES
 
@@ -58,6 +59,7 @@ namespace UC.Models
         private SelectListHelper selectLists { get; set; }
         private MetaHelper metas { get; set; }
         private CicloHabitoHelper ciclosHabitos { get; set; }
+        private GeminiHelper geminiAI { get; set; }
         #endregion
     }
 }

@@ -1,0 +1,12 @@
+@model UC.Models.ViewModels.FormViewModels.VMFormRequisicaoGemini
+
+@Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })
+
+@Html.Partial("_PartialPrompt", Model)
+
+@if (!string.IsNullOrEmpty(Model.Resultado))
+{
+    @Html.Partial("_PartialInfoResultado", Model.Resultado)
+}
+
+@Html.ActionLink("Voltar", "Index", "Index", null, new { @class = "btn btn-default" })

@@ -1,0 +1,20 @@
+@model UC.Models.ViewModels.FormViewModels.VMFormRequisicaoGemini
+
+@using (Html.BeginForm("Enviar", "Gemini", FormMethod.Post))
+{
+    <br />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h1 class="text-center">Bem vindo ao Gemini personalizado</h1>
+        </div>
+        <div class="panel-body list-group">
+            <div class="list-group-item">
+                <label>1 - Descreva a solicitação: </label>
+                @Html.TextArea("prompt", Model.Prompt, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-success" value="Enviar" />
+}
+

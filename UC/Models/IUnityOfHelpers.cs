@@ -25,5 +25,7 @@ namespace UC.Models
         IMetaHelper Metas { get; }
 
         ICicloHabitoHelper CiclosHabitos { get; }
+
+        IGeminiHelper GeminiAI { get; }
     }
 }
